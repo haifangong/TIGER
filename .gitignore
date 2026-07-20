@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.venv/
+venv/
+*.pdparams
+pipeline/**/outputs/**
+!pipeline/**/outputs/.gitkeep
+!pipeline/**/outputs/**/.gitkeep
+*.pth.bak
+.DS_Store

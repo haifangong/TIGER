@@ -1,0 +1,22 @@
+# HelixFold-Single environment (Step 3a)
+# Create with: conda env create -f environment_helix.yml
+# Then install a CUDA-matched paddlepaddle build for your machine.
+name: tiger-helix
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - biopython
+  - pip:
+      - ml-collections
+      - absl-py
+      - dm-tree
+      - immutabledict
+# Install PaddlePaddle separately, for example:
+#   python -m pip install paddlepaddle-gpu==2.4.2 -i https://mirror.baidu.com/pypi/simple
+# Or follow the official HelixFold / PaddleHelix install notes for your CUDA version.

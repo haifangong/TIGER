@@ -1,0 +1,15 @@
+# Rosetta / PyRosetta environment (Step 3b)
+# PyRosetta usually requires a licensed / academic installer rather than pip-only setup.
+# Typical workflow:
+#   conda create -n tiger-rosetta python=3.9
+#   conda activate tiger-rosetta
+#   # then install pyrosetta following https://www.pyrosetta.org/downloads
+name: tiger-rosetta
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - numpy
+  - pandas

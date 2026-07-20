@@ -1,0 +1,24 @@
+name: tiger-pipeline
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy>=1.23
+  - pandas>=1.5
+  - scipy>=1.9
+  - scikit-learn>=1.2
+  - biopython>=1.81
+  - joblib>=1.2
+  - tqdm>=4.64
+  - matplotlib>=3.6
+  - jupyterlab>=3.6
+  - ipykernel>=6.20
+  - pip:
+      - catboost>=1.2
+      - torch>=2.0.0
+# Notes:
+# - This environment covers Steps 1–2 (mutation search, toxicity filter, metrics).
+# - Step 3 (HelixFold / PyRosetta) needs separate envs; see 03_structure_prediction/README.md
+#   and environment_helix.yml / environment_rosetta.yml.

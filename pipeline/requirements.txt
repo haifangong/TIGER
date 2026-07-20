@@ -1,0 +1,14 @@
+# Core dependencies for TIGER pipeline Steps 1–2 (+ metrics / notebooks)
+numpy>=1.23
+pandas>=1.5
+scipy>=1.9
+scikit-learn>=1.2
+biopython>=1.81
+joblib>=1.2
+tqdm>=4.64
+matplotlib>=3.6
+jupyterlab>=3.6
+ipykernel>=6.20
+catboost>=1.2
+torch>=2.0.0
+# Step 3 is NOT installed from this file (PaddlePaddle / PyRosetta are env-specific).

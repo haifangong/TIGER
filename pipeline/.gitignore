@@ -1,0 +1,9 @@
+# Runtime / cache artifacts
+**/__pycache__/
+**/*.pyc
+**/.ipynb_checkpoints/
+**/outputs/**
+!**/outputs/.gitkeep
+
+# Large local weights (keep symlink or download instructions instead)
+# 03_structure_prediction/weights/*.pdparams
