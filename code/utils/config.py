@@ -19,9 +19,12 @@ class Config:
     shared_cache_dir: str = "artifacts/cache_ll37_holdout_cfu"
     out_dir: str = "outputs/tiger_code_run"
     csv_encoding: str | None = "utf-8"
+    # MIC column name in train/test CSVs (default E. coli). Wetlab multi-species
+    # tables may keep a species-specific name or remap into this column.
+    target_col: str = "MIC_Escherichia_coli"
 
     # --- protocol ---
-    seed: int = 20260714
+    seed: int = 1
     folds: int = 5
     min_len: int = 6
     max_len: int = 50
@@ -37,6 +40,11 @@ class Config:
     gnn_type: str = "gatv2"
     graph_pooling: str = "attention"
     fusion: str = "attention"
+    # Multimodal attention Q/K/V role assignment (used when fusion=attention):
+    #   self_gsh | self_sgh | self_hgs  — self-attn over stacked tokens in that order
+    #   cross_qg | cross_qs | cross_qh  — Q from one modality, K/V from the other two
+    # Letters: g=graph(structure), s=sequence, h=global(handcrafted)
+    fusion_attn_mode: str = "self_gsh"
     feature_modalities: str = "gsh"
     structure_features: str = "se"
     pair_interaction: str = "diff"

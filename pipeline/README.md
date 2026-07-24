@@ -5,6 +5,7 @@ Reproducible packaging of the early TIGER / POAP workflow:
 1. **Mutational search + antimicrobial activity pre-filter**
 2. **Hemolytic / host-toxicity filter**
 3. **3D structure prediction (HelixFold-Single) + optional Rosetta FastRelax**
+4. **MIC metric ranking** with wetlab TIGER models (`runs_wetlab/`)
 
 This directory is intentionally organized for community reuse: clear step folders, environment files, English READMEs, CLI entry points with explicit arguments, classification-metric reporting, and Jupyter demos for both per-step and full-pipeline runs.
 
@@ -28,7 +29,8 @@ pipeline/
 │   └── metrics.py                 # Acc/P/R/F1/MCC/AUC-ROC/AUC-PR helpers
 ├── 01_mutation_search/
 ├── 02_toxicity_filter/
-└── 03_structure_prediction/
+├── 03_structure_prediction/
+└── 04_metric_ranking/             # wetlab TIGER MIC ranking
 ```
 
 Each numbered step folder contains:
@@ -114,6 +116,26 @@ python relax.py --input_dir outputs/pdb/demo --output_dir outputs/relaxed/demo
 ```
 
 **Full custom-data walkthrough:** [`docs/CUSTOM_DATA.md`](docs/CUSTOM_DATA.md)
+
+### Step 4 — `04_metric_ranking/rank_candidates.py`
+
+| Question | Answer |
+|----------|--------|
+| Do I need arguments? | **Yes.** `--csv`, `--species`, `--pdb-dir` (plus template MIC in template mode). |
+| Where do models come from? | `TIGER/runs_wetlab/sim{0p3\|0p7}_<Species>/` (override with `--runs-root`). |
+| Custom data? | Any candidate CSV + PDBs named `{SEQUENCE}.pdb`. |
+
+```bash
+cd 04_metric_ranking
+PYTHONPATH=../.. python rank_candidates.py \
+  --csv ../02_toxicity_filter/outputs/e2e/KSMLKSMK_non_toxins.csv \
+  --species Escherichia_coli --similarity 0.3 \
+  --pdb-dir ../03_structure_prediction/outputs/pdb/e2e \
+  --template KSMLKSMK --template-mic 16 \
+  --out-dir outputs/e2e
+```
+
+Train the 12 wetlab models first: `bash code/scripts_train/run_wetlab_species_sim.sh`.
 
 ---
 

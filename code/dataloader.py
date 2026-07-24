@@ -47,15 +47,20 @@ def parse_value(x: Any) -> float:
     return float(m.group(0)) if m else np.nan
 
 
+def _target_col(cfg: Config) -> str:
+    return str(getattr(cfg, "target_col", None) or TARGET_COL)
+
+
 def preprocess_dataset(csv_path: str, pdb_dir: str, cfg: Config, split: str) -> tuple[pd.DataFrame, dict[str, Any]]:
     df = pd.read_csv(csv_path, encoding=cfg.csv_encoding) if cfg.csv_encoding else pd.read_csv(csv_path)
     pdb_names = {p.stem for p in Path(pdb_dir).glob("*.pdb")}
+    tcol = _target_col(cfg)
     rows = []
     counters: Counter[str] = Counter()
     for _, row in df.iterrows():
         raw = "" if pd.isna(row.get("sequence")) else str(row.get("sequence")).strip()
         seq = raw.upper()
-        mic = parse_value(row.get(TARGET_COL, np.nan))
+        mic = parse_value(row.get(tcol, np.nan))
         if np.isfinite(mic) and mic <= 0:
             mic = np.nan
         if not np.isfinite(mic):
@@ -76,7 +81,10 @@ def preprocess_dataset(csv_path: str, pdb_dir: str, cfg: Config, split: str) -> 
                 "original_all_upper": bool(raw) and raw == raw.upper(),
                 "n_terminus": row.get("n_terminus", ""),
                 "c_terminus": row.get("c_terminus", ""),
+                # Always persist under TARGET_COL so downstream code stays stable;
+                # also keep the source column name when it differs.
                 TARGET_COL: mic,
+                tcol: mic,
                 CFU_COL: normalize_cfu_group(row.get(CFU_COL, np.nan)),
                 "pdb_path": str(Path(pdb_dir) / f"{seq}.pdb"),
             }
@@ -86,6 +94,7 @@ def preprocess_dataset(csv_path: str, pdb_dir: str, cfg: Config, split: str) -> 
         "split": split,
         "raw_rows": int(len(df)),
         "pdb_files": int(len(pdb_names)),
+        "target_col": tcol,
         **{f"removed_{k}": int(v) for k, v in counters.items()},
         "rows_before_dedup": int(len(filt)),
     }
@@ -355,10 +364,18 @@ def load_or_build_cache(cfg: Config, root: Path | None = None) -> dict[str, Any]
     coord_tag = "withcoord" if bool(getattr(cfg, "include_node_coords", False)) else "nocoord"
     # Tag includes aa_v2 so sequential 1..20 encoding does not collide with legacy AMAS caches.
     # Node-feature zscore is applied at train time (not baked into cache).
+    # When target_col / train CSV differ from the paper default, append a short suffix
+    # so wetlab multi-species caches do not collide with the LL37-holdout cache.
     cache_tag = (
         ("cfu_v1_trainonly" if not cfg.eval_external else "cfu_v1")
         + f"_{scale_tag}_aa_seq1to20_{coord_tag}"
     )
+    default_train = "metadata/train_val_by_cfu_group_ug_per_mL.csv"
+    default_tcol = TARGET_COL
+    if Path(cfg.train_csv).name != Path(default_train).name or _target_col(cfg) != default_tcol:
+        train_stem = re.sub(r"[^A-Za-z0-9]+", "", Path(cfg.train_csv).stem)[:40]
+        tcol_tag = re.sub(r"[^A-Za-z0-9]+", "", _target_col(cfg))[:40]
+        cache_tag = f"{cache_tag}_{train_stem}_{tcol_tag}"
     cache_dir = Path(_p(cfg.shared_cache_dir))
     cache_dir.mkdir(parents=True, exist_ok=True)
     cache_path = cache_dir / f"mic_graph_cache_len{cfg.max_len}_seed{cfg.seed}_{cache_tag}.pt"

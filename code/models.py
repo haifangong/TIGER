@@ -54,24 +54,68 @@ class GNN(nn.Module):
 
 
 class SimpleSelfAttention(nn.Module):
-    def __init__(self, embedding_dim: int, num_heads: int = 4):
+    """Multi-head attention over modality tokens with configurable Q/K/V roles.
+
+    Modes
+    -----
+    self_gsh / self_sgh / self_hgs
+        Self-attention over three stacked modalities in the named order
+        (g=graph, s=sequence, h=global).
+    cross_qg / cross_qs / cross_qh
+        Cross-attention: Q from one modality, K/V from the other two.
+    """
+
+    _SELF_ORDERS = {
+        "self_gsh": ("g", "s", "h"),
+        "self_sgh": ("s", "g", "h"),
+        "self_hgs": ("h", "g", "s"),
+    }
+    _CROSS_Q = {
+        "cross_qg": "g",
+        "cross_qs": "s",
+        "cross_qh": "h",
+    }
+
+    def __init__(self, embedding_dim: int, num_heads: int = 4, mode: str = "self_gsh"):
         super().__init__()
         self.embedding_dim = embedding_dim
         self.num_heads = num_heads
+        self.mode = str(mode or "self_gsh").lower()
+        if self.mode not in self._SELF_ORDERS and self.mode not in self._CROSS_Q:
+            raise ValueError(
+                f"Unsupported fusion_attn_mode={mode!r}; "
+                f"expected one of {sorted(self._SELF_ORDERS) + sorted(self._CROSS_Q)}"
+            )
         self.query = nn.Linear(embedding_dim, embedding_dim * num_heads)
         self.key = nn.Linear(embedding_dim, embedding_dim * num_heads)
         self.value = nn.Linear(embedding_dim, embedding_dim * num_heads)
         self.proj = nn.Linear(embedding_dim * num_heads, embedding_dim)
 
-    def forward(self, x1: torch.Tensor, x2: torch.Tensor, x3: torch.Tensor) -> torch.Tensor:
-        batch_size = x1.shape[0]
-        x = torch.stack((x1, x2, x3), dim=1)
-        q = self.query(x).view(batch_size, 3, self.num_heads, self.embedding_dim).transpose(1, 2)
-        k = self.key(x).view(batch_size, 3, self.num_heads, self.embedding_dim).transpose(1, 2)
-        v = self.value(x).view(batch_size, 3, self.num_heads, self.embedding_dim).transpose(1, 2)
+    def _pack(self, graph: torch.Tensor, seq: torch.Tensor, glob: torch.Tensor) -> dict[str, torch.Tensor]:
+        return {"g": graph, "s": seq, "h": glob}
+
+    def _attend(self, q_tok: torch.Tensor, kv_tok: torch.Tensor) -> torch.Tensor:
+        """q_tok: [B, Q, D], kv_tok: [B, K, D] -> pooled [B, D]."""
+        bsz, n_q, _ = q_tok.shape
+        n_k = kv_tok.size(1)
+        q = self.query(q_tok).view(bsz, n_q, self.num_heads, self.embedding_dim).transpose(1, 2)
+        k = self.key(kv_tok).view(bsz, n_k, self.num_heads, self.embedding_dim).transpose(1, 2)
+        v = self.value(kv_tok).view(bsz, n_k, self.num_heads, self.embedding_dim).transpose(1, 2)
         attn = F.softmax(torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.embedding_dim), dim=-1)
-        out = torch.matmul(attn, v).transpose(1, 2).reshape(batch_size, 3, self.num_heads * self.embedding_dim)
+        out = torch.matmul(attn, v).transpose(1, 2).reshape(bsz, n_q, self.num_heads * self.embedding_dim)
         return self.proj(out).sum(dim=1)
+
+    def forward(self, graph: torch.Tensor, seq: torch.Tensor, glob: torch.Tensor) -> torch.Tensor:
+        mods = self._pack(graph, seq, glob)
+        if self.mode in self._SELF_ORDERS:
+            order = self._SELF_ORDERS[self.mode]
+            stacked = torch.stack([mods[k] for k in order], dim=1)
+            return self._attend(stacked, stacked)
+        q_key = self._CROSS_Q[self.mode]
+        kv_keys = [k for k in ("g", "s", "h") if k != q_key]
+        q_tok = mods[q_key].unsqueeze(1)
+        kv_tok = torch.stack([mods[k] for k in kv_keys], dim=1)
+        return self._attend(q_tok, kv_tok)
 
 
 def node_input_dim(cfg: Config) -> int:
@@ -129,7 +173,9 @@ class PeptideEncoder(nn.Module):
             nn.Linear(10, cfg.emb_dim), nn.LeakyReLU(0.1), nn.Dropout(cfg.dropout_ratio)
         )
         self.cfu_encoder = nn.Embedding(len(CFU_LEVELS), cfg.emb_dim)
-        self.att = SimpleSelfAttention(cfg.emb_dim)
+        self.att = SimpleSelfAttention(
+            cfg.emb_dim, mode=str(getattr(cfg, "fusion_attn_mode", "self_gsh") or "self_gsh")
+        )
         self.concat_proj = nn.Sequential(
             nn.Linear(cfg.emb_dim * 3, cfg.emb_dim), nn.LeakyReLU(0.1), nn.Dropout(cfg.dropout_ratio)
         )
