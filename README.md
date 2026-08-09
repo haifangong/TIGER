@@ -13,7 +13,7 @@ Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/
 ├── metadata/                 # CFU-aware train/val + LL37 holdout CSVs used by configs
 ├── data/                     # curated sequences, splits, external tests, PDB zip
 │   ├── trainval_dbassp/      # DBAASP train/val + toxin labels + Rosetta PDBs (LFS)
-│   ├── test_external/        # APEX-GO / LL37 / QLX227 eval packs + similarity audit
+│   ├── test_external/        # APEX-GO / LL37 / internal_toxin_cohort eval packs + similarity audit
 │   ├── wetlab/               # full-DBAASP per-species production tables
 │   └── metadata/features.txt # AA node features for the GNN
 ├── checkpoints/              # final ablation fold*_best.pt weights only
@@ -93,7 +93,7 @@ Full archive (labels, excluded lists, toxin set, PDB zip + inventory): [`data/tr
 |------|------|------|---------------|
 | `test_activity_apexgo` | *E. coli* MIC pairs | 110 seq / 200 pairs | `apexgo_peptides.csv`, `pairs/…`, `pdb/` |
 | `test_activity_ll37` | *E. coli* MIC pairs | 68 seq / 509 pairs | `ll37_sequences_mic.csv`, `ll37_pairs_neighbor.csv`, `pdb/` |
-| `test_toxin_qlx227` | Hemolytic HC50 | 88 seq | `qlx227_hemolysis_active_micmin_le128.csv` |
+| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 | 88 seq | `internal_toxin_cohort_hemolysis_active_micmin_le128.csv` |
 | `test_pair_similarity_compare` | Test-vs-train similarity audit | — | `*_similarity*.csv`, PDF figure |
 
 See [`data/test_external/README.md`](data/test_external/README.md).
@@ -166,7 +166,7 @@ bash code/scripts_train/run_ablation_all_mic.sh       # MIC ablation panels
 bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequence
 
 bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37-509 + APEX-GO-200
-bash code/scripts_eval/eval_toxin_qlx227.sh           # hemolytic QLX227 (n=88)
+bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
 bash code/scripts_eval/eval_cv_summary.sh             # print CV summary.json
 ```
 

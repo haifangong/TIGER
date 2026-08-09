@@ -68,7 +68,7 @@ bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequen
 
 bash code/scripts_eval/eval_cv_summary.sh             # print CV summary.json
 bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37-509 + APEX-GO-200
-bash code/scripts_eval/eval_toxin_qlx227.sh           # hemolytic qlx227 (n=88)
+bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
 ```
 
 Default training seed is **`1`**. Seed-stability panel uses **`1..5`**.

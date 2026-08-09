@@ -28,7 +28,7 @@ scripts_eval/
 ├── eval_apexgo_high_span.sh           # code.main evaluate-apexgo
 ├── eval_tiger_vs_evo.sh               # LL37 + APEXGO TIGER MoE/0.3/0.7 vs EvoGradient
 ├── eval_infer_checkpoint.sh           # code.main infer
-└── eval_toxin_qlx227.sh               # hemolytic HC50 external (qlx227 n=88)
+└── eval_toxin_internal_toxin_cohort.sh               # hemolytic HC50 external (internal_toxin_cohort n=88)
 ```
 
 Underlying Python tools mainly live in `TIGER/scripts/eval_*.py` and
@@ -44,9 +44,9 @@ Prefer these paths (see `data/test_external/README.md`):
 |------|------|------|
 | `data/test_external/test_activity_apexgo/` | E. coli MIC pairs | 110 seq / 200 pairs |
 | `data/test_external/test_activity_ll37/` | E. coli MIC pairs | 68 seq / 509 pairs |
-| `data/test_external/test_toxin_qlx227/` | Hemolytic HC50 | 88 seq |
+| `data/test_external/test_toxin_internal_toxin_cohort/` | Hemolytic HC50 | 88 seq |
 
-Legacy sources (`data/test_apexgo`, `test_ll37`, `test_qlx227`) still work for
+Legacy sources (`data/test_apexgo`, `test_ll37`, `test_internal_toxin_cohort`) still work for
 older eval Python scripts.
 
 ---
@@ -138,28 +138,28 @@ bash code/scripts_eval/eval_infer_checkpoint.sh
 CONFIG=…/config.json CKPT=…/fold1_best.pt bash code/scripts_eval/eval_infer_checkpoint.sh
 ```
 
-### `eval_toxin_qlx227.sh`
+### `eval_toxin_internal_toxin_cohort.sh`
 
-**Function:** external **hemolytic** toxicity evaluation on qlx227 active subset  
+**Function:** external **hemolytic** toxicity evaluation on internal_toxin_cohort active subset  
 (`mic_min ≤ 128` → **n=88**, label HC50 ≤ **512**)  
-**Backend:** `data/test_qlx227/build_and_predict_qlx227.py`  
+**Backend:** `data/test_internal_toxin_cohort/build_and_predict_internal_toxin_cohort.py`  
 (uses `runs_ablation_toxin/both/checkpoints` by default inside that script)
 
 Clean label table for reporting:
 
 ```text
-data/test_external/test_toxin_qlx227/qlx227_hemolysis_active_micmin_le128.csv
+data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_hemolysis_active_micmin_le128.csv
 ```
 
 Detailed metric folders (if regenerated):
 
 ```text
-data/test_qlx227/eval_active_micmin_le128/
+data/test_internal_toxin_cohort/eval_active_micmin_le128/
 ```
 
 ```bash
-bash code/scripts_eval/eval_toxin_qlx227.sh
-PY=/home/ubuntu/anaconda3/envs/class/bin/python bash code/scripts_eval/eval_toxin_qlx227.sh
+bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh
+PY=/home/ubuntu/anaconda3/envs/class/bin/python bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh
 ```
 
 ---
@@ -183,6 +183,6 @@ PY=/home/ubuntu/anaconda3/envs/class/bin/python bash code/scripts_eval/eval_toxi
 1. Train (or use archive): `bash code/scripts_train/train_best_recipe.sh`  
 2. Check CV: `bash code/scripts_eval/eval_cv_summary.sh`  
 3. External MIC: `bash code/scripts_eval/eval_ll37_apexgo_best.sh`  
-4. Toxin external: `bash code/scripts_eval/eval_toxin_qlx227.sh`
+4. Toxin external: `bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh`
 
 Related training launchers: [`../scripts_train/`](../scripts_train/README.md).

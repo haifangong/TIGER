@@ -1,6 +1,6 @@
-# test_toxin_qlx227
+# test_toxin_internal_toxin_cohort
 
-External **hemolytic toxicity** test set (qlx227), packaged for TIGER toxin-filter evaluation.
+External **hemolytic toxicity** test set (internal_toxin_cohort), packaged for TIGER toxin-filter evaluation.
 
 | Item | Value |
 |------|-------|
@@ -12,9 +12,9 @@ External **hemolytic toxicity** test set (qlx227), packaged for TIGER toxin-filt
 ## Layout
 
 ```text
-test_toxin_qlx227/
-├── qlx227_hemolysis_active_micmin_le128.csv  # primary panel
-├── qlx227_toxicity_labeled.csv               # minimal: sequence, label, hc50
+test_toxin_internal_toxin_cohort/
+├── internal_toxin_cohort_hemolysis_active_micmin_le128.csv  # primary panel
+├── internal_toxin_cohort_toxicity_labeled.csv               # minimal: sequence, label, hc50
 ├── dataset_meta.json
 └── README.md
 ```
@@ -29,4 +29,4 @@ Same contract as `trainval_dbassp/toxin/` / `code/toxin_filter`:
 `mic_min` is retained only to document the active-peptide filter used by the
 final external protocol; bacterial MIC columns and model predictions are omitted.
 
-Source: `data/test_qlx227/qlx227_active_micmin_le128_subset.csv`.
+Source: `data/test_internal_toxin_cohort/internal_toxin_cohort_active_micmin_le128_subset.csv`.

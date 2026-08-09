@@ -16,7 +16,7 @@ data/
 ├── test_external/                   # external holdouts for final pipeline eval
 │   ├── test_activity_apexgo/        # E. coli MIC pairs (APEX-GO)
 │   ├── test_activity_ll37/          # E. coli MIC pairs (LL37 family)
-│   ├── test_toxin_qlx227/           # hemolytic HC50 labels
+│   ├── test_toxin_internal_toxin_cohort/           # hemolytic HC50 labels
 │   └── test_pair_similarity_compare/# test-vs-train similarity audit
 └── wetlab/                          # full-DBAASP per-species production tables
 ```

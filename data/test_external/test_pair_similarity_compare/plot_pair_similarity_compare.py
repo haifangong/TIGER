@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
-"""Nature-style one-page similarity figure: APEXGO, LL37, and QLX227.
+"""Nature-style one-page similarity figure: APEXGO, LL37, and internal_toxin_cohort.
 
 Layout (3×2):
   a  max similarity to MIC holdout train set (histogram)
   b  cumulative max similarity to MIC train (ECDF)
   c  within-test pair similarity (histogram; APEXGO geo3 + LL37 neighbor-509)
   d  cumulative within-test pair similarity (ECDF)
-  e  QLX227 max similarity to toxin train set (histogram)
-  f  QLX227 cumulative max similarity to toxin train (ECDF)
+  e  internal_toxin_cohort max similarity to toxin train set (histogram)
+  f  internal_toxin_cohort cumulative max similarity to toxin train (ECDF)
 
 Outputs (this directory):
   - pair_similarity_apexgo_vs_ll37.pdf
   - similarity_summary.csv
   - test_vs_train_max_similarity.csv
   - test_vs_train_similarity_summary.csv
-  - qlx227_vs_toxin_max_similarity.csv
-  - qlx227_vs_toxin_similarity_summary.csv
+  - internal_toxin_cohort_vs_toxin_max_similarity.csv
+  - internal_toxin_cohort_vs_toxin_similarity_summary.csv
 """
 
 from __future__ import annotations
@@ -44,7 +44,7 @@ LL37_PAIR_CSV = EXT / "test_activity_ll37/ll37_pairs_neighbor.csv"
 LL37_SEQ_CSV = EXT / "test_activity_ll37/ll37_sequences_mic.csv"
 TRAIN_CSV = ROOT / "metadata/train_val_by_cfu_group_ug_per_mL.csv"
 REMOVED_SIM_CSV = ROOT / "metadata/removed_similar_to_LL37_seq.csv"
-QLX227_CSV = EXT / "test_toxin_qlx227/qlx227_hemolysis_active_micmin_le128.csv"
+INTERNAL_TOXIN_COHORT_CSV = EXT / "test_toxin_internal_toxin_cohort/internal_toxin_cohort_hemolysis_active_micmin_le128.csv"
 TOXIN_TRAIN_CSV = (
     ROOT / "outputs" / "outputs_toxin_filter_thr512_both" / "toxicity_labeled_dataset.csv"
 )
@@ -52,7 +52,7 @@ TOXIN_TRAIN_CSV = (
 # Nature SI-friendly, colourblind-aware palette
 C_APEX = "#0072B2"
 C_LL37 = "#D55E00"
-C_QLX = "#009E73"
+C_ITC = "#009E73"
 C_THRESH = "#666666"
 TRAIN_THRESH = 0.30
 MIN_LEN, MAX_LEN = 6, 50
@@ -268,11 +268,11 @@ def _annotate_n(ax, n_apex: int, n_ll37: int, unit: str) -> None:
     )
 
 
-def _annotate_qlx(ax, n_qlx: int, n_toxin_train: int) -> None:
+def _annotate_itc(ax, n_itc: int, n_toxin_train: int) -> None:
     ax.text(
         0.98,
         0.96,
-        f"QLX227 sequences n={n_qlx}\ntoxin train n={n_toxin_train}",
+        f"internal_toxin_cohort sequences n={n_itc}\ntoxin train n={n_toxin_train}",
         transform=ax.transAxes,
         ha="right",
         va="top",
@@ -306,7 +306,7 @@ def plot_nature_one_page(
 
     n_apex_pair, n_ll37_pair = len(sa_pair), len(sl_pair)
     n_apex_seq, n_ll37_seq = len(sa_train), len(sl_train)
-    n_qlx = len(sq_toxin)
+    n_itc = len(sq_toxin)
 
     # a — max sim to MIC train (histogram); no threshold line
     bins_train = np.linspace(0.15, 0.55, 21)
@@ -349,20 +349,20 @@ def plot_nature_one_page(
     _panel_label(ax_d, "d")
     _style_ax(ax_d)
 
-    # e — QLX227 vs toxin train (histogram); no threshold line
+    # e — internal_toxin_cohort vs toxin train (histogram); no threshold line
     x_min = max(0.0, float(np.min(sq_toxin)) - 0.05)
     x_max = min(1.0, float(np.max(sq_toxin)) + 0.05)
-    bins_qlx = np.linspace(x_min, x_max, 21)
-    _hist_one(ax_e, sq_toxin, bins_qlx, C_QLX)
+    bins_itc = np.linspace(x_min, x_max, 21)
+    _hist_one(ax_e, sq_toxin, bins_itc, C_ITC)
     ax_e.set_xlim(x_min, x_max)
     ax_e.set_xlabel("Max similarity to toxin training set")
     ax_e.set_ylabel("Density")
-    _annotate_qlx(ax_e, n_qlx, n_toxin_train)
+    _annotate_itc(ax_e, n_itc, n_toxin_train)
     _panel_label(ax_e, "e")
     _style_ax(ax_e)
 
-    # f — QLX227 vs toxin train (ECDF); no threshold line
-    _ecdf(ax_f, sq_toxin, C_QLX)
+    # f — internal_toxin_cohort vs toxin train (ECDF); no threshold line
+    _ecdf(ax_f, sq_toxin, C_ITC)
     ax_f.set_xlim(x_min, x_max)
     ax_f.set_ylim(0.0, 1.02)
     ax_f.set_xlabel("Max similarity to toxin training set")
@@ -373,7 +373,7 @@ def plot_nature_one_page(
     handles = [
         Patch(facecolor=C_APEX, edgecolor=C_APEX, alpha=0.35, linewidth=0.8, label="APEXGO"),
         Patch(facecolor=C_LL37, edgecolor=C_LL37, alpha=0.35, linewidth=0.8, label="LL-37"),
-        Patch(facecolor=C_QLX, edgecolor=C_QLX, alpha=0.35, linewidth=0.8, label="QLX227"),
+        Patch(facecolor=C_ITC, edgecolor=C_ITC, alpha=0.35, linewidth=0.8, label="internal_toxin_cohort"),
         Line2D(
             [0],
             [0],
@@ -479,21 +479,21 @@ def main() -> None:
     st_vs.to_csv(out_dir / "test_vs_train_similarity_summary.csv", index=False)
     print(st_vs.to_string(index=False))
 
-    # QLX227 (88) vs toxin training set (1596 under thr=512)
-    qlx_seqs = load_unique_seqs(QLX227_CSV, "sequence")
+    # internal_toxin_cohort (88) vs toxin training set (1596 under thr=512)
+    itc_seqs = load_unique_seqs(INTERNAL_TOXIN_COHORT_CSV, "sequence")
     toxin_seqs = load_unique_seqs(TOXIN_TRAIN_CSV, "sequence")
-    print(f"[qlx227] unique seqs={len(qlx_seqs)}  [toxin train] unique seqs={len(toxin_seqs)}")
-    if len(qlx_seqs) != 88:
-        print(f"[warn] expected 88 QLX227 sequences, got {len(qlx_seqs)}")
+    print(f"[internal_toxin_cohort] unique seqs={len(itc_seqs)}  [toxin train] unique seqs={len(toxin_seqs)}")
+    if len(itc_seqs) != 88:
+        print(f"[warn] expected 88 internal_toxin_cohort sequences, got {len(itc_seqs)}")
 
-    qlx_cache = out_dir / "qlx227_vs_toxin_max_similarity.csv"
-    qlx_vs = _load_or_compute_max_sim(qlx_cache, "QLX227", qlx_seqs, toxin_seqs)
-    qlx_vs.to_csv(qlx_cache, index=False)
-    sq = qlx_vs["max_sim_to_train"].to_numpy(dtype=float)
-    st_qlx = pd.DataFrame([summarize(sq, "QLX227_vs_toxin_train")])
-    st_qlx.to_csv(out_dir / "qlx227_vs_toxin_similarity_summary.csv", index=False)
-    print(st_qlx.to_string(index=False))
-    print(f"[exact in toxin train] QLX227={int(qlx_vs['exact_in_train'].sum())}")
+    itc_cache = out_dir / "internal_toxin_cohort_vs_toxin_max_similarity.csv"
+    itc_vs = _load_or_compute_max_sim(itc_cache, "internal_toxin_cohort", itc_seqs, toxin_seqs)
+    itc_vs.to_csv(itc_cache, index=False)
+    sq = itc_vs["max_sim_to_train"].to_numpy(dtype=float)
+    st_itc = pd.DataFrame([summarize(sq, "internal_toxin_cohort_vs_toxin_train")])
+    st_itc.to_csv(out_dir / "internal_toxin_cohort_vs_toxin_similarity_summary.csv", index=False)
+    print(st_itc.to_string(index=False))
+    print(f"[exact in toxin train] internal_toxin_cohort={int(itc_vs['exact_in_train'].sum())}")
 
     plot_nature_one_page(
         args.out_pdf,

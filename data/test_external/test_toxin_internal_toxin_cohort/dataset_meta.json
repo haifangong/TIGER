@@ -1,5 +1,5 @@
 {
-  "name": "test_toxin_qlx227",
+  "name": "test_toxin_internal_toxin_cohort",
   "task": "toxicity",
   "endpoint": "hemolytic HC50 (human erythrocytes)",
   "threshold_ug_mL": 512,
@@ -7,8 +7,8 @@
   "n_sequences": 88,
   "n_toxin": 12,
   "n_non_toxin": 76,
-  "activity_filter": "mic_min \u2264 128 (active peptides only; matches final qlx227 eval protocol)",
-  "source": "data/test_qlx227/qlx227_active_micmin_le128_subset.csv",
+  "activity_filter": "mic_min \u2264 128 (active peptides only; matches final internal_toxin_cohort eval protocol)",
+  "source": "data/test_internal_toxin_cohort/internal_toxin_cohort_active_micmin_le128_subset.csv",
   "excluded_from_package": [
     "model predictions (prob_*/pred_*)",
     "eval_active_micmin_le128/ metrics",
@@ -17,7 +17,7 @@
     "full/unfiltered panel and other activity-filter variants"
   ],
   "files": {
-    "primary": "qlx227_hemolysis_active_micmin_le128.csv",
-    "minimal": "qlx227_toxicity_labeled.csv"
+    "primary": "internal_toxin_cohort_hemolysis_active_micmin_le128.csv",
+    "minimal": "internal_toxin_cohort_toxicity_labeled.csv"
   }
 }

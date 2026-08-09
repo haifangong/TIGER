@@ -14,7 +14,7 @@
       "n_pairs": 509,
       "endpoint": "MIC_Escherichia_coli"
     },
-    "test_toxin_qlx227": {
+    "test_toxin_internal_toxin_cohort": {
       "task": "toxicity",
       "n_sequences": 88,
       "endpoint": "hemolytic HC50 \u2264 512",
@@ -29,7 +29,7 @@
   "sources": {
     "test_activity_apexgo": "data/test_apexgo",
     "test_activity_ll37": "data/test_ll37",
-    "test_toxin_qlx227": "data/test_qlx227",
+    "test_toxin_internal_toxin_cohort": "data/test_internal_toxin_cohort",
     "test_pair_similarity_compare": "data/test_pair_similarity_compare (moved)"
   }
 }

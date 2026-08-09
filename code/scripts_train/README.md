@@ -180,4 +180,4 @@ Species tables are written to `data/wetlab/train_<Species>.csv`.
 ## Related evaluation
 
 After training, use wrappers in [`../scripts_eval/`](../scripts_eval/README.md)
-(LL37 neighbor, APEX-GO pairs, toxin qlx227, CV summary).
+(LL37 neighbor, APEX-GO pairs, toxin internal_toxin_cohort, CV summary).
