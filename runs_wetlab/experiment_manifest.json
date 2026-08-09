@@ -1,0 +1,160 @@
+{
+  "locked": {
+    "structure_features": "s",
+    "feature_modalities": "gsh",
+    "fusion": "attention",
+    "fusion_attn_mode": "cross_qs",
+    "delta_bin_width": 1.0,
+    "use_signed_sampling": false,
+    "pair_balance_num": 10000,
+    "include_node_coords": false,
+    "seed": 1,
+    "data": "full DBAASP (no LL37 holdout)"
+  },
+  "sim_grid": [
+    0.3,
+    0.7
+  ],
+  "species": [
+    "Escherichia_coli",
+    "Staphylococcus_aureus",
+    "Pseudomonas_aeruginosa",
+    "Bacillus_subtilis",
+    "Klebsiella_pneumoniae",
+    "Staphylococcus_epidermidis"
+  ],
+  "experiments": [
+    {
+      "id": "sim0p3_Escherichia_coli",
+      "name": "sim0p3_Escherichia_coli",
+      "species": "Escherichia_coli",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Escherichia_coli.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Escherichia_coli",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 8315
+    },
+    {
+      "id": "sim0p7_Escherichia_coli",
+      "name": "sim0p7_Escherichia_coli",
+      "species": "Escherichia_coli",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Escherichia_coli.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Escherichia_coli",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 8315
+    },
+    {
+      "id": "sim0p3_Staphylococcus_aureus",
+      "name": "sim0p3_Staphylococcus_aureus",
+      "species": "Staphylococcus_aureus",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Staphylococcus_aureus.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Staphylococcus_aureus",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 7690
+    },
+    {
+      "id": "sim0p7_Staphylococcus_aureus",
+      "name": "sim0p7_Staphylococcus_aureus",
+      "species": "Staphylococcus_aureus",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Staphylococcus_aureus.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Staphylococcus_aureus",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 7690
+    },
+    {
+      "id": "sim0p3_Pseudomonas_aeruginosa",
+      "name": "sim0p3_Pseudomonas_aeruginosa",
+      "species": "Pseudomonas_aeruginosa",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Pseudomonas_aeruginosa.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Pseudomonas_aeruginosa",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 5639
+    },
+    {
+      "id": "sim0p7_Pseudomonas_aeruginosa",
+      "name": "sim0p7_Pseudomonas_aeruginosa",
+      "species": "Pseudomonas_aeruginosa",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Pseudomonas_aeruginosa.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Pseudomonas_aeruginosa",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 5639
+    },
+    {
+      "id": "sim0p3_Bacillus_subtilis",
+      "name": "sim0p3_Bacillus_subtilis",
+      "species": "Bacillus_subtilis",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Bacillus_subtilis.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Bacillus_subtilis",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2416
+    },
+    {
+      "id": "sim0p7_Bacillus_subtilis",
+      "name": "sim0p7_Bacillus_subtilis",
+      "species": "Bacillus_subtilis",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Bacillus_subtilis.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Bacillus_subtilis",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2416
+    },
+    {
+      "id": "sim0p3_Klebsiella_pneumoniae",
+      "name": "sim0p3_Klebsiella_pneumoniae",
+      "species": "Klebsiella_pneumoniae",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Klebsiella_pneumoniae.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Klebsiella_pneumoniae",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2223
+    },
+    {
+      "id": "sim0p7_Klebsiella_pneumoniae",
+      "name": "sim0p7_Klebsiella_pneumoniae",
+      "species": "Klebsiella_pneumoniae",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Klebsiella_pneumoniae.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Klebsiella_pneumoniae",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2223
+    },
+    {
+      "id": "sim0p3_Staphylococcus_epidermidis",
+      "name": "sim0p3_Staphylococcus_epidermidis",
+      "species": "Staphylococcus_epidermidis",
+      "similarity_threshold": 0.3,
+      "train_csv": "data/wetlab/train_Staphylococcus_epidermidis.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Staphylococcus_epidermidis",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2054
+    },
+    {
+      "id": "sim0p7_Staphylococcus_epidermidis",
+      "name": "sim0p7_Staphylococcus_epidermidis",
+      "species": "Staphylococcus_epidermidis",
+      "similarity_threshold": 0.7,
+      "train_csv": "data/wetlab/train_Staphylococcus_epidermidis.csv",
+      "shared_cache_dir": "artifacts/cache_wetlab/Staphylococcus_epidermidis",
+      "pair_balance_num": 10000,
+      "seed": 1,
+      "n_rows_table": 2054
+    }
+  ]
+}

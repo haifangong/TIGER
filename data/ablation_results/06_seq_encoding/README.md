@@ -21,7 +21,7 @@ recipe (`gsh` + `cross_qs` + sim=0.3 + unsigned bal=10000 + struct=`s`).
 └── seq_onehot/...
 ```
 
-Final weights: `checkpoints/06_seq_encoding/seq_encoding_grid__seq_{integer,embedding,onehot}/checkpoints/fold*_best.pt` (5 folds each).
+Final weights: `runs_ablation/06_seq_encoding/seq_encoding_grid__seq_{integer,embedding,onehot}/checkpoints/fold*_best.pt` (5 folds each).
 
 Reproduce:
 
