@@ -1,10 +1,10 @@
 {
   "name": "checkpoints",
-  "description": "Final (fold*_best) checkpoints from the TIGER MIC ablation study (runs_ablation). fold*_last and other run artifacts are not included.",
+  "description": "Final MIC ablation fold*_best.pt plus toxin classification joblib checkpoints.",
   "source": "runs_ablation/",
-  "n_experiment_points": 40,
-  "n_checkpoint_files": 196,
-  "total_checkpoint_bytes": 154558180,
+  "n_experiment_points": 41,
+  "n_checkpoint_files": 205,
+  "total_checkpoint_bytes": 161937878,
   "points": [
     {
       "path": "01_modality_ablation/mod_g",
@@ -198,13 +198,27 @@
     },
     {
       "path": "06_seq_encoding/seq_encoding_grid__seq_embedding",
-      "n_fold_best": 3,
-      "checkpoint_bytes": 2485926
+      "n_fold_best": 5,
+      "checkpoint_bytes": 4143210
     },
     {
       "path": "06_seq_encoding/seq_encoding_grid__seq_integer",
-      "n_fold_best": 3,
-      "checkpoint_bytes": 2364006
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3940010
+    },
+    {
+      "path": "06_seq_encoding/seq_encoding_grid__seq_onehot",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 4146410
     }
-  ]
+  ],
+  "toxin_classification": {
+    "modes": [
+      "both",
+      "global",
+      "sequence"
+    ],
+    "n_joblib_files": 135,
+    "total_bytes": 273190225
+  }
 }

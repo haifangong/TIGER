@@ -1,0 +1,13 @@
+{
+  "id": "seq_encoding_grid__seq_integer",
+  "name": "seq_integer",
+  "seq_encoding": "integer",
+  "cv_n": 102292,
+  "cv_log10MAE": 0.43520730816648817,
+  "cv_log2MAE": 1.4457273840985592,
+  "cv_RSE": 0.5187209824652952,
+  "cv_PCC": 0.6937427603475982,
+  "cv_KCC": 0.486919811456689,
+  "cv_selection_score": 0.7837857947595672,
+  "runtime_sec": 3040.32
+}

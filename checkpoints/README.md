@@ -1,47 +1,47 @@
-# checkpoints — final ablation weights
+# checkpoints — final ablation / toxin weights
 
-Final **selected** MIC pair-delta checkpoints from the paper ablation archive
-(`runs_ablation/`): only `fold{1..5}_best.pt` per experiment point.
+## MIC pair-delta ablations
 
-`fold*_last.pt`, training logs, prediction dumps, graph caches, wetlab models,
-and other checkpoints are **not** redistributed here.
+Final **selected** MIC checkpoints from `runs_ablation/`: only `fold{1..5}_best.pt`
+per experiment point (including the completed **sequence-encoding** panel).
 
 ```text
 checkpoints/
-├── CHECKPOINTS_MANIFEST.json
+├── 01_modality_ablation/
+├── 02_pair_balance_bin1/
+├── 03_fusion_methods/
+├── 04_similarity/
+├── 05_seed_stability/
+├── 06_seq_encoding/          # integer / embedding / onehot (5 folds each)
+├── toxin_classification/     # hemolytic HC50 classical-ML (+ MLP) joblibs
 ├── leaderboard.csv
-├── MANIFEST.json
-├── 01_modality_ablation/<point>/checkpoints/fold*_best.pt
-├── 02_pair_balance_bin1/...
-├── 03_fusion_methods/...
-├── 04_similarity/...
-├── 05_seed_stability/...
-└── 06_seq_encoding/...
+└── CHECKPOINTS_MANIFEST.json
 ```
 
-Each point also includes `config.json` plus lightweight `results/summary.json`,
-`results/calibrator.json`, and `results/fold_metrics.csv` when available.
+`fold*_last.pt`, training logs, prediction dumps, and wetlab production models
+are **not** redistributed here.
 
-## Locked / best recipe (reference)
+Sequence-encoding **metrics tables** (without weights) also live under
+[`data/ablation_results/06_seq_encoding/`](../data/ablation_results/06_seq_encoding/).
 
-Typical locked setting used across panels: modalities `gsh`, fusion `attention`
-(`cross_qs`), unsigned `pair_balance_num=10000`, similarity `0.3`, seed `1`.
+## Toxicity classification
 
-Example path:
+`toxin_classification/{both,global,sequence}/checkpoints/*.joblib` — 5-fold
+models for the HC50≤512 µg/mL filter ablation. Summaries:
+`summary_metrics.csv`, `cv_fold_metrics.csv`.
 
-```text
-checkpoints/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt
-```
-
-Load / evaluate with `code/` (see `code/scripts_eval/`).
+## Usage
 
 ```bash
-# from repository root
 export PYTHONPATH=.
 python -m code.main evaluate \
-  --config checkpoints/01_modality_ablation/mod_gsh/config.json \
-  --checkpoint checkpoints/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
+  --config checkpoints/06_seq_encoding/seq_encoding_grid__seq_integer/config.json \
+  --checkpoint checkpoints/06_seq_encoding/seq_encoding_grid__seq_integer/checkpoints/fold1_best.pt \
   --gpu 0
 ```
 
-CV metrics for all points: [`leaderboard.csv`](leaderboard.csv).
+Reproduce sequence-encoding panel:
+
+```bash
+bash code/scripts_train/run_ablation_06_seq_encoding.sh
+```

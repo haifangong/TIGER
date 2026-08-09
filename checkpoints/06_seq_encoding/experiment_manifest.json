@@ -1,0 +1,40 @@
+{
+  "locked": {
+    "structure_features": "s",
+    "feature_modalities": "gsh",
+    "fusion": "attention",
+    "fusion_attn_mode": "cross_qs",
+    "similarity_threshold": 0.3,
+    "delta_bin_width": 1.0,
+    "pair_balance_num": 10000,
+    "use_signed_sampling": false,
+    "include_node_coords": false
+  },
+  "seq_encoding_grid": [
+    "integer",
+    "embedding",
+    "onehot"
+  ],
+  "seq_encoding_legend": {
+    "integer": "Linear(max_len) over AA codes 1..20 (legacy / paper default)",
+    "embedding": "nn.Embedding(21, emb_dim) + pos embedding + masked mean",
+    "onehot": "one-hot(21) \u2192 Linear(21, emb_dim) + pos embedding + masked mean"
+  },
+  "experiments": [
+    {
+      "id": "seq_encoding_grid__seq_integer",
+      "name": "seq_integer",
+      "seq_encoding": "integer"
+    },
+    {
+      "id": "seq_encoding_grid__seq_embedding",
+      "name": "seq_embedding",
+      "seq_encoding": "embedding"
+    },
+    {
+      "id": "seq_encoding_grid__seq_onehot",
+      "name": "seq_onehot",
+      "seq_encoding": "onehot"
+    }
+  ]
+}

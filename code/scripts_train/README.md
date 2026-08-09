@@ -23,6 +23,7 @@ scripts_train/
 ├── run_ablation_03_fusion.sh        # → runs_ablation/03_*
 ├── run_ablation_04_similarity.sh    # → runs_ablation/04_*
 ├── run_ablation_05_seed_stability.sh# → runs_ablation/05_*
+├── run_ablation_06_seq_encoding.sh  # → runs_ablation/06_* (integer/embedding/onehot)
 ├── run_ablation_all_mic.sh          # panels 01→05 sequential
 ├── run_ablation_toxin.sh            # → runs_ablation_toxin/{both,global,sequence}
 └── run_wetlab_species_sim.sh        # → runs_wetlab/ (top-6 species × sim 0.3/0.7)

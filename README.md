@@ -15,8 +15,9 @@ Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/
 │   ├── trainval_dbassp/      # DBAASP train/val + toxin labels + Rosetta PDBs (LFS)
 │   ├── test_external/        # APEX-GO / LL37 / internal_toxin_cohort eval packs + similarity audit
 │   ├── wetlab/               # full-DBAASP per-species production tables
+│   ├── ablation_results/     # sequence-encoding ablation CV metrics
 │   └── metadata/features.txt # AA node features for the GNN
-├── checkpoints/              # final ablation fold*_best.pt weights only
+├── checkpoints/              # MIC fold*_best.pt + toxin classification joblibs
 └── pipeline/                 # Steps 1–4 discovery + MIC ranking
     ├── 01_mutation_search/
     ├── 02_toxicity_filter/
@@ -46,9 +47,7 @@ Details: [`data/README.md`](data/README.md).
 
 ## Ablation checkpoints
 
-Final selected MIC ablation weights are under [`checkpoints/`](checkpoints/)
-(**`fold{1..5}_best.pt` only**, ~40 experiment points). `fold*_last`, wetlab
-production models, and other training artifacts are not uploaded.
+Final selected MIC ablation weights are under [`checkpoints/`](checkpoints/) (**`fold{1..5}_best.pt`**, including completed **sequence-encoding** `integer` / `embedding` / `onehot` with 5 folds each). Toxicity HC50 classification joblibs are under `checkpoints/toxin_classification/`. `fold*_last`, wetlab production models, and other training artifacts are not uploaded.
 
 ```bash
 export PYTHONPATH=.
@@ -59,6 +58,9 @@ python -m code.main evaluate \
 ```
 
 See [`checkpoints/README.md`](checkpoints/README.md) and [`checkpoints/leaderboard.csv`](checkpoints/leaderboard.csv).
+
+Sequence-encoding CV tables: [`data/ablation_results/06_seq_encoding/`](data/ablation_results/06_seq_encoding/).  
+Toxicity classification checkpoints: [`checkpoints/toxin_classification/`](checkpoints/toxin_classification/).
 
 ---
 

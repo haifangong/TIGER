@@ -18,7 +18,9 @@ data/
 │   ├── test_activity_ll37/          # E. coli MIC pairs (LL37 family)
 │   ├── test_toxin_internal_toxin_cohort/           # hemolytic HC50 labels
 │   └── test_pair_similarity_compare/# test-vs-train similarity audit
-└── wetlab/                          # full-DBAASP per-species production tables
+├── wetlab/                          # full-DBAASP per-species production tables
+└── ablation_results/
+    └── 06_seq_encoding/             # sequence-encoding CV metrics (integer/embedding/onehot)
 ```
 
 ## Path mapping for `code/` configs

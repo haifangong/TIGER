@@ -1,0 +1,47 @@
+{
+  "csv": null,
+  "threshold": 512.0,
+  "feature_mode": "both",
+  "n_splits": 5,
+  "seed": 42,
+  "max_len": 50,
+  "epochs": 80,
+  "device": "cuda:0",
+  "balance": {
+    "n": 1596,
+    "n_toxin": 1152,
+    "n_non_toxin": 444,
+    "toxin_frac": 0.7218045112781954,
+    "seq_len_mean": 19.44172932330827,
+    "seq_len_max": 50,
+    "threshold": 512.0,
+    "filter_stats": {
+      "n_hc50_activities": 2435,
+      "ambiguous_gt_ambiguous": 468,
+      "peptides_all_ambiguous": 444,
+      "keep_exact": 1612,
+      "peptides_kept": 1621,
+      "keep_gt_deterministic": 295,
+      "peptides_conflict": 33,
+      "drop_bad_conc": 20,
+      "keep_lt_deterministic": 22,
+      "ambiguous_range_ambiguous": 1,
+      "keep_range_toxin": 14,
+      "ambiguous_lt_ambiguous": 3
+    }
+  },
+  "x_tab_dim": 31,
+  "checkpoints_dir": "checkpoints/toxin_classification/both/checkpoints",
+  "models": [
+    "Adaboost",
+    "CatBoost",
+    "GB",
+    "LGBM",
+    "LR",
+    "MLP",
+    "RF",
+    "SVM",
+    "XGB"
+  ],
+  "note": "Inequality-aware binary labels from DBAASP JSON: keep exact values and determinable inequalities only; ambiguous censored values are excluded. Classical ML feature_mode=both. Per-fold models saved under checkpoints/ when enabled."
+}

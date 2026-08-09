@@ -1,0 +1,41 @@
+[
+  {
+    "id": "seq_encoding_grid__seq_integer",
+    "name": "seq_integer",
+    "seq_encoding": "integer",
+    "cv_n": 102292,
+    "cv_log10MAE": 0.43520730816648817,
+    "cv_log2MAE": 1.4457273840985592,
+    "cv_RSE": 0.5187209824652952,
+    "cv_PCC": 0.6937427603475982,
+    "cv_KCC": 0.486919811456689,
+    "cv_selection_score": 0.7837857947595672,
+    "runtime_sec": 3040.32
+  },
+  {
+    "id": "seq_encoding_grid__seq_embedding",
+    "name": "seq_embedding",
+    "seq_encoding": "embedding",
+    "cv_n": 102292,
+    "cv_log10MAE": 0.4539580145804269,
+    "cv_log2MAE": 1.5080158825340069,
+    "cv_RSE": 0.5599667319505796,
+    "cv_PCC": 0.6633500343328702,
+    "cv_KCC": 0.461681332078478,
+    "cv_selection_score": 0.9429512480732383,
+    "runtime_sec": 2751.9
+  },
+  {
+    "id": "seq_encoding_grid__seq_onehot",
+    "name": "seq_onehot",
+    "seq_encoding": "onehot",
+    "cv_n": 102292,
+    "cv_log10MAE": 0.46613770470086235,
+    "cv_log2MAE": 1.5484759373321035,
+    "cv_RSE": 0.5908923700393732,
+    "cv_PCC": 0.6396152202384079,
+    "cv_KCC": 0.44147219644155816,
+    "cv_selection_score": 1.0582808906915107,
+    "runtime_sec": 1981.61
+  }
+]
