@@ -10,4 +10,4 @@ Each `train_<Species>.csv` has:
 - `MIC_Escherichia_coli` — **remapped** species MIC (TIGER’s default target column)
 - `source_mic_col`, `species` — provenance
 
-Used by `code/scripts_train/run_wetlab_species_sim.sh` → `runs_wetlab/`.
+Used by `code/scripts_train/run_wetlab_species_sim.sh` → `checkpoints/wetlab/`.

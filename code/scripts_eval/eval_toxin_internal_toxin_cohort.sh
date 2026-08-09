@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # External hemolytic toxicity eval on internal_toxin_cohort active subset (n=88, HC50≤512).
-# Rebuilds / refreshes predictions from runs_ablation_toxin/both checkpoints
+# Rebuilds / refreshes predictions from checkpoints/ablation_toxin/both checkpoints
 # via data/test_internal_toxin_cohort/build_and_predict_internal_toxin_cohort.py.
 #
 # Clean panel for reporting also lives at:

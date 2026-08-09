@@ -7,7 +7,7 @@
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../scripts_train" && pwd)/_ablation_common.sh"
 
-EXP_DIR="${EXP_DIR:-$ROOT/runs_ablation/02_pair_balance_bin1/unsigned_bal10000}"
+EXP_DIR="${EXP_DIR:-$ROOT/checkpoints/ablation/02_pair_balance_bin1/unsigned_bal10000}"
 CONFIG="${CONFIG:-$EXP_DIR/config.json}"
 CKPT="${CKPT:-$EXP_DIR/checkpoints/fold1_best.pt}"
 

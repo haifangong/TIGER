@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Compare external LL37 + APEX-GO metrics across training similarity thresholds
-# sim ∈ {0.3, 0.5, 0.7} (matches runs_ablation/04_similarity).
+# sim ∈ {0.3, 0.5, 0.7} (matches checkpoints/ablation/04_similarity).
 #
 # Usage (from TIGER/):
 #   bash code/scripts_eval/eval_sim_thresholds_ll37_apexgo.sh

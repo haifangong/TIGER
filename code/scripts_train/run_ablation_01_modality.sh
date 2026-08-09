@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation/01_modality_ablation (feature_modalities sweep).
+# Re-implement checkpoints/ablation/01_modality_ablation (feature_modalities sweep).
 # Archive points: mod_{g,s,h,gs,gh,sh,gsh}  |  seed=1 by default
 #
 # Usage (from TIGER/):

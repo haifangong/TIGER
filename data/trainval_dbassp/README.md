@@ -2,8 +2,8 @@
 
 Packaged **DBAASP-derived train/val data** actually used by:
 
-- `runs_ablation/` (MIC pair model ablations)
-- `runs_ablation_toxin/` (HC50 toxin-filter ablations)
+- `checkpoints/ablation/` (MIC pair model ablations)
+- `checkpoints/ablation_toxin/` (HC50 toxin-filter ablations)
 
 Copied from `TIGER/metadata/` (+ toxin outputs / PDB store) for self-contained archival under `TIGER/data/`.
 
@@ -26,7 +26,7 @@ trainval_dbassp/
 
 ---
 
-## 1. Labels used by `runs_ablation`
+## 1. Labels used by `checkpoints/ablation`
 
 | File | Role |
 |------|------|
@@ -40,7 +40,7 @@ trainval_dbassp/
 **Train PDBs (source):** `data/3D_data_train_eva_Rosetta/`  
 **In this package:** `pdb/trainval_and_excluded_pdbs.zip`
 
-Locked data settings (from `runs_ablation/README.md`):
+Locked data settings (from `checkpoints/ablation/README.md`):
 
 - Train/val: `metadata/train_val_by_cfu_group_ug_per_mL.csv`
 - Holdout: remove train sequences with similarity **> 0.30** to LL37 family  
@@ -66,7 +66,7 @@ Docs: `provenance/metadata_README.md`
 
 ---
 
-## 3. Toxin ablation (`runs_ablation_toxin`)
+## 3. Toxin ablation (`checkpoints/ablation_toxin`)
 
 Toxin runs do **not** use PDB/GNN. Labels come from DBAASP HC50 (human erythrocytes), inequality-aware filter, threshold **512 µg/mL**.
 
@@ -111,4 +111,4 @@ unzip -q pdb/trainval_and_excluded_pdbs.zip -d /tmp/trainval_pdbs
 ## Notes
 
 - Original paths under `metadata/` and `data/3D_data_train_eva_Rosetta/` are unchanged; this folder is a curated copy.
-- CFU-aware train table is the strict table consumed by `runs_ablation` training configs.
+- CFU-aware train table is the strict table consumed by `checkpoints/ablation` training configs.

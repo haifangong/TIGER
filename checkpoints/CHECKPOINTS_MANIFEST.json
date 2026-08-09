@@ -1,8 +1,9 @@
 {
   "name": "checkpoints",
-  "description": "Index only. Full released weights live under runs_ablation/, runs_ablation_toxin/, and runs_wetlab/.",
-  "runs_ablation": "runs_ablation/",
-  "runs_ablation_toxin": "runs_ablation_toxin/",
-  "runs_wetlab": "runs_wetlab/",
-  "note": "Only fold*_best.pt (MIC) and toxin *.joblib are redistributed."
+  "description": "Released fold*_best.pt (MIC) and toxin *.joblib under ablation/, ablation_toxin/, and wetlab/.",
+  "ablation": "checkpoints/ablation/",
+  "ablation_toxin": "checkpoints/ablation_toxin/",
+  "wetlab": "checkpoints/wetlab/",
+  "excluded": ["04_similarity/sim0p5_bal10000", "01_modality_ablation/mod_s"],
+  "note": "sim0.5 and the invalid cross_qs sequence-only (mod_s) run are not redistributed."
 }

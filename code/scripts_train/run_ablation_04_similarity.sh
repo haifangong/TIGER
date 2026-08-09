@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation/04_similarity (sim ∈ {0.3, 0.5, 0.7} @ bal=10000).
+# Re-implement checkpoints/ablation/04_similarity (sim ∈ {0.3, 0.5, 0.7} @ bal=10000).
 #   - sim=0.3 comes from the binsize unsigned_bal10000 point
 #   - sim=0.5 / 0.7 come from the sim05/07 fusion grid
 #

@@ -17,10 +17,10 @@ Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/
 │   ├── wetlab/               # full-DBAASP per-species production tables
 │   ├── ablation_results/     # sequence-encoding ablation CV metrics
 │   └── metadata/features.txt # AA node features for the GNN
-├── runs_ablation/            # MIC ablation fold*_best.pt (panels 01–06)
-├── runs_ablation_toxin/      # toxicity classification joblibs (both/global/sequence)
-├── runs_wetlab/             # species×sim production MIC fold*_best.pt
-├── checkpoints/             # index + leaderboard (points to runs_*)
+├── checkpoints/              # released fold*_best.pt / toxin joblibs
+│   ├── ablation/             # MIC paper ablations (panels 01–06)
+│   ├── ablation_toxin/       # HC50 toxicity classification (both/global/sequence)
+│   └── wetlab/               # species×sim production MIC models
 └── pipeline/                 # Steps 1–4 discovery + MIC ranking
     ├── 01_mutation_search/
     ├── 02_toxicity_filter/
@@ -50,20 +50,20 @@ Details: [`data/README.md`](data/README.md).
 
 ## Ablation checkpoints
 
-Released run weights: [`runs_ablation/`](runs_ablation/) (MIC panels 01–06, including sim 0.3/0.5/0.7), [`runs_ablation_toxin/`](runs_ablation_toxin/) (HC50 classification), and [`runs_wetlab/`](runs_wetlab/) (species×sim production). Only `fold*_best.pt` / toxin `*.joblib` are shipped.
+Released weights live under [`checkpoints/`](checkpoints/): [`ablation/`](checkpoints/ablation/) (MIC panels 01–06; similarity **0.3 / 0.7**), [`ablation_toxin/`](checkpoints/ablation_toxin/) (HC50 classification), and [`wetlab/`](checkpoints/wetlab/) (species×sim production). Only `fold*_best.pt` / toxin `*.joblib` are shipped. The broken `cross_qs` sequence-only (`mod_s`) run and the sim=0.5 point are **not** redistributed.
 
 ```bash
 export PYTHONPATH=.
 python -m code.main evaluate \
-  --config runs_ablation/01_modality_ablation/mod_gsh/config.json \
-  --checkpoint runs_ablation/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
+  --config checkpoints/ablation/01_modality_ablation/mod_gsh/config.json \
+  --checkpoint checkpoints/ablation/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
   --gpu 0
 ```
 
-Weights live under [`runs_ablation/`](runs_ablation/), [`runs_ablation_toxin/`](runs_ablation_toxin/), and [`runs_wetlab/`](runs_wetlab/). Index: [`checkpoints/README.md`](checkpoints/README.md); MIC CV table: [`runs_ablation/leaderboard.csv`](runs_ablation/leaderboard.csv).
+Weights live under [`checkpoints/ablation/`](checkpoints/ablation/), [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/), and [`checkpoints/wetlab/`](checkpoints/wetlab/). Index: [`checkpoints/README.md`](checkpoints/README.md); MIC CV table: [`checkpoints/ablation/leaderboard.csv`](checkpoints/ablation/leaderboard.csv).
 
 Sequence-encoding CV tables: [`data/ablation_results/06_seq_encoding/`](data/ablation_results/06_seq_encoding/).  
-Toxicity classification checkpoints: [`runs_ablation_toxin/`](runs_ablation_toxin/).
+Toxicity classification checkpoints: [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/).
 
 ---
 

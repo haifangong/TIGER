@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Step 4 — Rank candidate peptides by predicted MIC (TIGER wetlab models).
 
-Uses 5-fold ensemble checkpoints from ``runs_wetlab/sim{0p3|0p7}_<Species>/``.
+Uses 5-fold ensemble checkpoints from ``checkpoints/wetlab/sim{0p3|0p7}_<Species>/``.
 
 Modes
 -----
@@ -50,7 +50,7 @@ from code.utils.scaling import (  # noqa: E402
     cache_raw_node_x,
 )
 
-DEFAULT_RUNS = TIGER / "runs_wetlab"
+DEFAULT_RUNS = TIGER / "checkpoints/wetlab"
 DEFAULT_DATA = TIGER / "data" / "wetlab"
 
 

@@ -24,8 +24,8 @@ import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 EVO_ROOT = ROOT.parent / "baseline" / "AMP-potency-prediction-EvoGradient"
-DEFAULT_EXP_03 = ROOT / "runs_ablation" / "04_similarity" / "sim0p3_bal10000"
-DEFAULT_EXP_07 = ROOT / "runs_ablation" / "04_similarity" / "sim0p7_bal10000"
+DEFAULT_EXP_03 = ROOT / "checkpoints/ablation" / "04_similarity" / "sim0p3_bal10000"
+DEFAULT_EXP_07 = ROOT / "checkpoints/ablation" / "04_similarity" / "sim0p7_bal10000"
 LL37_PAIR_CSV = ROOT / "data" / "test_ll37" / "ll37_pairs_neighbor.csv"
 APEX_PAIR_CSV = (
     ROOT / "data" / "test_apexgo" / "pairs" / "pairs_template_centric_alldelta_geo3.csv"
@@ -475,7 +475,7 @@ def main():
     parser.add_argument(
         "--out-dir",
         type=Path,
-        default=ROOT / "runs_ablation" / "04_similarity" / "external_eval_tiger_vs_evo",
+        default=ROOT / "checkpoints/ablation" / "04_similarity" / "external_eval_tiger_vs_evo",
     )
     args = parser.parse_args()
 

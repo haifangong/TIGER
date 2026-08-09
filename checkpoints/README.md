@@ -1,17 +1,17 @@
-# checkpoints — index of released run weights
+# checkpoints
 
-Ablation and production MIC/toxin weights are published under the `runs_*`
-directories (same layout as local training archives). This folder keeps the
-aggregate index files for convenience.
+Released MIC / toxin / wetlab weights. Only **final selected** checkpoints are
+shipped (`fold*_best.pt` for MIC; `*.joblib` for toxin). `fold*_last.pt` and
+training dumps are omitted.
 
-| Local / script path | Released path |
-|---------------------|---------------|
-| `runs_ablation/` | [`../runs_ablation/`](../runs_ablation/) |
-| `runs_ablation_toxin/` | [`../runs_ablation_toxin/`](../runs_ablation_toxin/) |
-| `runs_wetlab/` | [`../runs_wetlab/`](../runs_wetlab/) |
+| Path | Contents |
+|------|----------|
+| [`ablation/`](ablation/) | MIC paper ablations (panels 01–06) |
+| [`ablation_toxin/`](ablation_toxin/) | HC50 toxicity classifiers (`both` / `global` / `sequence`) |
+| [`wetlab/`](wetlab/) | Species×similarity production MIC models |
 
-Only **final selected** weights are shipped (`fold*_best.pt` for MIC; `*.joblib`
-for toxin). `fold*_last.pt` and training dumps are omitted.
+Aggregate MIC CV table: [`ablation/leaderboard.csv`](ablation/leaderboard.csv)
+(also mirrored as [`leaderboard.csv`](leaderboard.csv)).
 
-Aggregate MIC CV table: [`../runs_ablation/leaderboard.csv`](../runs_ablation/leaderboard.csv)
-(also mirrored here as [`leaderboard.csv`](leaderboard.csv)).
+**Not included:** similarity `sim0p5_bal10000`, and the invalid `cross_qs`
+sequence-only modality run (`mod_s`).

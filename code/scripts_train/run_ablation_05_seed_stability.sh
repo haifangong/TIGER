@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation/05_seed_stability
+# Re-implement checkpoints/ablation/05_seed_stability
 # Sweep: sim ∈ {0.3, 0.7} × seed ∈ {1, 2, 3, 4, 5}  → 10 runs
 # Folder names: sim0p{3|7}_bal10000_seed{1..5}  (no date-style seeds)
 #
@@ -15,7 +15,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_ablation_common.sh"
 
 # Default writes alongside the archive under 05_seed_stability with seed{1..5} names.
 # Override to isolate: OUT_ROOT=$ROOT/runs_ablation_repro/05_seed_stability
-OUT_ROOT="${OUT_ROOT:-$ROOT/runs_ablation/05_seed_stability}"
+OUT_ROOT="${OUT_ROOT:-$ROOT/checkpoints/ablation/05_seed_stability}"
 mkdir -p "$OUT_ROOT/suite_logs"
 log="$OUT_ROOT/suite_logs/launcher.log"
 

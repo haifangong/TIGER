@@ -4,11 +4,11 @@
 # Usage (from TIGER/):
 #   bash code/scripts_train/run_wetlab_species_sim.sh
 #   FOREGROUND=1 GPUS="0 1" bash code/scripts_train/run_wetlab_species_sim.sh
-#   OUT_ROOT=runs_wetlab bash code/scripts_train/run_wetlab_species_sim.sh
+#   OUT_ROOT=checkpoints/wetlab bash code/scripts_train/run_wetlab_species_sim.sh
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_ablation_common.sh"
 
-OUT_ROOT="${OUT_ROOT:-$ROOT/runs_wetlab}"
+OUT_ROOT="${OUT_ROOT:-$ROOT/checkpoints/wetlab}"
 DATA_DIR="${DATA_DIR:-$ROOT/data/wetlab}"
 TOP_K="${TOP_K:-6}"
 

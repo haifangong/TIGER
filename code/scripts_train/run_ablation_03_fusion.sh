@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation/03_fusion_methods
+# Re-implement checkpoints/ablation/03_fusion_methods
 #   - attention Q/KV modes (sim×bin×attn grid; paper panel uses sim0.3/bin1.0 @ bal=1000)
 #   - concat gsh @ bal=10000
 #

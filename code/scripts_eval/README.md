@@ -57,11 +57,11 @@ older eval Python scripts.
 
 **Function:** print the saved 5-fold CV `results/summary.json` for one MIC run  
 **Backend:** `python -m code.main evaluate`  
-**Default exp:** `runs_ablation/02_pair_balance_bin1/unsigned_bal10000`
+**Default exp:** `checkpoints/ablation/02_pair_balance_bin1/unsigned_bal10000`
 
 ```bash
 bash code/scripts_eval/eval_cv_summary.sh
-EXP_DIR=runs_ablation/01_modality_ablation/mod_gsh bash code/scripts_eval/eval_cv_summary.sh
+EXP_DIR=checkpoints/ablation/01_modality_ablation/mod_gsh bash code/scripts_eval/eval_cv_summary.sh
 ```
 
 ### `eval_ll37_apexgo_best.sh`
@@ -76,7 +76,7 @@ EXP_DIR=runs_ablation/01_modality_ablation/mod_gsh bash code/scripts_eval/eval_c
 
 ```bash
 bash code/scripts_eval/eval_ll37_apexgo_best.sh
-EXP_DIR=runs_ablation/02_pair_balance_bin1/unsigned_bal10000 \
+EXP_DIR=checkpoints/ablation/02_pair_balance_bin1/unsigned_bal10000 \
   GPU=0 bash code/scripts_eval/eval_ll37_apexgo_best.sh
 SKIP_LL37=1 bash code/scripts_eval/eval_ll37_apexgo_best.sh   # APEX-GO only
 SKIP_APEXGO=1 bash code/scripts_eval/eval_ll37_apexgo_best.sh # LL37 only
@@ -85,7 +85,7 @@ SKIP_APEXGO=1 bash code/scripts_eval/eval_ll37_apexgo_best.sh # LL37 only
 ### `eval_sim_thresholds_ll37_apexgo.sh`
 
 **Function:** compare external LL37 + APEX-GO across training sim **0.3 / 0.5 / 0.7**  
-(matches `runs_ablation/04_similarity`)  
+(matches `checkpoints/ablation/04_similarity`)  
 **Backend:** `scripts/eval_sim03_05_07_ll37_apexgo.py`
 
 ```bash
@@ -122,7 +122,7 @@ CONFIG=…/config.json CKPT=…/checkpoints/fold1_best.pt \
 **Function:** LL37 + APEXGO comparison of TIGER MoE / 0.3 / 0.7 vs EvoGradient (hard MoE only)  
 **Backend:** `code/compare_tiger_evo.py`  
 **Metrics:** PCC / KCC / MAE / RSE per peptide group  
-**Typical out:** `runs_ablation/04_similarity/external_eval_tiger_vs_evo/`
+**Typical out:** `checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/`
 
 ```bash
 bash code/scripts_eval/eval_tiger_vs_evo.sh
@@ -143,7 +143,7 @@ CONFIG=…/config.json CKPT=…/fold1_best.pt bash code/scripts_eval/eval_infer_
 **Function:** external **hemolytic** toxicity evaluation on internal_toxin_cohort active subset  
 (`mic_min ≤ 128` → **n=88**, label HC50 ≤ **512**)  
 **Backend:** `data/test_internal_toxin_cohort/build_and_predict_internal_toxin_cohort.py`  
-(uses `runs_ablation_toxin/both/checkpoints` by default inside that script)
+(uses `checkpoints/ablation_toxin/both/checkpoints` by default inside that script)
 
 Clean label table for reporting:
 

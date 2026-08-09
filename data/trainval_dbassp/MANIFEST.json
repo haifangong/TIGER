@@ -1,9 +1,9 @@
 {
   "name": "trainval_dbassp",
-  "purpose": "Archive of DBAASP-derived data used by runs_ablation and runs_ablation_toxin",
+  "purpose": "Archive of DBAASP-derived data used by checkpoints/ablation and checkpoints/ablation_toxin",
   "sources": {
-    "runs_ablation_train_csv": "metadata/train_val_by_cfu_group_ug_per_mL.csv",
-    "runs_ablation_pdb_dir": "data/3D_data_train_eva_Rosetta",
+    "checkpoints/ablation_train_csv": "metadata/train_val_by_cfu_group_ug_per_mL.csv",
+    "checkpoints/ablation_pdb_dir": "data/3D_data_train_eva_Rosetta",
     "holdout_builder": "metadata/build_ll37_holdout.py",
     "toxin_labeled_dataset": "outputs_toxin_filter_thr512_both/toxicity_labeled_dataset.csv"
   },

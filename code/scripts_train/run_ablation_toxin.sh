@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation_toxin/{both,global,sequence}
+# Re-implement checkpoints/ablation_toxin/{both,global,sequence}
 # Classical ML only (matches archive), HC50 threshold=512, 5-fold CV, seed=1.
 #
 # Usage (from TIGER/):

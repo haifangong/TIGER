@@ -13,11 +13,11 @@
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/../scripts_train" && pwd)/_ablation_common.sh"
 
 export FOREGROUND="${FOREGROUND:-1}"
-EXP_DIR_03="${EXP_DIR_03:-$ROOT/runs_ablation/04_similarity/sim0p3_bal10000}"
-EXP_DIR_07="${EXP_DIR_07:-$ROOT/runs_ablation/04_similarity/sim0p7_bal10000}"
+EXP_DIR_03="${EXP_DIR_03:-$ROOT/checkpoints/ablation/04_similarity/sim0p3_bal10000}"
+EXP_DIR_07="${EXP_DIR_07:-$ROOT/checkpoints/ablation/04_similarity/sim0p7_bal10000}"
 MOE_TAU="${MOE_TAU:-0.5}"
 DATASETS="${DATASETS:-LL37,APEXGO}"
-OUT_DIR="${OUT_DIR:-$ROOT/runs_ablation/04_similarity/external_eval_tiger_vs_evo}"
+OUT_DIR="${OUT_DIR:-$ROOT/checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo}"
 
 _eval_run "tiger_vs_evo" \
   "$PY" code/compare_tiger_evo.py \

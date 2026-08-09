@@ -18,15 +18,15 @@ scripts_train/
 ├── README.md
 ├── _ablation_common.sh              # shared ROOT / PY / SEED / GPU helpers
 ├── train_best_recipe.sh             # single best MIC recipe
-├── run_ablation_01_modality.sh      # → runs_ablation/01_*
-├── run_ablation_02_pair_balance.sh  # → runs_ablation/02_*
-├── run_ablation_03_fusion.sh        # → runs_ablation/03_*
-├── run_ablation_04_similarity.sh    # → runs_ablation/04_*
-├── run_ablation_05_seed_stability.sh# → runs_ablation/05_*
-├── run_ablation_06_seq_encoding.sh  # → runs_ablation/06_* (integer/embedding/onehot)
+├── run_ablation_01_modality.sh      # → checkpoints/ablation/01_*
+├── run_ablation_02_pair_balance.sh  # → checkpoints/ablation/02_*
+├── run_ablation_03_fusion.sh        # → checkpoints/ablation/03_*
+├── run_ablation_04_similarity.sh    # → checkpoints/ablation/04_*
+├── run_ablation_05_seed_stability.sh# → checkpoints/ablation/05_*
+├── run_ablation_06_seq_encoding.sh  # → checkpoints/ablation/06_* (integer/embedding/onehot)
 ├── run_ablation_all_mic.sh          # panels 01→05 sequential
-├── run_ablation_toxin.sh            # → runs_ablation_toxin/{both,global,sequence}
-└── run_wetlab_species_sim.sh        # → runs_wetlab/ (top-6 species × sim 0.3/0.7)
+├── run_ablation_toxin.sh            # → checkpoints/ablation_toxin/{both,global,sequence}
+└── run_wetlab_species_sim.sh        # → checkpoints/wetlab/ (top-6 species × sim 0.3/0.7)
 ```
 
 Python grid workers live under `TIGER/scripts/run_struct_s_*.py` and
@@ -80,7 +80,7 @@ FOREGROUND=1 GPU=0 bash code/scripts_train/train_best_recipe.sh
 ### `run_ablation_01_modality.sh`
 
 **Purpose:** modality combination ablation (`g,s,h,gs,gh,sh,gsh`).  
-**Archive:** `runs_ablation/01_modality_ablation/`  
+**Archive:** `checkpoints/ablation/01_modality_ablation/`  
 **Default out:** `runs_ablation_repro/01_modality_ablation/`  
 **Backend:** `scripts/run_struct_s_modality_grid.py`
 
@@ -91,14 +91,14 @@ bash code/scripts_train/run_ablation_01_modality.sh
 ### `run_ablation_02_pair_balance.sh`
 
 **Purpose:** per-bin sample cap × signed/unsigned (`bal ∈ {1k…20k}`).  
-**Archive:** `runs_ablation/02_pair_balance_bin1/`  
+**Archive:** `checkpoints/ablation/02_pair_balance_bin1/`  
 **Default out:** `runs_ablation_repro/02_pair_balance_bin1/`  
 **Backend:** `scripts/run_struct_s_binsize_grid.py`
 
 ### `run_ablation_03_fusion.sh`
 
 **Purpose:** attention Q/KV modes + concat vs attention.  
-**Archive:** `runs_ablation/03_fusion_methods/`  
+**Archive:** `checkpoints/ablation/03_fusion_methods/`  
 **Default out:** `runs_ablation_repro/03_fusion_methods/{attn_grid,concat_grid}/`  
 **Env:** `PART=attn|concat|all` (default `all`)  
 **Backends:** `run_struct_s_sim_bin_qkv_grid.py`, `run_struct_s_concat_ablation.py`
@@ -106,14 +106,14 @@ bash code/scripts_train/run_ablation_01_modality.sh
 ### `run_ablation_04_similarity.sh`
 
 **Purpose:** training-pair similarity threshold `{0.3, 0.5, 0.7}` @ bal=10000.  
-**Archive:** `runs_ablation/04_similarity/`  
+**Archive:** `checkpoints/ablation/04_similarity/`  
 **Default out:** binsize repro + `runs_ablation_repro/04_similarity/`  
 **Backends:** binsize grid + `run_struct_s_sim05_07_fusion_grid.py`
 
 ### `run_ablation_05_seed_stability.sh`
 
 **Purpose:** CV stability across seeds at sim 0.3 and 0.7.  
-**Archive / default out:** `runs_ablation/05_seed_stability/`  
+**Archive / default out:** `checkpoints/ablation/05_seed_stability/`  
 **Grid:** `sim ∈ {0.3,0.7} × seed ∈ {1..5}` → 10 runs  
 **Backend:** `scripts/run_struct_s_seed_stability_grid.py`
 
@@ -135,7 +135,7 @@ bash code/scripts_train/run_ablation_all_mic.sh
 ### `run_ablation_toxin.sh`
 
 **Purpose:** toxin classical-ML feature-mode ablation (`both` / `global` / `sequence`).  
-**Archive:** `runs_ablation_toxin/`  
+**Archive:** `checkpoints/ablation_toxin/`  
 **Default out:** `runs_ablation_toxin_repro/`  
 **Settings:** HC50 threshold **512**, 5-fold CV, `--skip-dl`, seed **1**  
 **Backend:** `python -m code.toxin_filter.run`
@@ -148,7 +148,7 @@ MODE=both bash code/scripts_train/run_ablation_toxin.sh
 ### `run_wetlab_species_sim.sh`
 
 **Purpose:** wetlab production MIC models on **full DBAASP** (no LL37 holdout).  
-**Out:** `runs_wetlab/`  
+**Out:** `checkpoints/wetlab/`  
 **Grid:** top-6 species × `similarity ∈ {0.3, 0.7}` → **12 runs**  
 **Locked:** `gsh` / `cross_qs` / `struct=s` / unsigned `bal=10000` / seed **1**  
 **Backends:** `scripts/prepare_wetlab_dbassp_tables.py`, `scripts/run_wetlab_species_sim_grid.py`  

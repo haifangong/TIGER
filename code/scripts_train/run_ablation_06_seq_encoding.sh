@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Sequence-encoding ablation: integer vs embedding vs onehot under locked recipe.
-# Archive panel: runs_ablation/06_seq_encoding/
+# Archive panel: checkpoints/ablation/06_seq_encoding/
 #
 # Usage (from TIGER/):
 #   bash code/scripts_train/run_ablation_06_seq_encoding.sh
@@ -10,7 +10,7 @@
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_ablation_common.sh"
 
-OUT_ROOT="${OUT_ROOT:-$ROOT/runs_ablation/06_seq_encoding}"
+OUT_ROOT="${OUT_ROOT:-$ROOT/checkpoints/ablation/06_seq_encoding}"
 EXTRA=()
 if [[ -n "${ONLY:-}" ]]; then
   # shellcheck disable=SC2206

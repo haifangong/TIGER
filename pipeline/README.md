@@ -5,7 +5,7 @@ Reproducible packaging of the early TIGER / POAP workflow:
 1. **Mutational search + antimicrobial activity pre-filter**
 2. **Hemolytic / host-toxicity filter**
 3. **3D structure prediction (HelixFold-Single) + optional Rosetta FastRelax**
-4. **MIC metric ranking** with wetlab TIGER models (`runs_wetlab/`)
+4. **MIC metric ranking** with wetlab TIGER models (`checkpoints/wetlab/`)
 
 This directory is intentionally organized for community reuse: clear step folders, environment files, English READMEs, CLI entry points with explicit arguments, classification-metric reporting, and Jupyter demos for both per-step and full-pipeline runs.
 
@@ -122,7 +122,7 @@ python relax.py --input_dir outputs/pdb/demo --output_dir outputs/relaxed/demo
 | Question | Answer |
 |----------|--------|
 | Do I need arguments? | **Yes.** `--csv`, `--species`, `--pdb-dir` (plus template MIC in template mode). |
-| Where do models come from? | `TIGER/runs_wetlab/sim{0p3\|0p7}_<Species>/` (override with `--runs-root`). |
+| Where do models come from? | `TIGER/checkpoints/wetlab/sim{0p3\|0p7}_<Species>/` (override with `--runs-root`). |
 | Custom data? | Any candidate CSV + PDBs named `{SEQUENCE}.pdb`. |
 
 ```bash

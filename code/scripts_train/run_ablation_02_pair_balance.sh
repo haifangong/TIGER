@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Re-implement runs_ablation/02_pair_balance_bin1 (unsigned/signed × bal sweep).
+# Re-implement checkpoints/ablation/02_pair_balance_bin1 (unsigned/signed × bal sweep).
 # Archive points: {unsigned,signed}_bal{1000..20000}  |  seed=1 by default
 #
 # Usage (from TIGER/):

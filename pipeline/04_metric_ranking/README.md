@@ -1,7 +1,7 @@
 # Step 4 — MIC metric ranking (wetlab TIGER models)
 
 Rank candidate AMPs by **predicted MIC** using species-specific TIGER pair-delta
-models trained on the **full DBAASP** set (`runs_wetlab/`).
+models trained on the **full DBAASP** set (`checkpoints/wetlab/`).
 
 ## Purpose
 
@@ -31,7 +31,7 @@ conda activate ccseg
 bash code/scripts_train/run_wetlab_species_sim.sh
 ```
 
-Outputs land in `TIGER/runs_wetlab/sim0p3_<Species>/` and `sim0p7_<Species>/`.
+Outputs land in `TIGER/checkpoints/wetlab/sim0p3_<Species>/` and `sim0p7_<Species>/`.
 
 2. PDBs for the template and every candidate named `{SEQUENCE}.pdb`
    (HelixFold / Rosetta outputs from Step 3, or the train PDB store).
@@ -66,13 +66,13 @@ PYTHONPATH=../.. python rank_candidates.py \
 | Flag | Description | Default |
 |------|-------------|---------|
 | `--csv` | Candidate sequences | required |
-| `--species` | Species slug matching `runs_wetlab` | required |
+| `--species` | Species slug matching `checkpoints/wetlab` | required |
 | `--similarity` | `0.3` or `0.7` | `0.3` |
 | `--pdb-dir` | Directory of `{SEQ}.pdb` | required |
 | `--mode` | `template` \| `neighbor` | `template` |
 | `--template` | WT / template sequence | required in template mode |
 | `--template-mic` | Template MIC (µg/mL) | required in template mode |
-| `--runs-root` | Wetlab run root | `TIGER/runs_wetlab` |
+| `--runs-root` | Wetlab run root | `TIGER/checkpoints/wetlab` |
 | `--top-k` | Keep only top-K rows | `0` (all) |
 | `--gpu` / `--cpu` | Device | GPU 0 |
 
