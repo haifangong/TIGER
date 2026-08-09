@@ -16,13 +16,15 @@ Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/
 │   ├── test_external/        # APEX-GO / LL37 / QLX227 eval packs + similarity audit
 │   ├── wetlab/               # full-DBAASP per-species production tables
 │   └── metadata/features.txt # AA node features for the GNN
-└── pipeline/                 # Steps 1–3 early-stage discovery pipeline
-    ├── 01_mutation_search/   # mutational search + activity pre-filter
-    ├── 02_toxicity_filter/   # hemolytic / toxicity filtering
-    ├── 03_structure_prediction/  # HelixFold-Single + optional Rosetta relax
-    ├── common/               # shared classification metrics
-    ├── docs/                 # setup + custom-data guides
-    └── notebooks/            # full end-to-end demo notebook
+├── checkpoints/              # final ablation fold*_best.pt weights only
+└── pipeline/                 # Steps 1–4 discovery + MIC ranking
+    ├── 01_mutation_search/
+    ├── 02_toxicity_filter/
+    ├── 03_structure_prediction/
+    ├── 04_metric_ranking/
+    ├── common/
+    ├── docs/
+    └── notebooks/
 ```
 
 ## Clone (Git LFS required)
@@ -41,6 +43,22 @@ unzip -q data/trainval_dbassp/pdb/trainval_and_excluded_pdbs.zip \
 ```
 
 Details: [`data/README.md`](data/README.md).
+
+## Ablation checkpoints
+
+Final selected MIC ablation weights are under [`checkpoints/`](checkpoints/)
+(**`fold{1..5}_best.pt` only**, ~40 experiment points). `fold*_last`, wetlab
+production models, and other training artifacts are not uploaded.
+
+```bash
+export PYTHONPATH=.
+python -m code.main evaluate \
+  --config checkpoints/01_modality_ablation/mod_gsh/config.json \
+  --checkpoint checkpoints/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
+  --gpu 0
+```
+
+See [`checkpoints/README.md`](checkpoints/README.md) and [`checkpoints/leaderboard.csv`](checkpoints/leaderboard.csv).
 
 ---
 

@@ -1,0 +1,210 @@
+{
+  "name": "checkpoints",
+  "description": "Final (fold*_best) checkpoints from the TIGER MIC ablation study (runs_ablation). fold*_last and other run artifacts are not included.",
+  "source": "runs_ablation/",
+  "n_experiment_points": 40,
+  "n_checkpoint_files": 196,
+  "total_checkpoint_bytes": 154558180,
+  "points": [
+    {
+      "path": "01_modality_ablation/mod_g",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "01_modality_ablation/mod_gh",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "01_modality_ablation/mod_gs",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "01_modality_ablation/mod_gsh",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "01_modality_ablation/mod_h",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "01_modality_ablation/mod_s",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939498
+    },
+    {
+      "path": "01_modality_ablation/mod_sh",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal2000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal20000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal4000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/signed_bal8000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal2000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal20000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal4000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "02_pair_balance_bin1/unsigned_bal8000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_cross_qg_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_cross_qh_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_cross_qs_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_cross_qs_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_self_gsh_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/attn_self_sgh_bal1000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "03_fusion_methods/concat_gsh_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "04_similarity/sim0p3_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "04_similarity/sim0p7_bal10000",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p3_bal10000_seed1",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p3_bal10000_seed2",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p3_bal10000_seed3",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p3_bal10000_seed4",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939640
+    },
+    {
+      "path": "05_seed_stability/sim0p3_bal10000_seed5",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p7_bal10000_seed1",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p7_bal10000_seed2",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "05_seed_stability/sim0p7_bal10000_seed3",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3940010
+    },
+    {
+      "path": "05_seed_stability/sim0p7_bal10000_seed4",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939640
+    },
+    {
+      "path": "05_seed_stability/sim0p7_bal10000_seed5",
+      "n_fold_best": 5,
+      "checkpoint_bytes": 3939690
+    },
+    {
+      "path": "06_seq_encoding/seq_encoding_grid__seq_embedding",
+      "n_fold_best": 3,
+      "checkpoint_bytes": 2485926
+    },
+    {
+      "path": "06_seq_encoding/seq_encoding_grid__seq_integer",
+      "n_fold_best": 3,
+      "checkpoint_bytes": 2364006
+    }
+  ]
+}
