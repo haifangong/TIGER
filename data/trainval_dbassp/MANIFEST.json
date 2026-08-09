@@ -1,0 +1,44 @@
+{
+  "name": "trainval_dbassp",
+  "purpose": "Archive of DBAASP-derived data used by runs_ablation and runs_ablation_toxin",
+  "sources": {
+    "runs_ablation_train_csv": "metadata/train_val_by_cfu_group_ug_per_mL.csv",
+    "runs_ablation_pdb_dir": "data/3D_data_train_eva_Rosetta",
+    "holdout_builder": "metadata/build_ll37_holdout.py",
+    "toxin_labeled_dataset": "outputs_toxin_filter_thr512_both/toxicity_labeled_dataset.csv"
+  },
+  "counts": {
+    "train_val_by_cfu_group_rows_unique": [
+      10515,
+      11516
+    ],
+    "removed_similar_to_LL37_unique": [
+      1122,
+      1122
+    ],
+    "removed_nonstandard_AA_unique": [
+      3739,
+      4233
+    ],
+    "LL37_v0_unique": [
+      112,
+      122
+    ],
+    "toxin_labeled_unique": [
+      1596,
+      1596
+    ],
+    "pdb_inventory_rows": 15387,
+    "pdb_found": 15371,
+    "pdb_missing": 16,
+    "pdb_zip_bytes": 109041360
+  },
+  "paths": {
+    "labels": "labels/",
+    "excluded": "excluded/",
+    "toxin": "toxin/",
+    "provenance": "provenance/",
+    "pdb_zip": "pdb/trainval_and_excluded_pdbs.zip",
+    "pdb_inventory": "pdb/pdb_inventory.csv"
+  }
+}

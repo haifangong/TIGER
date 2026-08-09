@@ -1,0 +1,23 @@
+{
+  "name": "test_activity_apexgo",
+  "task": "activity",
+  "endpoint": "MIC_Escherichia_coli",
+  "n_peptides": 110,
+  "n_pairs_primary": 200,
+  "pairing_protocol": "template_centric_alldelta",
+  "similarity_threshold": 0.3,
+  "cfu_group": "1E5 - 1E6",
+  "source": "data/test_apexgo",
+  "excluded_from_package": [
+    "toxicity_eval/",
+    "toxicity_eval_active/",
+    "optimized_sequences_vs_wt_geo3.csv"
+  ],
+  "recommended_eval": {
+    "peptides": "labels/apexgo_peptides_AIC222.csv",
+    "pairs": "pairs/pairs_template_centric_alldelta_AIC222.csv",
+    "alt_peptides": "labels/apexgo_peptides_geo3.csv",
+    "alt_pairs": "pairs/pairs_template_centric_alldelta_geo3.csv",
+    "pdb": "pdb/"
+  }
+}

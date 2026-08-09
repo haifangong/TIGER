@@ -1,0 +1,34 @@
+{
+  "protocol": "ll37_neighbor",
+  "n_pairs": 509,
+  "n_queries_with_neighbors": 29,
+  "n_unique_anchors": 302,
+  "n_queries_via_threshold": 5,
+  "n_queries_via_fallback": 24,
+  "similarity_threshold": 0.3,
+  "neighbor_top_k": 50,
+  "fallback_top_k": 20,
+  "length_window": 5,
+  "primary_cfu_group": "1E5 - 1E6",
+  "train_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/metadata/train_val_by_cfu_group_ug_per_mL.csv",
+  "test_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/metadata/test_LL37_by_cfu_group_ug_per_mL.csv",
+  "config_source": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/outputs_code_struct_s_binsize_grid/binsize_grid__unsigned_bin1p0_bal10000/config.json",
+  "out_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/data/test_ll37/ll37_pairs_neighbor.csv",
+  "neighbors_per_query": {
+    "1": 2,
+    "3": 1,
+    "9": 1,
+    "15": 1,
+    "20": 24
+  },
+  "similarity_stats": {
+    "min": 0.08333333333333327,
+    "median": 0.15217391304347827,
+    "mean": 0.1622569444729714,
+    "max": 0.375,
+    "frac_ge_threshold": 0.05697445972495088
+  },
+  "packaged_as": "test_activity_ll37",
+  "n_sequences": 68,
+  "note": "Primary external pair set \u2248500 (exact n_pairs=509 neighbor protocol)"
+}

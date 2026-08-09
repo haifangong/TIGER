@@ -1,0 +1,91 @@
+{
+  "source_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/data/dbaasp_amp_training_by_cfu_group_ug_per_mL _123.csv",
+  "note": "Full DBAASP train table (no LL37 holdout). Top-K species by non-null MIC count.",
+  "top_k": 6,
+  "species": [
+    {
+      "species": "Escherichia_coli",
+      "mic_col": "MIC_Escherichia_coli",
+      "n_raw_nonnull": 9444,
+      "n_rows_written": 8315,
+      "n_unique_sequences": 7848,
+      "csv": "data/wetlab/train_Escherichia_coli.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 4761,
+        "unknown": 1590,
+        "1E4 - 1E5": 1210,
+        "1E6 - 1E7": 754
+      }
+    },
+    {
+      "species": "Staphylococcus_aureus",
+      "mic_col": "MIC_Staphylococcus_aureus",
+      "n_raw_nonnull": 8849,
+      "n_rows_written": 7690,
+      "n_unique_sequences": 7279,
+      "csv": "data/wetlab/train_Staphylococcus_aureus.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 4447,
+        "unknown": 1290,
+        "1E4 - 1E5": 1193,
+        "1E6 - 1E7": 760
+      }
+    },
+    {
+      "species": "Pseudomonas_aeruginosa",
+      "mic_col": "MIC_Pseudomonas_aeruginosa",
+      "n_raw_nonnull": 6580,
+      "n_rows_written": 5639,
+      "n_unique_sequences": 5355,
+      "csv": "data/wetlab/train_Pseudomonas_aeruginosa.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 3242,
+        "1E4 - 1E5": 939,
+        "unknown": 910,
+        "1E6 - 1E7": 548
+      }
+    },
+    {
+      "species": "Bacillus_subtilis",
+      "mic_col": "MIC_Bacillus_subtilis",
+      "n_raw_nonnull": 2721,
+      "n_rows_written": 2416,
+      "n_unique_sequences": 2319,
+      "csv": "data/wetlab/train_Bacillus_subtilis.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 1313,
+        "unknown": 422,
+        "1E6 - 1E7": 347,
+        "1E4 - 1E5": 334
+      }
+    },
+    {
+      "species": "Klebsiella_pneumoniae",
+      "mic_col": "MIC_Klebsiella_pneumoniae",
+      "n_raw_nonnull": 2560,
+      "n_rows_written": 2223,
+      "n_unique_sequences": 2166,
+      "csv": "data/wetlab/train_Klebsiella_pneumoniae.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 1473,
+        "1E4 - 1E5": 336,
+        "unknown": 265,
+        "1E6 - 1E7": 149
+      }
+    },
+    {
+      "species": "Staphylococcus_epidermidis",
+      "mic_col": "MIC_Staphylococcus_epidermidis",
+      "n_raw_nonnull": 2384,
+      "n_rows_written": 2054,
+      "n_unique_sequences": 1993,
+      "csv": "data/wetlab/train_Staphylococcus_epidermidis.csv",
+      "cfu_value_counts": {
+        "1E5 - 1E6": 1085,
+        "1E4 - 1E5": 373,
+        "unknown": 318,
+        "1E6 - 1E7": 278
+      }
+    }
+  ]
+}

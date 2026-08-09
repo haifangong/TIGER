@@ -1,0 +1,26 @@
+{
+  "name": "test_activity_ll37",
+  "task": "activity",
+  "endpoint": "MIC_Escherichia_coli (ug/mL)",
+  "n_sequences": 68,
+  "n_pairs_primary": 509,
+  "n_pairs_reported_as": "~500 (neighbor protocol)",
+  "pairing_protocol": "ll37_neighbor",
+  "similarity_threshold": 0.3,
+  "neighbor_top_k": 50,
+  "fallback_top_k": 20,
+  "primary_cfu_group": "1E5 - 1E6",
+  "source": "data/test_ll37",
+  "excluded_from_package": [
+    "ll37_pairs_mic_delta.csv",
+    "ll37_pairs_mic_delta_top10.csv",
+    "ll37_pairs_mic_delta_top20.csv",
+    "filter_sequence_pairs.py",
+    "rebuild_neighbor.log"
+  ],
+  "recommended_eval": {
+    "sequences": "ll37_sequences_mic.csv",
+    "pairs": "ll37_pairs_neighbor.csv",
+    "pdb": "pdb/"
+  }
+}

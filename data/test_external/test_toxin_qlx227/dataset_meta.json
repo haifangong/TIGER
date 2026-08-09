@@ -1,0 +1,23 @@
+{
+  "name": "test_toxin_qlx227",
+  "task": "toxicity",
+  "endpoint": "hemolytic HC50 (human erythrocytes)",
+  "threshold_ug_mL": 512,
+  "label_rule": "HC50 \u2264 512 \u2192 toxin (1); inequality-aware deterministic labeling",
+  "n_sequences": 88,
+  "n_toxin": 12,
+  "n_non_toxin": 76,
+  "activity_filter": "mic_min \u2264 128 (active peptides only; matches final qlx227 eval protocol)",
+  "source": "data/test_qlx227/qlx227_active_micmin_le128_subset.csv",
+  "excluded_from_package": [
+    "model predictions (prob_*/pred_*)",
+    "eval_active_micmin_le128/ metrics",
+    "alternate thresholds (le256/le1024/le2048)",
+    "per-bacterium MIC columns (kept mic_min only for subset provenance)",
+    "full/unfiltered panel and other activity-filter variants"
+  ],
+  "files": {
+    "primary": "qlx227_hemolysis_active_micmin_le128.csv",
+    "minimal": "qlx227_toxicity_labeled.csv"
+  }
+}

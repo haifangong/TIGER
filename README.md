@@ -8,6 +8,11 @@ This repository provides a **reproducible, community-oriented** release of the T
 .
 ├── README.md                 # this file
 ├── code/                     # modular MIC pair-delta model (train / evaluate / infer)
+├── metadata/                 # CFU-aware train/val + LL37 holdout CSVs used by configs
+├── data/                     # curated sequences, splits, external tests, PDB zip
+│   ├── trainval_dbassp/      # DBAASP train/val + toxin labels + Rosetta PDBs (LFS)
+│   ├── test_external/        # APEX-GO / LL37 / QLX227 eval packs + similarity audit
+│   └── wetlab/               # full-DBAASP per-species production tables
 └── pipeline/                 # Steps 1–3 early-stage discovery pipeline
     ├── 01_mutation_search/   # mutational search + activity pre-filter
     ├── 02_toxicity_filter/   # hemolytic / toxicity filtering
@@ -15,6 +20,14 @@ This repository provides a **reproducible, community-oriented** release of the T
     ├── common/               # shared classification metrics
     ├── docs/                 # setup + custom-data guides
     └── notebooks/            # full end-to-end demo notebook
+```
+
+Data layout details: [`data/README.md`](data/README.md).
+Clone with Git LFS enabled so the train/val PDB zip downloads correctly:
+
+```bash
+git lfs install
+git clone git@github.com:haifangong/TIGER.git
 ```
 
 ## Quick start
@@ -75,6 +88,7 @@ python evaluate_models.py --csv examples/labeled_toxicity_demo.csv --out-dir out
 
 - HelixFold weights (`~4.5 GB`) are **not** vendored. Download or symlink into `pipeline/03_structure_prediction/weights/` (see pipeline Step-3 README).
 - Steps 1–2 and Step 3 intentionally use separate conda environments because PaddlePaddle / PyRosetta stacks conflict with the PyTorch scientific stack.
+- Train/val Rosetta PDBs ship as `data/trainval_dbassp/pdb/trainval_and_excluded_pdbs.zip` (Git LFS). Unzip into `data/3D_data_train_eva_Rosetta/` before running `code/` training configs.
 
 ## Citation
 

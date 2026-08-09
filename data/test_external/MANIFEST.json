@@ -1,0 +1,35 @@
+{
+  "name": "test_external",
+  "description": "Clean external test packs for final TIGER pipeline (E. coli activity + hemolytic toxicity)",
+  "packs": {
+    "test_activity_apexgo": {
+      "task": "activity",
+      "n_sequences": 110,
+      "n_pairs": 200,
+      "endpoint": "MIC_Escherichia_coli"
+    },
+    "test_activity_ll37": {
+      "task": "activity",
+      "n_sequences": 68,
+      "n_pairs": 509,
+      "endpoint": "MIC_Escherichia_coli"
+    },
+    "test_toxin_qlx227": {
+      "task": "toxicity",
+      "n_sequences": 88,
+      "endpoint": "hemolytic HC50 \u2264 512",
+      "n_toxin": 12,
+      "n_non_toxin": 76
+    },
+    "test_pair_similarity_compare": {
+      "task": "similarity_audit",
+      "description": "Test-vs-train / APEX-GO vs LL37 pair similarity comparison"
+    }
+  },
+  "sources": {
+    "test_activity_apexgo": "data/test_apexgo",
+    "test_activity_ll37": "data/test_ll37",
+    "test_toxin_qlx227": "data/test_qlx227",
+    "test_pair_similarity_compare": "data/test_pair_similarity_compare (moved)"
+  }
+}
