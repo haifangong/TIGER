@@ -4,7 +4,7 @@ Layout
 ------
 code/
   main.py           CLI entry (train / evaluate / infer)
-  train.py          GroupKFold training + final retrain
+  train.py          GroupKFold training (no full-data final retrain)
   evaluation.py     Neighbor pair-delta evaluation + metrics I/O
   infer.py          Load checkpoint and score pairs / peptides
   dataloader.py     CSV preprocess, graph build, pair sampling, datasets

@@ -1,4 +1,4 @@
-"""GroupKFold training and final retrain for pair / single models."""
+"""GroupKFold training for pair / single models."""
 
 from __future__ import annotations
 
@@ -92,7 +92,7 @@ def _apply_final_zscore(cfg: Config, graphs, test_graphs, out_dir: Path):
 
 
 def train(cfg: Config, root: Path | None = None) -> dict:
-    """Run full GroupKFold CV + final retrain. Returns summary dict."""
+    """Run GroupKFold CV (no full-data final retrain). Returns summary dict."""
     set_seed(cfg.seed)
     out_dir = Path(cfg.out_dir)
     if root is not None and not out_dir.is_absolute():

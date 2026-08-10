@@ -8,7 +8,7 @@ monolithic pipelines under [`src/poap_gpt/`](../src/poap_gpt/) are **kept unchan
 ```text
 code/
 ├── main.py              # CLI: train | evaluate | infer
-├── train.py             # GroupKFold OOF (no full-data final retrain)
+├── train.py             # GroupKFold training
 ├── evaluation.py        # Neighbor pair-delta eval
 ├── infer.py             # Checkpoint scoring
 ├── dataloader.py        # Preprocess, graphs, pairs, datasets

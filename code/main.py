@@ -195,7 +195,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="TIGER modular MIC pair-delta toolkit")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_train = sub.add_parser("train", help="GroupKFold train + final retrain")
+    p_train = sub.add_parser("train", help="GroupKFold train (fold*_best.pt; no final retrain)")
     _add_common(p_train)
     p_train.set_defaults(func=cmd_train)
 
