@@ -1,6 +1,6 @@
 # TIGER: Therapeutic-Index-Guided Exploration and Refinement for Antimicrobial Peptide Design
 
-Reproducible release of the TIGER computational pipeline for antimicrobial peptide (AMP) design: mutational search → toxicity filtering → structure prediction, plus a CFU-aware MIC **pair-delta** model.
+Reproducible release of the TIGER computational pipeline for antimicrobial peptide (AMP) design for the work: Deep learning decouples antimicrobial peptide efficacy from host toxicity. This includes mutational search → toxicity filtering → structure prediction, plus a CFU-aware MIC **pair-delta** model.
 
 Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/TIGER)
 
