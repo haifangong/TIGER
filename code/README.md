@@ -61,7 +61,7 @@ python -m code.main train --config code/configs/default_fusion_attention.json --
 - External / CV evaluation: [`scripts_eval/README.md`](scripts_eval/README.md)
 
 ```bash
-bash code/scripts_train/train_best_recipe.sh          # locked MIC recipe (seed=1)
+bash code/scripts_train/train_best_recipe.sh          # locked MIC recipe (seed=123; matches released archive)
 bash code/scripts_train/run_ablation_01_modality.sh   # modality panel
 bash code/scripts_train/run_ablation_all_mic.sh       # MIC panels 01→05
 bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequence

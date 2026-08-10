@@ -23,6 +23,7 @@ Does requiring more similar training pairs (0.7 vs 0.3) help or hurt CV
 | `delta_bin_width` | 1.0 |
 | `structure_features` | `s` |
 | `include_node_coords` | false |
+| `seed` | **123** (from released `config.json` / `summary.json`) |
 
 ## Sweep
 

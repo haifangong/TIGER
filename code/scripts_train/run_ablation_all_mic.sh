@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Launch all MIC paper ablation panels (01–06) under runs_ablation_repro/ (05/06 → archive).
 # Panels run **sequentially** (each blocks until its suite finishes) so they do not
-# contend for the same GPUs. Default seed for 01–04/06 is 1; panel 05 sweeps 1–5.
+# contend for the same GPUs. Default seed for 01–04 is 123; panel 06 uses 1; panel 05 sweeps 1–5.
 #
 # Usage (from TIGER/):
 #   bash code/scripts_train/run_ablation_all_mic.sh

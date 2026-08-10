@@ -21,8 +21,8 @@ if [[ ! -x "$PY" ]]; then
   PY="$(command -v python3 || command -v python)"
 fi
 
-# Default seed for panels 01–04 (not date-style). Panel 05 sweeps 1..5.
-SEED="${SEED:-1}"
+# Default seed for panels 01–04 matches released archive (seed=123). Panel 05 sweeps 1..5; panel 06 uses 1.
+SEED=""
 GPUS="${GPUS:-0 1}"
 GPU="${GPU:-0}"
 SLOTS_PER_GPU="${SLOTS_PER_GPU:-1}"

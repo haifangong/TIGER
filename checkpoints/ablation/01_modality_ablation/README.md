@@ -19,6 +19,7 @@ which combinations are essential?
 | `fusion` / `fusion_attn_mode` | `attention` / `cross_qs` |
 | `structure_features` | `s` |
 | `include_node_coords` | false |
+| `seed` | **123** (from released `config.json` / `summary.json`) |
 
 ## Sweep
 

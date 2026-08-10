@@ -19,6 +19,7 @@ roles / token orders, or simple concatenation?
 | `delta_bin_width` | 1.0 |
 | `structure_features` | `s` |
 | `include_node_coords` | false |
+| `seed` | **123** (from released `config.json` / `summary.json`) |
 
 ## Two matched panels (do not mix `bal` when comparing)
 

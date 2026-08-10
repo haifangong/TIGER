@@ -39,7 +39,8 @@ files are the stable user-facing wrappers.
 
 | Context | Seed values | Folder naming |
 |---------|-------------|---------------|
-| Default MIC train / panels 01–04 | **`1`** | not in path |
+| Released panels **01–04** (and matching repro default) | **`123`** | not in path |
+| Panel **06** seq encoding | **`1`** | not in path |
 | Seed stability (panel 05) | **`1, 2, 3, 4, 5`** | `…_seed1` … `…_seed5` |
 | Toxin feature ablation | **`1`** | not in path |
 
@@ -54,7 +55,7 @@ Date-style seeds (e.g. `20260714`) are **not** used.
 Shared bootstrap (sourced by other scripts):
 
 - Resolves `ROOT` (= `TIGER/`), sets `PYTHONPATH`
-- Defaults: `PY` (ccseg), `SEED=1`, `GPUS="0 1"`, `GPU=0`, `FOREGROUND=0`
+- Defaults: `PY` (ccseg), `SEED=123`, `GPUS="0 1"`, `GPU=0`, `FOREGROUND=0`
 - Helpers: `_ablation_launch` (grid runners), `_eval_run` (used by `scripts_eval/`)
 
 ### `train_best_recipe.sh`
@@ -68,7 +69,7 @@ Trains the locked paper MIC recipe in one shot:
 | structure | `s`, no node coords |
 | similarity | `0.3` |
 | pairing | unsigned, `delta_bin_width=1.0`, `pair_balance_num=10000` |
-| seed | `1` |
+| seed | `123` (matches `unsigned_bal10000` archive) |
 
 Default out: `runs_ablation_repro/best_unsigned_bal10000/`.
 
@@ -150,7 +151,7 @@ MODE=both bash code/scripts_train/run_ablation_toxin.sh
 **Purpose:** wetlab production MIC models on **full DBAASP** (no LL37 holdout).  
 **Out:** `checkpoints/wetlab/`  
 **Grid:** top-6 species × `similarity ∈ {0.3, 0.7}` → **12 runs**  
-**Locked:** `gsh` / `cross_qs` / `struct=s` / unsigned `bal=10000` / seed **1**  
+**Locked:** `gsh` / `cross_qs` / `struct=s` / unsigned `bal=10000` / seed **123** (released)  
 **Backends:** `scripts/prepare_wetlab_dbassp_tables.py`, `scripts/run_wetlab_species_sim_grid.py`  
 **Inference:** `pipeline/04_metric_ranking/rank_candidates.py`
 
@@ -169,7 +170,7 @@ Species tables are written to `data/wetlab/train_<Species>.csv`.
 | Variable | Default | Meaning |
 |----------|---------|---------|
 | `PY` | `…/envs/ccseg/bin/python` | Python interpreter |
-| `SEED` | `1` | RNG seed (panels 01–04 / toxin / best recipe) |
+| `SEED` | `123` | Default RNG for panels 01–04 / best recipe (archive); panel 06 and toxin use `1` |
 | `GPUS` | `0 1` | GPU ids for grid launchers |
 | `GPU` | `0` | Single-GPU train (`train_best_recipe`) |
 | `SLOTS_PER_GPU` | `1` | Concurrent jobs per GPU |

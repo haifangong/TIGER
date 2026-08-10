@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Train the locked best MIC recipe (paper default):
-#   gsh + attention/cross_qs + struct=s + sim=0.3 + unsigned bal=10000 + seed=1
+#   gsh + attention/cross_qs + struct=s + sim=0.3 + unsigned bal=10000 + seed=123
 #
 # Usage (from TIGER/):
 #   bash code/scripts_train/train_best_recipe.sh
@@ -10,7 +10,7 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_ablation_common.sh"
 
 OUT_DIR="${OUT_DIR:-$ROOT/runs_ablation_repro/best_unsigned_bal10000}"
 NAME="${NAME:-unsigned_bin1p0_bal10000}"
-SEED="${SEED:-1}"
+SEED=""
 
 mkdir -p "$OUT_DIR"
 cmd=(

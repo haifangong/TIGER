@@ -50,7 +50,7 @@ All runs below share:
 | `pair_interaction` | `diff` |
 | `seq_encoding` | `integer` (A=1…Y=20) |
 | `global_feature_scaling` / `node_feature_scaling` | `zscore` |
-| `seed` | **panels 01–04: `123`** (from each `config.json`); **panel 05:** `{1,2,3,4,5}`; **panel 06:** `1`. Do not assume global seed=1. |
+| `seed` | **panels 01–04: `123`** (e.g. `02_pair_balance_bin1/unsigned_bal10000` `config.json` / `summary.json`); **panel 05:** `{1,2,3,4,5}`; **panel 06:** `1`. Do **not** write seed=1 for panels 01–04. |
 | `folds` | 5 |
 | `lr` / `weight_decay` / `lr_scheduler` | `1e-3` / `0` / `cosine` |
 | Base config | `code/configs/gsh_struct_s_base.json` |
