@@ -4,40 +4,186 @@
   "checkpoints": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/_github_publish/checkpoints/ablation_toxin/both/checkpoints",
   "labels_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/_github_publish/data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_toxicity_labeled.csv",
   "primary_model": "CatBoost",
+  "metrics_reported": [
+    "accuracy",
+    "precision",
+    "recall",
+    "sensitivity",
+    "specificity",
+    "f1",
+    "mcc",
+    "auc_roc",
+    "auc_pr",
+    "false_safe_rate",
+    "confusion_matrix"
+  ],
+  "sequence_overlap_audit": {
+    "train_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/_github_publish/data/trainval_dbassp/toxin/toxicity_labeled_dataset.csv",
+    "n_train_sequences": 1596,
+    "n_panel_sequences": 88,
+    "n_overlap": 0,
+    "frac_panel_in_train": 0.0,
+    "overlap_sequences": [],
+    "note": "n_overlap=0 means the 88-peptide external panel shares no exact sequences with the published toxin training table."
+  },
   "toxin": {
     "n": 88,
     "n_pos": 12,
     "n_neg": 76,
     "accuracy": 0.7159090909090909,
+    "precision": 0.3142857142857143,
+    "recall": 0.9166666666666666,
+    "sensitivity": 0.9166666666666666,
+    "specificity": 0.6842105263157895,
     "f1": 0.46808510638297873,
     "mcc": 0.42131913351581285,
-    "auc_roc": 0.8804824561403508
+    "auc_roc": 0.8804824561403508,
+    "auc_pr": 0.6966578012630644,
+    "false_negative": 1,
+    "false_positive": 24,
+    "true_positive": 11,
+    "true_negative": 52,
+    "false_safe_rate": 0.08333333333333333,
+    "false_safe_count": 1,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          52,
+          24
+        ],
+        [
+          1,
+          11
+        ]
+      ],
+      "tn": 52,
+      "fp": 24,
+      "fn": 1,
+      "tp": 11
+    }
   },
   "CatBoost": {
     "n": 88,
     "n_pos": 12,
     "n_neg": 76,
     "accuracy": 0.7159090909090909,
+    "precision": 0.3142857142857143,
+    "recall": 0.9166666666666666,
+    "sensitivity": 0.9166666666666666,
+    "specificity": 0.6842105263157895,
     "f1": 0.46808510638297873,
     "mcc": 0.42131913351581285,
-    "auc_roc": 0.8804824561403508
+    "auc_roc": 0.8804824561403508,
+    "auc_pr": 0.6966578012630644,
+    "false_negative": 1,
+    "false_positive": 24,
+    "true_positive": 11,
+    "true_negative": 52,
+    "false_safe_rate": 0.08333333333333333,
+    "false_safe_count": 1,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          52,
+          24
+        ],
+        [
+          1,
+          11
+        ]
+      ],
+      "tn": 52,
+      "fp": 24,
+      "fn": 1,
+      "tp": 11
+    }
   },
   "XGB": {
     "n": 88,
     "n_pos": 12,
     "n_neg": 76,
     "accuracy": 0.7727272727272727,
+    "precision": 0.35714285714285715,
+    "recall": 0.8333333333333334,
+    "sensitivity": 0.8333333333333334,
+    "specificity": 0.7631578947368421,
     "f1": 0.5,
     "mcc": 0.4394878161200394,
-    "auc_roc": 0.8892543859649124
+    "auc_roc": 0.8892543859649124,
+    "auc_pr": 0.6599963488572359,
+    "false_negative": 2,
+    "false_positive": 18,
+    "true_positive": 10,
+    "true_negative": 58,
+    "false_safe_rate": 0.16666666666666666,
+    "false_safe_count": 2,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          58,
+          18
+        ],
+        [
+          2,
+          10
+        ]
+      ],
+      "tn": 58,
+      "fp": 18,
+      "fn": 2,
+      "tp": 10
+    }
   },
   "ensemble": {
     "n": 88,
     "n_pos": 12,
     "n_neg": 76,
     "accuracy": 0.6931818181818182,
+    "precision": 0.2857142857142857,
+    "recall": 0.8333333333333334,
+    "sensitivity": 0.8333333333333334,
+    "specificity": 0.6710526315789473,
     "f1": 0.425531914893617,
     "mcc": 0.3536620463818867,
-    "auc_roc": 0.8870614035087719
+    "auc_roc": 0.8870614035087719,
+    "auc_pr": 0.642965367965368,
+    "false_negative": 2,
+    "false_positive": 25,
+    "true_positive": 10,
+    "true_negative": 51,
+    "false_safe_rate": 0.16666666666666666,
+    "false_safe_count": 2,
+    "confusion_matrix": {
+      "labels": [
+        0,
+        1
+      ],
+      "matrix": [
+        [
+          51,
+          25
+        ],
+        [
+          2,
+          10
+        ]
+      ],
+      "tn": 51,
+      "fp": 25,
+      "fn": 2,
+      "tp": 10
+    }
   }
 }

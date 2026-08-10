@@ -14,12 +14,27 @@ This folder packages the **finished ablation runs** used for the manuscript (sli
 Index files:
 
 - `MANIFEST.json` — machine-readable settings + per-run metadata
-- `leaderboard.csv` — CV metrics table (**30** primary rows; **40** experiment dirs including seed stability)
+- `leaderboard.csv` — CV metrics for primary points (**30** rows, with per-run `seed`)
+- `leaderboard_all_points.csv` — all **40** released dirs (includes seed-stability)
+- `MANIFEST.json` — release inventory (excludes `mod_s`, `sim0p5`; seeds from configs)
 
 Each panel folder (`01_`…`05_`) and each experiment point has its own `README.md`
 describing the sweep, locked settings, and CV metrics for that directory.
 
 ---
+
+
+
+## CV reporting protocol (checkpoint selection)
+
+Within each GroupKFold split, `fold{k}_best.pt` is selected by validation
+`selection_score` on fold `k`, then that checkpoint’s predictions on the **same**
+validation fold enter the OOF CV aggregate.
+
+Interpret published CV as **model-selection-aware OOF** (possible mild within-fold
+optimistic bias), **not** as a fully nested outer test. Primary metric tables use
+**raw OOF**; nested calibration is secondary. Seed-stability (`05_seed_stability/`)
+probes variance across seeds `{1..5}`.
 
 ## 1. Common locked settings
 
@@ -35,7 +50,7 @@ All runs below share:
 | `pair_interaction` | `diff` |
 | `seq_encoding` | `integer` (A=1…Y=20) |
 | `global_feature_scaling` / `node_feature_scaling` | `zscore` |
-| `seed` | `1` (panels 01–04); panel 05 sweeps `{1,2,3,4,5}` |
+| `seed` | **panels 01–04: `123`** (from each `config.json`); **panel 05:** `{1,2,3,4,5}`; **panel 06:** `1`. Do not assume global seed=1. |
 | `folds` | 5 |
 | `lr` / `weight_decay` / `lr_scheduler` | `1e-3` / `0` / `cosine` |
 | Base config | `code/configs/gsh_struct_s_base.json` |

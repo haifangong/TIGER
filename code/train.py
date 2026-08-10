@@ -146,7 +146,11 @@ def train(cfg: Config, root: Path | None = None) -> dict:
                 collate_fn=pair_collate,
             )
         neighbors = precompute_neighbors(tr_rows, va_rows, cfg)
-        # Best checkpoint by selection_score = log2MAE + RSE - PCC - KCC (lower better)
+        # Checkpoint selection uses THIS fold's validation metrics (selection_score).
+        # After training, fold{k}_best.pt is reloaded and scored on the same validation
+        # fold; those predictions are concatenated into the OOF CV table. This is
+        # model-selection-aware OOF (possible mild within-fold optimistic bias), not a
+        # fully nested outer test. Prefer raw OOF as the primary CV report.
         best_score, best_epoch, stale, history, last_epoch = float("inf"), 0, 0, [], 0
         best_met: dict = {}
 

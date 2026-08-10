@@ -62,7 +62,9 @@ python -m code.main evaluate \
 
 Weights live under [`checkpoints/ablation/`](checkpoints/ablation/), [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/), and [`checkpoints/wetlab/`](checkpoints/wetlab/). Index: [`checkpoints/README.md`](checkpoints/README.md); MIC CV table: [`checkpoints/ablation/leaderboard.csv`](checkpoints/ablation/leaderboard.csv).
 
-**Calibration protocol (MIC CV):** primary reported CV is **raw OOF**; nested leave-one-fold linear calibration is secondary; the saved calibrator is fit on all OOF for external application only (see `code/train.py`).
+**CV protocol (MIC):** `fold*_best.pt` is selected on the same validation fold that contributes OOF predictions — report as **model-selection-aware OOF** (not a nested outer test). Primary CV is **raw OOF**; nested leave-one-fold calibration is secondary; the saved calibrator is fit on all OOF for external application only (see `code/train.py`).
+
+**Seeds:** panels 01–04 use **seed=123**; panel 06 uses **seed=1**; panel 05 sweeps **1..5**. See `checkpoints/ablation/MANIFEST.json`.
 
 Sequence-encoding CV tables: [`data/ablation_results/06_seq_encoding/`](data/ablation_results/06_seq_encoding/).  
 Toxicity classification checkpoints: [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/).
@@ -210,7 +212,12 @@ See [`code/README.md`](code/README.md), [`code/scripts_train/README.md`](code/sc
 
 For antimicrobial-activity and toxicity classifiers, report the full suite across CV folds and the held-out test set:
 
-**Accuracy, Precision, Recall, F1, MCC, AUC-ROC, AUC-PR**
+**Accuracy, Precision, Recall (toxic sensitivity), Specificity, F1, MCC, AUC-ROC, AUC-PR**,
+plus **confusion matrix** and **false-safe rate** (= false-negative rate among true toxics).
+
+The 88-peptide hemolytic panel writes these under
+`data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_prediction_summary.json`
+and `internal_toxin_cohort_safety_metrics.csv` (includes sequence-overlap audit vs the toxin train table).
 
 ```bash
 cd pipeline/01_mutation_search

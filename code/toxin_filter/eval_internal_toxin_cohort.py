@@ -149,18 +149,79 @@ def predict(df: pd.DataFrame, ckpt_dir: Path, feature_mode: str = "both") -> pd.
 
 
 def _metrics(y_true: np.ndarray, y_pred: np.ndarray, y_prob: np.ndarray) -> dict:
-    from sklearn.metrics import accuracy_score, f1_score, matthews_corrcoef, roc_auc_score
+    from sklearn.metrics import (
+        accuracy_score,
+        average_precision_score,
+        confusion_matrix,
+        f1_score,
+        matthews_corrcoef,
+        precision_score,
+        recall_score,
+        roc_auc_score,
+    )
 
+    cm = confusion_matrix(y_true, y_pred, labels=[0, 1])
+    tn, fp, fn, tp = (int(x) for x in cm.ravel())
+    n_pos = int(y_true.sum())
+    n_neg = int((y_true == 0).sum())
+    # Safety-oriented rates (toxic = positive class)
+    recall = float(recall_score(y_true, y_pred, zero_division=0))  # sensitivity / toxic recall
+    false_safe_rate = float(fn / n_pos) if n_pos else None  # FN among true toxics (= 1 - recall)
+    specificity = float(tn / n_neg) if n_neg else None
     out = {
         "n": int(len(y_true)),
-        "n_pos": int(y_true.sum()),
-        "n_neg": int((y_true == 0).sum()),
+        "n_pos": n_pos,
+        "n_neg": n_neg,
         "accuracy": float(accuracy_score(y_true, y_pred)),
+        "precision": float(precision_score(y_true, y_pred, zero_division=0)),
+        "recall": recall,
+        "sensitivity": recall,
+        "specificity": specificity,
         "f1": float(f1_score(y_true, y_pred, zero_division=0)),
         "mcc": float(matthews_corrcoef(y_true, y_pred)) if len(np.unique(y_true)) > 1 else None,
         "auc_roc": float(roc_auc_score(y_true, y_prob)) if len(np.unique(y_true)) > 1 else None,
+        "auc_pr": float(average_precision_score(y_true, y_prob)) if len(np.unique(y_true)) > 1 else None,
+        "false_negative": fn,
+        "false_positive": fp,
+        "true_positive": tp,
+        "true_negative": tn,
+        "false_safe_rate": false_safe_rate,
+        "false_safe_count": fn,
+        "confusion_matrix": {
+            "labels": [0, 1],
+            "matrix": [[tn, fp], [fn, tp]],
+            "tn": tn,
+            "fp": fp,
+            "fn": fn,
+            "tp": tp,
+        },
     }
     return out
+
+
+def _sequence_overlap_audit(panel_sequences: list[str], train_csv: Path) -> dict:
+    """Compare external panel sequences against the toxin training label table."""
+    if not train_csv.exists():
+        return {"skipped": True, "reason": f"missing {train_csv}"}
+    train = pd.read_csv(train_csv)
+    seq_col = next((c for c in train.columns if c.lower() in {"sequence", "seq"}), None)
+    if seq_col is None:
+        return {"skipped": True, "reason": f"no sequence column in {train_csv}"}
+    train_set = {str(s).upper().strip() for s in train[seq_col].tolist()}
+    panel_set = {str(s).upper().strip() for s in panel_sequences}
+    overlap = sorted(panel_set & train_set)
+    return {
+        "train_csv": str(train_csv),
+        "n_train_sequences": len(train_set),
+        "n_panel_sequences": len(panel_set),
+        "n_overlap": len(overlap),
+        "frac_panel_in_train": float(len(overlap) / len(panel_set)) if panel_set else None,
+        "overlap_sequences": overlap,
+        "note": (
+            "n_overlap=0 means the 88-peptide external panel shares no exact sequences "
+            "with the published toxin training table."
+        ),
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -169,6 +230,11 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--panel-csv", type=Path, default=DEFAULT_PANEL)
     p.add_argument("--ckpt-dir", type=Path, default=DEFAULT_CKPT)
     p.add_argument("--feature-mode", default="both", choices=["both", "global", "sequence"])
+    p.add_argument(
+        "--train-toxin-csv",
+        type=Path,
+        default=ROOT / "data" / "trainval_dbassp" / "toxin" / "toxicity_labeled_dataset.csv",
+    )
     p.add_argument(
         "--out-dir",
         type=Path,
@@ -232,6 +298,22 @@ def main(argv: list[str] | None = None) -> int:
         "checkpoints": str(args.ckpt_dir),
         "labels_csv": str(args.labels_csv),
         "primary_model": str(pred["primary_model"].iloc[0]),
+        "metrics_reported": [
+            "accuracy",
+            "precision",
+            "recall",
+            "sensitivity",
+            "specificity",
+            "f1",
+            "mcc",
+            "auc_roc",
+            "auc_pr",
+            "false_safe_rate",
+            "confusion_matrix",
+        ],
+        "sequence_overlap_audit": _sequence_overlap_audit(
+            pred["sequence"].astype(str).tolist(), args.train_toxin_csv
+        ),
     }
     for name in ["toxin", "CatBoost", "XGB", "ensemble"]:
         pcol = f"pred_{name}"
@@ -241,8 +323,35 @@ def main(argv: list[str] | None = None) -> int:
         summary[name] = _metrics(y, pred[pcol].to_numpy(dtype=int), pred[probcol].to_numpy(dtype=float))
 
     (out_dir / "internal_toxin_cohort_prediction_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    # Compact safety-focused CSV for primary models
+    rows = []
+    for name in ["toxin", "CatBoost", "XGB", "ensemble"]:
+        if name not in summary:
+            continue
+        m = summary[name]
+        rows.append(
+            {
+                "model": name,
+                "n": m["n"],
+                "accuracy": m["accuracy"],
+                "precision": m["precision"],
+                "recall_toxic": m["recall"],
+                "false_safe_rate": m["false_safe_rate"],
+                "specificity": m["specificity"],
+                "f1": m["f1"],
+                "mcc": m["mcc"],
+                "auc_roc": m["auc_roc"],
+                "auc_pr": m["auc_pr"],
+                "tp": m["true_positive"],
+                "fp": m["false_positive"],
+                "fn": m["false_negative"],
+                "tn": m["true_negative"],
+            }
+        )
+    pd.DataFrame(rows).to_csv(out_dir / "internal_toxin_cohort_safety_metrics.csv", index=False)
     print(json.dumps(summary, indent=2))
     print(f"Wrote {pred_path}")
+    print(f"Wrote {out_dir / 'internal_toxin_cohort_safety_metrics.csv'}")
     return 0
 
 

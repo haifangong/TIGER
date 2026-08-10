@@ -71,7 +71,7 @@ bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37 68 seq/509 pairs + 
 bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
 ```
 
-Default training seed is **`1`**. Seed-stability panel uses **`1..5`**.
+Released ablation seeds (from each `config.json`): panels **01–04 use `123`**, panel **06 uses `1`**, seed-stability panel **05 uses `1..5`**. Do not rewrite manifests to a single global seed.
 
 ```bash
 python -m code.main evaluate --config outputs/tiger_code_run/config.json
@@ -108,3 +108,10 @@ Primary CV metrics are **raw out-of-fold** predictions. A leave-one-fold nested
 linear calibrator is reported separately (`cv_calibrated_nested`). The saved
 `calibrator.json` is fit on all OOF rows for **external** application only —
 do not treat in-sample calibrated CV as fully out-of-sample.
+
+
+## CV checkpoint selection
+
+`fold{k}_best.pt` is chosen on fold `k` validation metrics; the same fold’s
+predictions are aggregated into OOF CV. Report this as **model-selection-aware OOF**,
+not a nested outer test. Primary CV = raw OOF (`code/train.py`).
