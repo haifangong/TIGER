@@ -9,8 +9,8 @@
 #   ONLY="seq_embedding seq_onehot" bash code/scripts_train/run_ablation_06_seq_encoding.sh
 
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/_ablation_common.sh"
-# Panel 06 released archive uses seed=1 (not 123).
-SEED="${SEED:-1}"
+# Common defaults SEED=123 for panels 01–04; this panel's released archive uses seed=1.
+SEED="${PANEL06_SEED:-1}"
 
 OUT_ROOT="${OUT_ROOT:-$ROOT/checkpoints/ablation/06_seq_encoding}"
 EXTRA=()
