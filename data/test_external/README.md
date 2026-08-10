@@ -1,28 +1,44 @@
 # test_external
 
-Clean external test packs for the **final TIGER pipeline**.
+Clean evaluation packs for the TIGER MIC / toxin pipeline.
 
-Only evaluation-relevant endpoints are kept:
-
-- **Activity** → *Escherichia coli* MIC (pair-delta)
-- **Toxicity** → hemolytic HC50 (human erythrocytes), threshold 512 µg/mL
+**Do not describe LL37 and APEXGO as one shared “strict unseen-template” set** — they differ in provenance and train-similarity.
 
 ```text
 test_external/
 ├── README.md
 ├── MANIFEST.json
-├── test_activity_apexgo/            # 110 sequences, 200 pairs
-├── test_activity_ll37/              # 68 sequences, ~500 (509) pairs
-├── test_toxin_internal_toxin_cohort/               # 88 sequences (HC50)
-└── test_pair_similarity_compare/    # test-vs-train similarity audit
+├── test_activity_ll37/                 # DBAASP-derived LL37 family holdout
+├── test_activity_apexgo/               # external APEX-GO family panel
+├── test_toxin_internal_toxin_cohort/   # 88-peptide hemolytic panel (+ predictions)
+└── test_pair_similarity_compare/       # test-vs-train similarity audit
 ```
 
-| Pack | Task | Size | Primary files |
-|------|------|------|---------------|
-| `test_activity_apexgo` | E. coli activity | 110 seq / 200 pairs | `apexgo_peptides.csv`, `pairs/pairs_template_centric_alldelta_*.csv` |
-| `test_activity_ll37` | E. coli activity | 68 seq / 509 pairs | `ll37_sequences_mic.csv`, `ll37_pairs_neighbor.csv` |
-| `test_toxin_internal_toxin_cohort` | Hemolytic toxicity | 88 seq | `internal_toxin_cohort_hemolysis_active_micmin_le128.csv` |
-| `test_pair_similarity_compare` | Similarity audit | — | `pair_similarity_apexgo_vs_ll37.pdf`, `*_similarity*.csv` |
+## LL37 (`test_activity_ll37/`) — similarity-filtered family holdout
 
-Sources: `data/test_apexgo`, `data/test_ll37`, `data/test_internal_toxin_cohort`  
-(unrelated toxicity/CC50 eval outputs, model predictions, and legacy pair tables are excluded).
+- **Provenance:** carved from the DBAASP-derived pool, not an independent database dump.
+- **Holdout construction:** remove every train/val peptide with NW similarity `> 0.30` to the LL37 family (`metadata/LL37_v0.csv`, 112 sequences).
+- **Removed:** **1,122 unique peptides** / **1,402 assay rows** (`metadata/removed_similar_to_LL37_{seq,ug_per_mL}.csv`).
+- **Eval size:** 68 sequences / 509 neighbor pairs (*E. coli* MIC).
+- **Train similarity:** `frac_gt_0.3 = 0`, `max ≤ 0.30` (see `test_pair_similarity_compare/`).
+
+## APEXGO (`test_activity_apexgo/`) — sequence-disjoint external family panel
+
+- **Provenance:** APEX-GO family templates + variants (independent of the LL37 holdout recipe).
+- **Eval size:** 110 sequences / 200 template↔variant pairs.
+- **Train similarity:** sequence-disjoint from the train table, but **not** `<30%` similarity-disjoint.
+  Audit (`test_vs_train_similarity_summary.csv`): **≈49.1%** of sequences have `max_sim_to_train > 0.30`, max **0.4875**.
+- Preferred wording: *sequence-disjoint external family panel with an explicitly reported train-similarity distribution* (not “strict template-disjoint”).
+
+## Toxicity (`test_toxin_internal_toxin_cohort/`)
+
+88 active peptides (`mic_min ≤ 128`) with HC50 labels (threshold 512 µg/mL).  
+Labels + archived predictions ship in-pack; regenerate with:
+
+```bash
+bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh
+```
+
+## Similarity audit (`test_pair_similarity_compare/`)
+
+Per-sequence max similarity of LL37 / APEXGO panels vs the CFU-aware train/val table.

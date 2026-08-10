@@ -8,7 +8,7 @@ monolithic pipelines under [`src/poap_gpt/`](../src/poap_gpt/) are **kept unchan
 ```text
 code/
 ├── main.py              # CLI: train | evaluate | infer
-├── train.py             # GroupKFold + final retrain
+├── train.py             # GroupKFold OOF (no full-data final retrain)
 ├── evaluation.py        # Neighbor pair-delta eval
 ├── infer.py             # Checkpoint scoring
 ├── dataloader.py        # Preprocess, graphs, pairs, datasets
@@ -77,8 +77,8 @@ Default training seed is **`1`**. Seed-stability panel uses **`1..5`**.
 python -m code.main evaluate --config outputs/tiger_code_run/config.json
 
 python -m code.main infer \
-  --config outputs/tiger_code_run/config.json \
-  --checkpoint outputs/tiger_code_run/checkpoints/final.pt \
+  --config checkpoints/ablation/01_modality_ablation/mod_gsh/config.json \
+  --checkpoint checkpoints/ablation/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
   --gpu 0
 
 # APEXGO high-span families (Mylodonin-2/3, Equusin-4, Mammuthusin-3, Hesperelin-3)
@@ -100,3 +100,11 @@ Selected templates are the 5 APEXGO families with the largest within-family
 `log10(MIC)` span (`metadata/test_apexgo_high_span_*.csv`). The eval builds
 all directed within-family pairs (450) and reports overall + per-family
 `log10MAE`, `RSE`, `PCC`, `KCC` (plus `log2MAE`). PDBs: `data/3D_data_apexgo_Rosetta`.
+
+
+## Calibration protocol (MIC CV)
+
+Primary CV metrics are **raw out-of-fold** predictions. A leave-one-fold nested
+linear calibrator is reported separately (`cv_calibrated_nested`). The saved
+`calibrator.json` is fit on all OOF rows for **external** application only —
+do not treat in-sample calibrated CV as fully out-of-sample.

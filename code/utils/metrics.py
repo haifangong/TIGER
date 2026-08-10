@@ -110,6 +110,12 @@ def is_better_selection(new: dict[str, float], best_score: float, min_delta: flo
 
 
 def fit_calibrator(cv_predictions: pd.DataFrame) -> dict[str, float]:
+    """Fit a linear calibrator ``y ≈ slope * y_pred + intercept`` on the given rows.
+
+    For **CV reporting**, prefer :func:`apply_calibrator_nested` so the fit is not
+    evaluated on the same OOF predictions. ``fit_calibrator`` on all OOF rows is
+    appropriate only as a *deployment* map for held-out external sets.
+    """
     if cv_predictions.empty:
         return {"slope": 1.0, "intercept": 0.0}
     x = cv_predictions["y_pred_delta_log2_anchor_minus_query"].to_numpy(dtype=float).reshape(-1, 1)
@@ -123,8 +129,39 @@ def fit_calibrator(cv_predictions: pd.DataFrame) -> dict[str, float]:
 
 def apply_calibrator(df: pd.DataFrame, calibrator: dict[str, float]) -> pd.DataFrame:
     out = df.copy()
-    out["y_pred_delta_raw"] = out["y_pred_delta_log2_anchor_minus_query"]
+    if "y_pred_delta_raw" not in out.columns:
+        out["y_pred_delta_raw"] = out["y_pred_delta_log2_anchor_minus_query"]
     out["y_pred_delta_log2_anchor_minus_query"] = (
-        calibrator["slope"] * out["y_pred_delta_log2_anchor_minus_query"] + calibrator["intercept"]
+        calibrator["slope"] * out["y_pred_delta_raw"] + calibrator["intercept"]
     )
     return out
+
+
+def apply_calibrator_nested(cv_predictions: pd.DataFrame) -> tuple[pd.DataFrame, list[dict]]:
+    """Leave-one-fold calibration for OOF CV predictions.
+
+    For each fold ``k``, fit the linear calibrator on folds ``≠ k`` and apply it
+    only to fold ``k``. Returns the calibrated frame plus per-fold calibrator
+    dicts (for provenance).
+    """
+    if cv_predictions.empty or "fold" not in cv_predictions.columns:
+        out = apply_calibrator(cv_predictions, {"slope": 1.0, "intercept": 0.0})
+        return out, [{"fold": None, "slope": 1.0, "intercept": 0.0}]
+
+    out = cv_predictions.copy()
+    out["y_pred_delta_raw"] = out["y_pred_delta_log2_anchor_minus_query"]
+    calibrated = np.full(len(out), np.nan, dtype=float)
+    fold_cals: list[dict] = []
+    folds = sorted({int(f) for f in out["fold"].tolist()})
+    for fold in folds:
+        train_mask = out["fold"].to_numpy(dtype=int) != fold
+        test_mask = ~train_mask
+        # Fit on raw predictions of the other folds.
+        train_df = out.loc[train_mask, ["y_pred_delta_log2_anchor_minus_query", "y_true_delta_log2_anchor_minus_query"]].copy()
+        # Temporarily point the fit column at the raw values (same as current column before overwrite).
+        cal = fit_calibrator(train_df)
+        fold_cals.append({"fold": fold, **cal})
+        raw = out.loc[test_mask, "y_pred_delta_raw"].to_numpy(dtype=float)
+        calibrated[test_mask] = cal["slope"] * raw + cal["intercept"]
+    out["y_pred_delta_log2_anchor_minus_query"] = calibrated
+    return out, fold_cals

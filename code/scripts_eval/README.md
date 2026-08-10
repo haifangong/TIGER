@@ -84,8 +84,8 @@ SKIP_APEXGO=1 bash code/scripts_eval/eval_ll37_apexgo_best.sh # LL37 only
 
 ### `eval_sim_thresholds_ll37_apexgo.sh`
 
-**Function:** compare external LL37 + APEX-GO across training sim **0.3 / 0.5 / 0.7**  
-(matches `checkpoints/ablation/04_similarity`)  
+**Function:** compare external LL37 + APEX-GO across training sim **0.3 / 0.7**  
+(matches released `checkpoints/ablation/04_similarity`; sim 0.5 omitted from the public archive)  
 **Backend:** `scripts/eval_sim03_05_07_ll37_apexgo.py`
 
 ```bash
@@ -96,8 +96,7 @@ bash code/scripts_eval/eval_sim_thresholds_ll37_apexgo.sh
 
 **Function:** APEX-GO within-family / template-centric pair scoring for one experiment  
 **Backend:** `scripts/eval_apexgo_within_family_combos.py`  
-**Default pairs:** `data/test_external/test_activity_apexgo/pairs/…_geo3.csv`  
-(fallback: `data/test_apexgo/pairs/…`)
+**Default pairs:** `data/test_external/test_activity_apexgo/pairs/…_geo3.csv`
 
 ```bash
 bash code/scripts_eval/eval_apexgo_within_family.sh
@@ -142,19 +141,15 @@ CONFIG=…/config.json CKPT=…/fold1_best.pt bash code/scripts_eval/eval_infer_
 
 **Function:** external **hemolytic** toxicity evaluation on internal_toxin_cohort active subset  
 (`mic_min ≤ 128` → **n=88**, label HC50 ≤ **512**)  
-**Backend:** `data/test_internal_toxin_cohort/build_and_predict_internal_toxin_cohort.py`  
-(uses `checkpoints/ablation_toxin/both/checkpoints` by default inside that script)
+**Backend:** `code/toxin_filter/eval_internal_toxin_cohort.py`  
+**Checkpoints:** `checkpoints/ablation_toxin/both/checkpoints/` (override with `CKPT_DIR` / `FEATURE_MODE`)
 
-Clean label table for reporting:
-
-```text
-data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_hemolysis_active_micmin_le128.csv
-```
-
-Detailed metric folders (if regenerated):
+Writes predictions + summary into the clean pack:
 
 ```text
-data/test_internal_toxin_cohort/eval_active_micmin_le128/
+data/test_external/test_toxin_internal_toxin_cohort/
+  internal_toxin_cohort_hemolysis_predictions_both.csv
+  internal_toxin_cohort_prediction_summary.json
 ```
 
 ```bash

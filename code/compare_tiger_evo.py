@@ -24,14 +24,21 @@ import torch
 
 ROOT = Path(__file__).resolve().parents[1]
 EVO_ROOT = ROOT.parent / "baseline" / "AMP-potency-prediction-EvoGradient"
-DEFAULT_EXP_03 = ROOT / "checkpoints/ablation" / "04_similarity" / "sim0p3_bal10000"
-DEFAULT_EXP_07 = ROOT / "checkpoints/ablation" / "04_similarity" / "sim0p7_bal10000"
-LL37_PAIR_CSV = ROOT / "data" / "test_ll37" / "ll37_pairs_neighbor.csv"
-APEX_PAIR_CSV = (
-    ROOT / "data" / "test_apexgo" / "pairs" / "pairs_template_centric_alldelta_geo3.csv"
+DEFAULT_EXP_03 = ROOT / "checkpoints" / "ablation" / "04_similarity" / "sim0p3_bal10000"
+DEFAULT_EXP_07 = ROOT / "checkpoints" / "ablation" / "04_similarity" / "sim0p7_bal10000"
+LL37_PAIR_CSV = (
+    ROOT / "data" / "test_external" / "test_activity_ll37" / "ll37_pairs_neighbor.csv"
 )
-LL37_PDB = ROOT / "data" / "test_ll37" / "pdb"
-APEX_PDB = ROOT / "data" / "test_apexgo" / "pdb"
+APEX_PAIR_CSV = (
+    ROOT
+    / "data"
+    / "test_external"
+    / "test_activity_apexgo"
+    / "pairs"
+    / "pairs_template_centric_alldelta_geo3.csv"
+)
+LL37_PDB = ROOT / "data" / "test_external" / "test_activity_ll37" / "pdb"
+APEX_PDB = ROOT / "data" / "test_external" / "test_activity_apexgo" / "pdb"
 APEX_PDB_ROSETTA = ROOT / "data" / "3D_data_apexgo_Rosetta"
 TRAIN_PDB = ROOT / "data" / "3D_data_train_eva_Rosetta"
 

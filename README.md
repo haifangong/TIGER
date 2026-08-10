@@ -62,6 +62,8 @@ python -m code.main evaluate \
 
 Weights live under [`checkpoints/ablation/`](checkpoints/ablation/), [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/), and [`checkpoints/wetlab/`](checkpoints/wetlab/). Index: [`checkpoints/README.md`](checkpoints/README.md); MIC CV table: [`checkpoints/ablation/leaderboard.csv`](checkpoints/ablation/leaderboard.csv).
 
+**Calibration protocol (MIC CV):** primary reported CV is **raw OOF**; nested leave-one-fold linear calibration is secondary; the saved calibrator is fit on all OOF for external application only (see `code/train.py`).
+
 Sequence-encoding CV tables: [`data/ablation_results/06_seq_encoding/`](data/ablation_results/06_seq_encoding/).  
 Toxicity classification checkpoints: [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/).
 
@@ -79,7 +81,7 @@ CFU-aware MIC tables with an **LL37-family holdout**:
 |------|------|
 | `metadata/train_val_by_cfu_group_ug_per_mL.csv` | Primary train/val CSV (~10.5k unique sequences) |
 | `metadata/test_LL37_by_cfu_group_ug_per_mL.csv` | Default LL37 external test hook in configs |
-| `metadata/removed_similar_to_LL37_*.csv` | **1122** sequences removed (sim > 0.30 to LL37) |
+| `metadata/removed_similar_to_LL37_*.csv` | **1,122** unique peptides / **1,402** assay rows removed (sim > 0.30 to LL37) |
 | `metadata/removed_nonstandard_AA_*.csv` | **3739** non-standard-AA sequences removed |
 | `metadata/similarity_filter_audit.csv` | Per-sequence max similarity + keep/remove flags |
 | `metadata/LL37_v0.csv` | LL37 holdout family (112 sequences) |
@@ -92,20 +94,40 @@ Full archive (labels, excluded lists, toxin set, PDB zip + inventory): [`data/tr
 
 **PDB archive:** `data/trainval_dbassp/pdb/trainval_and_excluded_pdbs.zip` — 15371 structures (Git LFS). Unzip to `data/3D_data_train_eva_Rosetta/` as shown above.
 
-### 2. External test packs (`data/test_external/`)
+### 2. External / holdout evaluation packs (`data/test_external/`)
 
-| Pack | Task | Size | Primary files |
-|------|------|------|---------------|
-| `test_activity_apexgo` | *E. coli* MIC pairs | 110 seq / 200 pairs | `apexgo_peptides.csv`, `pairs/…`, `pdb/` |
-| `test_activity_ll37` | *E. coli* MIC pairs | 68 seq / 509 pairs | `ll37_sequences_mic.csv`, `ll37_pairs_neighbor.csv`, `pdb/` |
-| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 | 88 seq | `internal_toxin_cohort_hemolysis_active_micmin_le128.csv` |
-| `test_pair_similarity_compare` | Test-vs-train similarity audit | — | `*_similarity*.csv`, PDF figure |
+**LL37 and APEXGO are different protocols — do not lump them as a single “strict unseen-template” set.**
 
-See [`data/test_external/README.md`](data/test_external/README.md).
+#### LL37 — similarity-filtered family holdout (DBAASP-derived)
 
-### 3. Wet-lab / production species tables (`data/wetlab/`)
+LL37 is **not** an independent external source. It is a **family holdout carved from the DBAASP-derived pool**:
 
-Full-DBAASP per-species tables (**no** LL37 holdout) for production-style training:
+- Holdout family: `metadata/LL37_v0.csv` (**112** sequences).
+- From train/val we removed every peptide with length-normalized NW similarity `> 0.30` to that family: **1,122 unique peptides** / **1,402 assay rows** (`metadata/removed_similar_to_LL37_*.csv`).
+- Eval pack: `data/test_external/test_activity_ll37/` — **68** sequences / **509** neighbor pairs (*E. coli* MIC).
+- Audit (`test_pair_similarity_compare/`): every LL37 eval sequence has `max_sim_to_train ≤ 0.30` (`frac_gt_0.3 = 0`).
+
+#### APEXGO — sequence-disjoint external family panel (with reported train similarity)
+
+APEXGO is the closer match to a true external family-structured evaluation:
+
+- Eval pack: `data/test_external/test_activity_apexgo/` — **110** sequences / **200** template↔variant pairs.
+- Sequences are disjoint from the train table, **but not <30% similarity-disjoint**.
+- Audit: **≈49.1%** of APEXGO sequences have `max_sim_to_train > 0.30` (max **0.4875**). Prefer the wording *sequence-disjoint external family panel with an explicitly reported train-similarity distribution*, not “strict template-disjoint”.
+
+#### Other packs
+
+| Pack | Task | Size |
+|------|------|------|
+| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 (88 peptides; labels + predictions) | 88 seq |
+| `test_pair_similarity_compare` | Test-vs-train similarity audit (LL37 & APEXGO) | — |
+
+See [`data/test_external/README.md`](data/test_external/README.md). TIGER vs EvoGradient pair-delta comparison archive: [`checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/`](checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/).
+
+### 3. Wet-lab / production species tables (`data/wetlab/` + `checkpoints/wetlab/`)
+
+Full-DBAASP per-species tables (**no** LL37 holdout) for production-style training.
+Matching **12** production MIC models (6 species × sim `{0.3, 0.7}`, five `fold*_best.pt` each) are shipped under [`checkpoints/wetlab/`](checkpoints/wetlab/) for wet-lab ranking ensembles.
 
 - `train_Escherichia_coli.csv`
 - `train_Pseudomonas_aeruginosa.csv`

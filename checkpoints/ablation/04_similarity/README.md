@@ -78,3 +78,14 @@ bash code/scripts_train/run_ablation_04_similarity.sh
 | `sim0p7_bal10000` | `outputs_code_struct_s_sim05_07_fusion/...cross_qs_sim0p7_bal10000` |
 
 Parent: [`../README.md`](../README.md).
+
+
+## TIGER vs EvoGradient archive
+
+Published comparison outputs (leaderboard + pair-level predictions):
+
+[`external_eval_tiger_vs_evo/`](external_eval_tiger_vs_evo/)
+
+EvoGradient absolute log10(MIC) predictions are converted to pair ΔMIC so both
+methods are scored on the same task. Regenerate with
+`bash code/scripts_eval/eval_tiger_vs_evo.sh`.

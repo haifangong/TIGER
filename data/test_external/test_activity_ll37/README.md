@@ -2,6 +2,8 @@
 
 External **E. coli activity** test set (LL37 family), packaged for TIGER neighbor-style pair evaluation.
 
+> **Provenance:** this is a **similarity-filtered family holdout** from the DBAASP-derived pool (not an independent external database). Train/val removed **1,122 unique peptides / 1,402 assay rows** with similarity `> 0.30` to `metadata/LL37_v0.csv`. Every eval sequence here has `max_sim_to_train ≤ 0.30`.
+
 | Item | Value |
 |------|-------|
 | Sequences | **68** |

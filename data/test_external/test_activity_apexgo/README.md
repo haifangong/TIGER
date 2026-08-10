@@ -2,6 +2,8 @@
 
 External **E. coli activity** test set (APEX-GO), packaged for TIGER pair-delta MIC evaluation.
 
+> **Provenance:** a **sequence-disjoint external family panel** with an explicitly reported train-similarity distribution — **not** a strict `<30%` template-disjoint set. Audit: **≈49.1%** of sequences have `max_sim_to_train > 0.30` (max **0.4875**); see `../test_pair_similarity_compare/`.
+
 | Item | Value |
 |------|-------|
 | Sequences | **110** (10 families × WT + 10 variants) |

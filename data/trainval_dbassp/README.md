@@ -53,7 +53,7 @@ Locked data settings (from `checkpoints/ablation/README.md`):
 
 | File | Content |
 |------|---------|
-| `excluded/removed_similar_to_LL37_seq.csv` | **1122** sequences removed by sim > 0.30 |
+| `excluded/removed_similar_to_LL37_seq.csv` | **1,122 unique / 1,402 assay rows** sequences removed by sim > 0.30 |
 | `excluded/removed_similar_to_LL37_ug_per_mL.csv` | Matching assay rows |
 | `excluded/removed_nonstandard_AA_seq.csv` | **3739** non-standard-AA sequences |
 | `excluded/removed_nonstandard_AA_ug_per_mL.csv` | Matching assay rows |

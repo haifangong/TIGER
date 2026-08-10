@@ -1,0 +1,43 @@
+{
+  "n": 88,
+  "feature_mode": "both",
+  "checkpoints": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/_github_publish/checkpoints/ablation_toxin/both/checkpoints",
+  "labels_csv": "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER/_github_publish/data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_toxicity_labeled.csv",
+  "primary_model": "CatBoost",
+  "toxin": {
+    "n": 88,
+    "n_pos": 12,
+    "n_neg": 76,
+    "accuracy": 0.7159090909090909,
+    "f1": 0.46808510638297873,
+    "mcc": 0.42131913351581285,
+    "auc_roc": 0.8804824561403508
+  },
+  "CatBoost": {
+    "n": 88,
+    "n_pos": 12,
+    "n_neg": 76,
+    "accuracy": 0.7159090909090909,
+    "f1": 0.46808510638297873,
+    "mcc": 0.42131913351581285,
+    "auc_roc": 0.8804824561403508
+  },
+  "XGB": {
+    "n": 88,
+    "n_pos": 12,
+    "n_neg": 76,
+    "accuracy": 0.7727272727272727,
+    "f1": 0.5,
+    "mcc": 0.4394878161200394,
+    "auc_roc": 0.8892543859649124
+  },
+  "ensemble": {
+    "n": 88,
+    "n_pos": 12,
+    "n_neg": 76,
+    "accuracy": 0.6931818181818182,
+    "f1": 0.425531914893617,
+    "mcc": 0.3536620463818867,
+    "auc_roc": 0.8870614035087719
+  }
+}

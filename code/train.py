@@ -24,7 +24,13 @@ from .dataloader import (
 from .evaluation import eval_pair_delta, save_eval_outputs
 from .models import build_model, build_optimizer, build_scheduler
 from .utils.config import Config
-from .utils.metrics import apply_calibrator, fit_calibrator, is_better_selection, regression_metrics
+from .utils.metrics import (
+    apply_calibrator,
+    apply_calibrator_nested,
+    fit_calibrator,
+    is_better_selection,
+    regression_metrics,
+)
 from .utils.scaling import (
     apply_global_f_stats,
     apply_node_x_stats,
@@ -254,8 +260,12 @@ def train(cfg: Config, root: Path | None = None) -> dict:
         )
 
     cv_raw = pd.concat(frames, ignore_index=True)
+    # Primary CV = raw OOF (no calibrator fit on the same predictions).
+    # Nested leave-one-fold calibration is reported separately for reference.
+    # The saved calibrator is fit on all OOF rows for *external* application only.
+    cv_nested, nested_cals = apply_calibrator_nested(cv_raw)
     calibrator = fit_calibrator(cv_raw)
-    cv = apply_calibrator(cv_raw, calibrator)
+    cv_insample = apply_calibrator(cv_raw, calibrator)
 
     # No full-data final retrain: CV OOF from fold*_best.pt is the primary report.
     external_metrics: dict = {
@@ -272,10 +282,31 @@ def train(cfg: Config, root: Path | None = None) -> dict:
         "experiment": cfg.name,
         "model_kind": cfg.model_kind,
         "aa_encoding": "sequential_1_to_20_alphabetical",
-        "cv": regression_metrics(cv.y_true_delta_log2_anchor_minus_query, cv.y_pred_delta_log2_anchor_minus_query),
+        "cv": regression_metrics(
+            cv_raw.y_true_delta_log2_anchor_minus_query,
+            cv_raw.y_pred_delta_log2_anchor_minus_query,
+        ),
+        "cv_calibrated_nested": regression_metrics(
+            cv_nested.y_true_delta_log2_anchor_minus_query,
+            cv_nested.y_pred_delta_log2_anchor_minus_query,
+        ),
+        "cv_calibrated_insample": regression_metrics(
+            cv_insample.y_true_delta_log2_anchor_minus_query,
+            cv_insample.y_pred_delta_log2_anchor_minus_query,
+        ),
         "external": external_metrics,
         "folds": fold_metrics,
         "calibrator": calibrator,
+        "calibrator_nested_folds": nested_cals,
+        "calibration_protocol": {
+            "primary_cv": "raw_oof",
+            "nested": "leave_one_fold_linear",
+            "saved_calibrator": "fit_on_all_oof_for_external_only",
+            "note": (
+                "Do not treat cv_calibrated_insample as out-of-sample. "
+                "Primary reported CV is raw OOF; nested calibration is secondary."
+            ),
+        },
         "checkpoints": {
             "per_fold": ["fold{k}_best.pt", "fold{k}_last.pt"],
             "final_retrain": False,
@@ -283,6 +314,18 @@ def train(cfg: Config, root: Path | None = None) -> dict:
         "runtime_seconds": round(time.time() - started, 2),
         "config": cfg.to_dict(),
     }
-    save_eval_outputs(out_dir, cv, fold_metrics, calibrator, summary)
-    print(json.dumps({"cv": summary["cv"], "external": summary["external"], "checkpoints": summary["checkpoints"]}, indent=2))
+    # Persist raw OOF predictions as the primary CV table.
+    save_eval_outputs(out_dir, cv_raw, fold_metrics, calibrator, summary)
+    print(
+        json.dumps(
+            {
+                "cv": summary["cv"],
+                "cv_calibrated_nested": summary["cv_calibrated_nested"],
+                "external": summary["external"],
+                "checkpoints": summary["checkpoints"],
+                "calibration_protocol": summary["calibration_protocol"],
+            },
+            indent=2,
+        )
+    )
     return summary

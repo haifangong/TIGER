@@ -14,7 +14,7 @@ This folder packages the **finished ablation runs** used for the manuscript (sli
 Index files:
 
 - `MANIFEST.json` — machine-readable settings + per-run metadata
-- `leaderboard.csv` — CV metrics table for all 29 points
+- `leaderboard.csv` — CV metrics table (**30** primary rows; **40** experiment dirs including seed stability)
 
 Each panel folder (`01_`…`05_`) and each experiment point has its own `README.md`
 describing the sweep, locked settings, and CV metrics for that directory.
@@ -375,13 +375,18 @@ PY
 | Sequence encoding (integer vs embedding vs onehot) | `06_seq_encoding/seq_*` |
 | Default / best recipe cited elsewhere | `02_pair_balance_bin1/unsigned_bal10000` (= `03_fusion_methods/attn_cross_qs_bal10000` = `04_similarity/sim0p3_bal10000`) |
 
-External test evaluations (LL37 / APEX-GO) for the best recipe are **not** copied here; they live under the source experiment, e.g.:
+TIGER vs EvoGradient external comparison (LL37 + APEXGO pair-delta, including
+EvoGradient absolute-MIC → pair-Δ conversion) is archived at:
 
 ```text
-outputs_code_struct_s_binsize_grid/binsize_grid__unsigned_bin1p0_bal10000/external_eval/
+checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/
 ```
 
-(same path via `checkpoints/ablation/02_pair_balance_bin1/unsigned_bal10000/external_eval/`).
+Reproduce: `bash code/scripts_eval/eval_tiger_vs_evo.sh`.
+
+**Calibration note:** historical `results/summary.json` `cv` fields in this archive
+may still reflect the legacy in-sample OOF calibrator. New training runs report
+**raw OOF** as primary (`code/train.py`).
 
 ---
 
