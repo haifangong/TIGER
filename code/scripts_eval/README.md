@@ -42,8 +42,8 @@ Prefer these paths (see `data/test_external/README.md`):
 
 | Pack | Task | Size |
 |------|------|------|
-| `data/test_external/test_activity_apexgo/` | E. coli MIC pairs | 110 seq / 200 pairs |
-| `data/test_external/test_activity_ll37/` | E. coli MIC pairs | 68 seq / 509 pairs |
+| `data/test_external/test_activity_apexgo/` | E. coli MIC | **110 sequences / 200 pairs** |
+| `data/test_external/test_activity_ll37/` | E. coli MIC | **68 sequences / 509 pairs** |
 | `data/test_external/test_toxin_internal_toxin_cohort/` | Hemolytic HC50 | 88 seq |
 
 Legacy sources (`data/test_apexgo`, `test_ll37`, `test_internal_toxin_cohort`) still work for
@@ -67,8 +67,8 @@ EXP_DIR=checkpoints/ablation/01_modality_ablation/mod_gsh bash code/scripts_eval
 ### `eval_ll37_apexgo_best.sh`
 
 **Function:** primary paper external MIC evaluation  
-- LL37 **neighbor-509**  
-- APEX-GO **geo3 template-centric 200**  
+- LL37 **68 sequences / 509 neighbor pairs**  
+- APEXGO **110 sequences / 200 template-centric pairs**  
 
 **Backend:** `scripts/eval_best_binsize_ll37_apexgo.py`  
 **Default exp:** archive `unsigned_bal10000` (falls back to `outputs_code_struct_s_binsize_grid/...`)  

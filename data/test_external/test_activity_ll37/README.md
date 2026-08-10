@@ -6,10 +6,12 @@ External **E. coli activity** test set (LL37 family), packaged for TIGER neighbo
 
 | Item | Value |
 |------|-------|
-| Sequences | **68** |
-| Primary pairs | **509** (≈500; neighbor protocol) |
+| **Sequences** | **68** (`ll37_sequences_mic.csv`) |
+| **Eval pairs** | **509** (`ll37_pairs_neighbor.csv`; neighbor protocol) |
 | Endpoint | E. coli MIC (µg/mL) |
 | Primary CFU | `1E5 - 1E6` |
+
+Report both numbers together: **68 sequences / 509 pairs**.
 
 ## Layout
 

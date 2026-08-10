@@ -67,7 +67,7 @@ bash code/scripts_train/run_ablation_all_mic.sh       # MIC panels 01→05
 bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequence
 
 bash code/scripts_eval/eval_cv_summary.sh             # print CV summary.json
-bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37-509 + APEX-GO-200
+bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37 68 seq/509 pairs + APEXGO 110 seq/200 pairs
 bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
 ```
 

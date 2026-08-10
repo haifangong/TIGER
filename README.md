@@ -84,7 +84,7 @@ CFU-aware MIC tables with an **LL37-family holdout**:
 | `metadata/removed_similar_to_LL37_*.csv` | **1,122** unique peptides / **1,402** assay rows removed (sim > 0.30 to LL37) |
 | `metadata/removed_nonstandard_AA_*.csv` | **3739** non-standard-AA sequences removed |
 | `metadata/similarity_filter_audit.csv` | Per-sequence max similarity + keep/remove flags |
-| `metadata/LL37_v0.csv` | LL37 holdout family (112 sequences) |
+| `metadata/LL37_v0.csv` / `test_seq_LL37_named.csv` | LL37 holdout family (**112** named sequences used for filtering) |
 
 Holdout rule: length-normalized Needleman–Wunsch similarity `score / max(|a|,|b|) > 0.30` to the LL37 family, plus removal of non-standard amino acids.
 
@@ -98,20 +98,27 @@ Full archive (labels, excluded lists, toxin set, PDB zip + inventory): [`data/tr
 
 **LL37 and APEXGO are different protocols — do not lump them as a single “strict unseen-template” set.**
 
+Always report **both sequence count and pair count** for these activity packs (do not cite pairs alone):
+
+| Pack | Sequences | Eval pairs | Role |
+|------|----------:|-----------:|------|
+| LL37 (`test_activity_ll37/`) | **68** | **509** | similarity-filtered family holdout (DBAASP-derived) |
+| APEXGO (`test_activity_apexgo/`) | **110** | **200** | sequence-disjoint external family panel |
+
 #### LL37 — similarity-filtered family holdout (DBAASP-derived)
 
 LL37 is **not** an independent external source. It is a **family holdout carved from the DBAASP-derived pool**:
 
-- Holdout family: `metadata/LL37_v0.csv` (**112** sequences).
+- **Eval size:** **68 sequences** + **509 neighbor pairs** (*E. coli* MIC; `ll37_sequences_mic.csv` / `ll37_pairs_neighbor.csv`).
+- Holdout family used for filtering: **112** named LL37-family sequences (`metadata/test_seq_LL37_named.csv`; also `metadata/LL37_v0.csv`).
 - From train/val we removed every peptide with length-normalized NW similarity `> 0.30` to that family: **1,122 unique peptides** / **1,402 assay rows** (`metadata/removed_similar_to_LL37_*.csv`).
-- Eval pack: `data/test_external/test_activity_ll37/` — **68** sequences / **509** neighbor pairs (*E. coli* MIC).
 - Audit (`test_pair_similarity_compare/`): every LL37 eval sequence has `max_sim_to_train ≤ 0.30` (`frac_gt_0.3 = 0`).
 
 #### APEXGO — sequence-disjoint external family panel (with reported train similarity)
 
 APEXGO is the closer match to a true external family-structured evaluation:
 
-- Eval pack: `data/test_external/test_activity_apexgo/` — **110** sequences / **200** template↔variant pairs.
+- **Eval size:** **110 sequences** (10 families × WT + 10 variants) + **200 template↔variant pairs** (both directions; `apexgo_peptides.csv` / `pairs/pairs_template_centric_alldelta_geo3.csv`).
 - Sequences are disjoint from the train table, **but not <30% similarity-disjoint**.
 - Audit: **≈49.1%** of APEXGO sequences have `max_sim_to_train > 0.30` (max **0.4875**). Prefer the wording *sequence-disjoint external family panel with an explicitly reported train-similarity distribution*, not “strict template-disjoint”.
 
@@ -119,7 +126,7 @@ APEXGO is the closer match to a true external family-structured evaluation:
 
 | Pack | Task | Size |
 |------|------|------|
-| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 (88 peptides; labels + predictions) | 88 seq |
+| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 (labels + predictions) | **88 sequences** |
 | `test_pair_similarity_compare` | Test-vs-train similarity audit (LL37 & APEXGO) | — |
 
 See [`data/test_external/README.md`](data/test_external/README.md). TIGER vs EvoGradient pair-delta comparison archive: [`checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/`](checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/).
@@ -192,7 +199,7 @@ bash code/scripts_train/train_best_recipe.sh          # locked MIC recipe
 bash code/scripts_train/run_ablation_all_mic.sh       # MIC ablation panels
 bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequence
 
-bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37-509 + APEX-GO-200
+bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37 68 seq/509 pairs + APEXGO 110 seq/200 pairs
 bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
 bash code/scripts_eval/eval_cv_summary.sh             # print CV summary.json
 ```

@@ -6,10 +6,12 @@ External **E. coli activity** test set (APEX-GO), packaged for TIGER pair-delta 
 
 | Item | Value |
 |------|-------|
-| Sequences | **110** (10 families × WT + 10 variants) |
-| Primary pairs | **200** (template↔variant, both directions) |
+| **Sequences** | **110** (10 families × WT + 10 variants; `apexgo_peptides.csv`) |
+| **Eval pairs** | **200** (template↔variant, both directions) |
 | Endpoint | `MIC_Escherichia_coli` only |
 | CFU | `1E5 - 1E6` |
+
+Report both numbers together: **110 sequences / 200 pairs**.
 
 ## Layout
 
