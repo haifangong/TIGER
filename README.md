@@ -1,241 +1,139 @@
-# TIGER: Therapeutic-Index-Guided Exploration and Refinement for Antimicrobial Peptide Design
+# TIGER: Therapeutic-Index-Guided Exploration and Refinement
 
-Reproducible release of the TIGER computational pipeline for antimicrobial peptide (AMP) design for the work: Deep learning decouples antimicrobial peptide efficacy from host toxicity. This includes mutational search → toxicity filtering → structure prediction, plus a CFU-aware MIC **pair-delta** model.
+TIGER supports antimicrobial peptide design by combining activity modelling, toxicity filtering and sequence refinement. This repository releases the **V17 TIGER-pair model**, its actual training inputs, ten-seed checkpoints and complete ablation results for *E. coli* MIC differences. Existing discovery and multi-species wet-lab workflows are retained with their matching historical implementation.
 
-Repository: [https://github.com/haifangong/TIGER](https://github.com/haifangong/TIGER)
+**Current reference:** P11, **unsigned pair quota 20,000**, training similarity gate 0.7, neighbour validation, seeds **120–129**, five folds per seed. Strict within-fold validation is a separate ablation.
 
-## What is included
+[Model methods](docs/METHODS_V17.md) · [Complete ablation table](docs/ABLATION_RESULTS.md) · [Migration notes](docs/MIGRATION_V17.md) · [23-method benchmark](https://github.com/YueWang-Lambda/TIGER_AMP_Benchmarking)
 
-```text
-.
-├── README.md                 # this file
-├── code/                     # modular MIC pair-delta model (train / evaluate / infer)
-├── metadata/                 # CFU-aware train/val + LL37 holdout CSVs used by configs
-├── data/                     # curated sequences, splits, external tests, PDB zip
-│   ├── trainval_dbassp/      # DBAASP train/val + toxin labels + Rosetta PDBs (LFS)
-│   ├── test_external/        # APEX-GO / LL37 / internal_toxin_cohort eval packs + similarity audit
-│   ├── wetlab/               # full-DBAASP per-species production tables
-│   ├── ablation_results/     # sequence-encoding ablation CV metrics
-│   └── metadata/features.txt # AA node features for the GNN
-├── checkpoints/              # released fold*_best.pt / toxin joblibs
-│   ├── ablation/             # MIC paper ablations (panels 01–06)
-│   ├── ablation_toxin/       # HC50 toxicity classification (both/global/sequence)
-│   └── wetlab/               # species×sim production MIC models
-└── pipeline/                 # Steps 1–4 discovery + MIC ranking
-    ├── 01_mutation_search/
-    ├── 02_toxicity_filter/
-    ├── 03_structure_prediction/
-    ├── 04_metric_ranking/
-    ├── common/
-    ├── docs/
-    └── notebooks/
-```
+## Results and endpoint
 
-## Clone (Git LFS required)
+The external panel contains **208 peptides, 11 families and 2,211 unique directed within-family pairs**. Each prediction targets `ΔMIC = log2(MIC_anchor / MIC_query)`, with MIC in µg/mL. A positive prediction means the query peptide is more potent.
 
-Train/val Rosetta structures are shipped as a ~104 MB zip via **Git LFS**.
+Metrics are calculated within each family, then averaged with equal family weights. Values below are **mean ± sample SD across ten seeds**. For each seed, five fold predictions are averaged and the saved out-of-fold linear calibrator is applied once.
+
+| Model | Family-macro PCC ↑ | Family-macro Kendall τb ↑ | Family-macro log10MAE ↓ | Family-macro RSE ↓ |
+| :--- | ---: | ---: | ---: | ---: |
+| **TIGER-pair (V17)** | **0.6543 ± 0.0168** | **0.4729 ± 0.0210** | **0.3813 ± 0.0077** | **0.6659 ± 0.0256** |
+
+Unrounded results: [`results/v17/reference/tiger_summary.csv`](results/v17/reference/tiger_summary.csv). The landscape contains **42 configurations × 10 seeds = 420 prediction files**. The 41 controls × four metrics share one Holm correction over 164 two-sided paired-seed Wilcoxon tests; none meets adjusted *P* < 0.05. The main model was selected using this external panel, so these comparisons are exploratory. Seed SD quantifies training variability on a fixed panel.
+
+![Complete V17 ablation landscape](figures/v17/ExtendedData1_ablation_landscape.png)
+
+## Repository contents
+
+| Path | Contents |
+| :--- | :--- |
+| [`code/`](code/) | Frozen numerical core and portable V17 train/predict entrypoints |
+| [`configs/TIGER_pair/`](configs/TIGER_pair/) | Ten main-model configurations with relative paths |
+| [`configs/ablation/`](configs/ablation/) | All 420 arm–seed configurations; scientific fields unchanged |
+| [`checkpoints/V17/TIGER_pair/`](checkpoints/V17/TIGER_pair/) | 50 selected fold checkpoints, 100 scaling files, ten calibrators, fold identities and pair audits |
+| [`data/v17/`](data/v17/) | Frozen activity/negative tables, canonical endpoint, descriptors and exact structures |
+| [`results/v17/`](results/v17/) | Per-pair predictions, family/seed metrics, summaries and paired tests |
+| [`scripts/`](scripts/) | Structure preparation, numerical replay, input auditing, plotting and verification |
+| [`notebooks/V17_reproduction.ipynb`](notebooks/V17_reproduction.ipynb) | Executed CPU-only result and figure reproduction |
+| [`provenance/`](provenance/) | Source/checksum records, configuration identities and validation evidence |
+| [`docs/`](docs/) | Methods, complete ablation table and migration notes |
+| [`pipeline/`](pipeline/) | Existing design workflow; Step 4 uses the matching pre-V17 runtime |
+| [`legacy/`](legacy/) | Original implementation and README for historical compatibility |
+
+## Installation
+
+Use Python **3.10**; the [recorded training environment](provenance/training_environment.json) gives package versions. Run these commands from the repository root:
 
 ```bash
-git lfs install
-git clone git@github.com:haifangong/TIGER.git
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/haifangong/TIGER.git
 cd TIGER
-
-# unzip PDBs for code/ training configs
-mkdir -p data/3D_data_train_eva_Rosetta
-unzip -q data/trainval_dbassp/pdb/trainval_and_excluded_pdbs.zip \
-  -d data/3D_data_train_eva_Rosetta
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements-analysis.txt
 ```
 
-Details: [`data/README.md`](data/README.md).
+V17 data, weights and structure archives use ordinary Git objects and require no LFS download. Historical discovery data still include an LFS archive; see [`legacy/README.md`](legacy/README.md).
 
-## Ablation checkpoints
-
-Released weights live under [`checkpoints/`](checkpoints/): [`ablation/`](checkpoints/ablation/) (MIC panels 01–06; similarity **0.3 / 0.7**), [`ablation_toxin/`](checkpoints/ablation_toxin/) (HC50 classification), and [`wetlab/`](checkpoints/wetlab/) (species×sim production). Only `fold*_best.pt` / toxin `*.joblib` are shipped. The broken `cross_qs` sequence-only (`mod_s`) run and the sim=0.5 point are **not** redistributed.
+For model inference or training:
 
 ```bash
-export PYTHONPATH=.
-python -m code.main evaluate \
-  --config checkpoints/ablation/01_modality_ablation/mod_gsh/config.json \
-  --checkpoint checkpoints/ablation/01_modality_ablation/mod_gsh/checkpoints/fold1_best.pt \
-  --gpu 0
+python -m pip install torch==2.2.0 --index-url https://download.pytorch.org/whl/cu121
+python -m pip install -r requirements-model.txt
 ```
 
-Weights live under [`checkpoints/ablation/`](checkpoints/ablation/), [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/), and [`checkpoints/wetlab/`](checkpoints/wetlab/). Index: [`checkpoints/README.md`](checkpoints/README.md); MIC CV table: [`checkpoints/ablation/leaderboard.csv`](checkpoints/ablation/leaderboard.csv).
+Use the official PyTorch build appropriate to your hardware. For CPU inference, replace the index URL with `https://download.pytorch.org/whl/cpu`. The frozen implementation uses PyTorch 2.2.0 and PyTorch Geometric 2.5.3; newer versions are not assumed to reproduce its numerics or loading behaviour.
 
-**CV protocol (MIC):** `fold*_best.pt` is selected on the same validation fold that contributes OOF predictions — report as **model-selection-aware OOF** (not a nested outer test). Primary CV is **raw OOF**; nested leave-one-fold calibration is secondary; the saved calibrator is fit on all OOF for external application only (see `code/train.py`).
-
-**Seeds:** panels 01–04 use **seed=123**; panel 06 uses **seed=1**; panel 05 sweeps **1..5**. See `checkpoints/ablation/MANIFEST.json`.
-
-Sequence-encoding CV tables: [`data/ablation_results/06_seq_encoding/`](data/ablation_results/06_seq_encoding/).  
-Toxicity classification checkpoints: [`checkpoints/ablation_toxin/`](checkpoints/ablation_toxin/).
-
----
-
-## Data, splits, and evaluation packs
-
-Only the tables and structures **actually used** by training / evaluation are redistributed (not the full raw DBAASP dump or complete Rosetta stores). DBAASP collection snapshot: **2026-01-06**.
-
-### 1. Train / val (`metadata/` + `data/trainval_dbassp/`)
-
-CFU-aware MIC tables with an **LL37-family holdout**:
-
-| File | Role |
-|------|------|
-| `metadata/train_val_by_cfu_group_ug_per_mL.csv` | Primary train/val CSV (~10.5k unique sequences) |
-| `metadata/test_LL37_by_cfu_group_ug_per_mL.csv` | Default LL37 external test hook in configs |
-| `metadata/removed_similar_to_LL37_*.csv` | **1,122** unique peptides / **1,402** assay rows removed (sim > 0.30 to LL37) |
-| `metadata/removed_nonstandard_AA_*.csv` | **3739** non-standard-AA sequences removed |
-| `metadata/similarity_filter_audit.csv` | Per-sequence max similarity + keep/remove flags |
-| `metadata/LL37_v0.csv` / `test_seq_LL37_named.csv` | LL37 holdout family (**112** named sequences used for filtering) |
-
-Holdout rule: length-normalized Needleman–Wunsch similarity `score / max(|a|,|b|) > 0.30` to the LL37 family, plus removal of non-standard amino acids.
-
-Full archive (labels, excluded lists, toxin set, PDB zip + inventory): [`data/trainval_dbassp/`](data/trainval_dbassp/).
-
-**Toxin ablation labels** (`data/trainval_dbassp/toxin/`): **1596** peptides (1152 toxin / 444 non-toxin), HC50 on human erythrocytes, threshold **512 µg/mL**.
-
-**PDB archive:** `data/trainval_dbassp/pdb/trainval_and_excluded_pdbs.zip` — 15371 structures (Git LFS). Unzip to `data/3D_data_train_eva_Rosetta/` as shown above.
-
-### 2. External / holdout evaluation packs (`data/test_external/`)
-
-**LL37 and APEXGO are different protocols — do not lump them as a single “strict unseen-template” set.**
-
-Always report **both sequence count and pair count** for these activity packs (do not cite pairs alone):
-
-| Pack | Sequences | Eval pairs | Role |
-|------|----------:|-----------:|------|
-| LL37 (`test_activity_ll37/`) | **68** | **509** | similarity-filtered family holdout (DBAASP-derived) |
-| APEXGO (`test_activity_apexgo/`) | **110** | **200** | sequence-disjoint external family panel |
-
-#### LL37 — similarity-filtered family holdout (DBAASP-derived)
-
-LL37 is **not** an independent external source. It is a **family holdout carved from the DBAASP-derived pool**:
-
-- **Eval size:** **68 sequences** + **509 neighbor pairs** (*E. coli* MIC; `ll37_sequences_mic.csv` / `ll37_pairs_neighbor.csv`).
-- Holdout family used for filtering: **112** named LL37-family sequences (`metadata/test_seq_LL37_named.csv`; also `metadata/LL37_v0.csv`).
-- From train/val we removed every peptide with length-normalized NW similarity `> 0.30` to that family: **1,122 unique peptides** / **1,402 assay rows** (`metadata/removed_similar_to_LL37_*.csv`).
-- Audit (`test_pair_similarity_compare/`): every LL37 eval sequence has `max_sim_to_train ≤ 0.30` (`frac_gt_0.3 = 0`).
-
-#### APEXGO — sequence-disjoint external family panel (with reported train similarity)
-
-APEXGO is the closer match to a true external family-structured evaluation:
-
-- **Eval size:** **110 sequences** (10 families × WT + 10 variants) + **200 template↔variant pairs** (both directions; `apexgo_peptides.csv` / `pairs/pairs_template_centric_alldelta_geo3.csv`).
-- Sequences are disjoint from the train table, **but not <30% similarity-disjoint**.
-- Audit: **≈49.1%** of APEXGO sequences have `max_sim_to_train > 0.30` (max **0.4875**). Prefer the wording *sequence-disjoint external family panel with an explicitly reported train-similarity distribution*, not “strict template-disjoint”.
-
-#### Other packs
-
-| Pack | Task | Size |
-|------|------|------|
-| `test_toxin_internal_toxin_cohort` | Hemolytic HC50 (labels + predictions) | **88 sequences** |
-| `test_pair_similarity_compare` | Test-vs-train similarity audit (LL37 & APEXGO) | — |
-
-See [`data/test_external/README.md`](data/test_external/README.md). TIGER vs EvoGradient pair-delta comparison archive: [`checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/`](checkpoints/ablation/04_similarity/external_eval_tiger_vs_evo/).
-
-### 3. Wet-lab / production species tables (`data/wetlab/` + `checkpoints/wetlab/`)
-
-Full-DBAASP per-species tables (**no** LL37 holdout) for production-style training.
-Matching **12** production MIC models (6 species × sim `{0.3, 0.7}`, five `fold*_best.pt` each) are shipped under [`checkpoints/wetlab/`](checkpoints/wetlab/) for wet-lab ranking ensembles.
-
-- `train_Escherichia_coli.csv`
-- `train_Pseudomonas_aeruginosa.csv`
-- `train_Staphylococcus_aureus.csv`
-- `train_Staphylococcus_epidermidis.csv`
-- `train_Klebsiella_pneumoniae.csv`
-- `train_Bacillus_subtilis.csv`
-
-Each remaps that species’ MIC into the default `MIC_Escherichia_coli` column used by TIGER. See [`data/wetlab/README.md`](data/wetlab/README.md).
-
-### Path mapping for `code/` configs
-
-| Config key | Path in this repo |
-|---|---|
-| `train_csv` / `test_csv` | `metadata/*.csv` |
-| `feature_path` | `data/metadata/features.txt` |
-| `train_pdb_dir` / `test_pdb_dir` | `data/3D_data_train_eva_Rosetta/` (after unzip) |
-
----
-
-## Quick start
-
-### A) Discovery pipeline (Steps 1–3)
+## 1. Reproduce results without a GPU
 
 ```bash
-cd pipeline
-conda env create -f environment.yml
-conda activate tiger-pipeline
-
-# Step 1 — mutational search
-cd 01_mutation_search
-python search_mutations.py --sequence KSMLKSMK --search_length 1 --output_dir outputs/demo
-
-# Step 2 — toxicity filter
-cd ../02_toxicity_filter
-python infer_toxin.py --csv ../01_mutation_search/outputs/demo/KSMLKSMK_positive_1.csv --out-dir outputs/demo
-
-# Step 3 — structure prediction (separate HelixFold env; see pipeline/docs/SETUP.md)
-cd ../03_structure_prediction
-python infer_batch.py --csv_file ../02_toxicity_filter/outputs/demo/KSMLKSMK_non_toxins.csv --output_dir outputs/pdb/demo
+python scripts/verify_release.py
+python -m unittest discover -s tests -v
+python scripts/reproduce_v17.py
+python scripts/plot_v17.py
 ```
 
-Full walkthrough:
-
-- Environment setup: [`pipeline/docs/SETUP.md`](pipeline/docs/SETUP.md)
-- Custom / user-defined data: [`pipeline/docs/CUSTOM_DATA.md`](pipeline/docs/CUSTOM_DATA.md)
-- End-to-end notebook: [`pipeline/notebooks/00_full_pipeline_demo.ipynb`](pipeline/notebooks/00_full_pipeline_demo.ipynb)
-- Pipeline overview: [`pipeline/README.md`](pipeline/README.md)
-
-### B) Pair-delta MIC model (`code/`)
+Replay aligns every prediction by **family, anchor sequence and query sequence**, verifies its checksum and MIC-to-log2 labels, and independently recomputes four metrics, seed summaries, confidence intervals and all 164 paired tests. Outputs go to `outputs/replay/` and `outputs/figures/`; reference results are protected from overwriting. Original publication figures are retained under [`figures/v17/`](figures/v17/).
 
 ```bash
-# from the repository root
-export PYTHONPATH=.
-python -m code.main train --config code/configs/default_fusion_attention.json --gpu 0
+python -m pip install -r requirements-notebook.txt
+jupyter lab notebooks/V17_reproduction.ipynb
 ```
 
-Paper-oriented launchers:
+## 2. Predict with released checkpoints
+
+The following uses seed 123's five fold checkpoints and the bundled external structures. It applies each fold's own descriptor/node scales, averages raw predictions, then applies the saved calibrator once.
 
 ```bash
-bash code/scripts_train/train_best_recipe.sh          # locked MIC recipe
-bash code/scripts_train/run_ablation_all_mic.sh       # MIC ablation panels
-bash code/scripts_train/run_ablation_toxin.sh         # toxin both/global/sequence
+python -m code.main predict --seed 123 --device cpu \
+  --output outputs/seed123 --check-reference
 
-bash code/scripts_eval/eval_ll37_apexgo_best.sh       # LL37 68 seq/509 pairs + APEXGO 110 seq/200 pairs
-bash code/scripts_eval/eval_toxin_internal_toxin_cohort.sh           # hemolytic internal_toxin_cohort (n=88)
-bash code/scripts_eval/eval_cv_summary.sh             # print CV summary.json
+python -m code.main predict --seed 120 --device cuda:0 \
+  --output outputs/seed120 --check-reference
 ```
 
-See [`code/README.md`](code/README.md), [`code/scripts_train/README.md`](code/scripts_train/README.md), and [`code/scripts_eval/README.md`](code/scripts_eval/README.md).
+Seeds 120–129 are available. The ten-seed mean in the table is not the metric of one seed or a prediction averaged across all ten seeds. CPU/GPU replay allows `2e-5` absolute error per calibrated log2 prediction; frozen predictions define exact paper tables.
 
-## Classification metrics
-
-For antimicrobial-activity and toxicity classifiers, report the full suite across CV folds and the held-out test set:
-
-**Accuracy, Precision, Recall (toxic sensitivity), Specificity, F1, MCC, AUC-ROC, AUC-PR**,
-plus **confusion matrix** and **false-safe rate** (= false-negative rate among true toxics).
-
-The 88-peptide hemolytic panel writes these under
-`data/test_external/test_toxin_internal_toxin_cohort/internal_toxin_cohort_prediction_summary.json`
-and `internal_toxin_cohort_safety_metrics.csv` (includes sequence-overlap audit vs the toxin train table).
+For new peptides, supply a peptide table, directed pair table and Rosetta-compatible `{SEQUENCE}.pdb` structures:
 
 ```bash
-cd pipeline/01_mutation_search
-python evaluate_models.py --csv examples/labeled_activity_demo.csv --out-dir outputs/metrics
-
-cd ../02_toxicity_filter
-python evaluate_models.py --csv examples/labeled_toxicity_demo.csv --out-dir outputs/metrics
+python -m code.main predict --seed 123 --device cuda:0 \
+  --peptides /path/to/peptides.csv --pairs /path/to/pairs.csv \
+  --pdb-dir /path/to/pdb --output outputs/custom
 ```
 
-Pair-delta MIC evaluation reports `log10MAE`, `RSE`, `PCC`, `KCC` (and related metrics) on neighbor / template-centric pairs.
+Peptide columns: `sequence`, optional `n_terminus`, `c_terminus`, `cfu_group`, and optionally `MIC_E_coli_ug_mL` for evaluation. Pair columns: `anchor_sequence`, `query_sequence`, optional `family`. Unique peptide sequences must exactly cover the pair endpoints. Default CFU input is `1E5 - 1E6`; custom tables may supply another category. See the [input conventions](docs/METHODS_V17.md). Predictions are differences; absolute MIC estimation requires an anchor with known MIC.
 
-## Notes
+## 3. Train the current model
 
-- HelixFold weights (`~4.5 GB`) are **not** vendored. Download or symlink into `pipeline/03_structure_prediction/weights/` (see pipeline Step-3 README).
-- Steps 1–2 and Step 3 intentionally use separate conda environments because PaddlePaddle / PyRosetta stacks conflict with the PyTorch scientific stack.
-- `trainval_and_excluded_pdbs.zip` is stored with **Git LFS**; clone with `git lfs install` first.
-- Raw unfiltered DBAASP dumps and full Rosetta directories are not redistributed—only the filtered tables and structures used in the experiments.
+```bash
+# Extract and SHA256-check the exact training structures.
+python scripts/prepare_structures.py
+
+# Rebuild graphs and reproduce seed123/fold1 positive and negative pair hashes.
+python scripts/check_training_inputs.py
+
+# Full five-fold training; output must be a new/empty directory.
+python -m code.main train --config configs/TIGER_pair/seed123.json \
+  --device cuda:0 --out-dir outputs/training/seed123
+
+python -m code.main predict --run outputs/training/seed123 --device cuda:0 \
+  --output outputs/training_evaluation/seed123
+```
+
+The frozen activity table has 11,516 source rows. Of these, **7,530 records have valid E. coli MIC**. Removing 129 length-ineligible records and 184 sequence–CFU duplicates leaves **7,217 usable rows representing 6,847 unique sequences**; all retained rows construct graphs successfully. The recorded first fold contains 5,773 training rows and 1,444 validation rows. These row counts are not distinct-peptide counts. The separate 7,860-peptide negative pool does not enter validation or calibration; activity records take precedence on exact sequence conflicts.
+
+All controls use the same command with `configs/ablation/<arm>/seed<seed>.json`. Main-model and single-head results reuse complete earlier ten-seed batches; 40 other controls were retrained for V17. Newly distributed weights cover the main model; configurations and predictions cover every control. Formal training uses the original dataflow. Fresh stochastic training may vary numerically; the supplied checkpoints and archived predictions define this release.
+
+## Architecture and protocol
+
+TIGER-pair combines **P** (ten global descriptors), **S** (integer sequence tokens) and **G** (Cα contact graph with GATv2). The graph enables 20 amino-acid prior channels and masks the 20 stored energy channels. Sequence-query cross-attention fuses modalities; a difference head predicts signed log2-MIC changes.
+
+Five-fold CV groups exact sequences. Positive-pair candidates use a ±5-residue window, a directed alignment-score threshold of 0.7, and unsigned bins `int(round(abs(delta) * 100))` capped at 20,000 pairs per bin, with a total 250,000 cap. The target remains signed. Neighbour validation uses top-50/fallback-20. Classification pretraining runs for 15 epochs; regression runs for at most 70 with patience 16. Checkpoint selection and OOF calibration are model-selection-aware, not a nested outer test. Full definitions are in [`docs/METHODS_V17.md`](docs/METHODS_V17.md).
+
+## Benchmarks and historical workflows
+
+The complete 23-method benchmark, negative-sample controls, TIGER-single, TIGER-ensemble, timings and Pareto analyses are in [TIGER_AMP_Benchmarking](https://github.com/YueWang-Lambda/TIGER_AMP_Benchmarking). This repository supplies the current TIGER-pair model and complete ablation landscape.
+
+Historical toxicity and multi-species weights remain in `checkpoints/ablation_toxin/` and `checkpoints/wetlab/`; they were not retrained in this update. Pipeline Step 4 imports `legacy/runtime/` to retain its `gsh`/`global_f` architecture alongside V17's `gps`/`p_f` implementation. Old MIC ablation weights/tables have been replaced on the default branch. The previous release remains available at [commit b83b41c](https://github.com/haifangong/TIGER/tree/b83b41c17a757722c4a49648359fdbc6c0f68ef6).
 
 ## Citation
 
-If you use this repository, please cite the corresponding TIGER study.
+Please cite the corresponding TIGER study, **Deep learning decouples antimicrobial peptide efficacy from host toxicity**, and the original data sources recorded in the external peptide table. Source attribution and previously distributed discovery assets are retained.

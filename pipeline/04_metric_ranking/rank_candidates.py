@@ -29,21 +29,22 @@ import torch
 HERE = Path(__file__).resolve().parent
 PIPELINE = HERE.parent
 TIGER = PIPELINE.parent
-if str(TIGER) not in sys.path:
-    sys.path.insert(0, str(TIGER))
+# The wet-lab models retain their pre-V17 gsh/global_f architecture.
+# Keep this adapter paired with the exact implementation that trained them.
+sys.path.insert(0, str(TIGER))
 
-from code.dataloader import (  # noqa: E402
+from legacy.runtime.code.dataloader import (  # noqa: E402
     build_graphs,
     load_or_build_cache,
     pair_collate,
     precompute_neighbors,
     preprocess_dataset,
 )
-from code.evaluation import load_checkpoint_model  # noqa: E402
-from code.utils.config import load_config  # noqa: E402
-from code.utils.constants import CFU_COL, TARGET_COL  # noqa: E402
-from code.utils.metrics import apply_calibrator  # noqa: E402
-from code.utils.scaling import (  # noqa: E402
+from legacy.runtime.code.evaluation import load_checkpoint_model  # noqa: E402
+from legacy.runtime.code.utils.config import load_config  # noqa: E402
+from legacy.runtime.code.utils.constants import CFU_COL, TARGET_COL  # noqa: E402
+from legacy.runtime.code.utils.metrics import apply_calibrator  # noqa: E402
+from legacy.runtime.code.utils.scaling import (  # noqa: E402
     apply_global_f_stats,
     apply_node_x_stats,
     cache_raw_global_f,
@@ -305,7 +306,7 @@ def rank_neighbor_mode(args) -> pd.DataFrame:
     if not test_graphs:
         raise SystemExit("Failed to build candidate graphs")
 
-    from code.evaluation import eval_pair_delta
+    from legacy.runtime.code.evaluation import eval_pair_delta
 
     cal_path = run_dir / "results" / "calibrator.json"
     calibrator = json.loads(cal_path.read_text()) if cal_path.exists() and not args.no_calibrator else None

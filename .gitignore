@@ -11,3 +11,8 @@ pipeline/**/outputs/**
 !pipeline/**/outputs/**/.gitkeep
 *.pth.bak
 .DS_Store
+
+# V17 generated files
+outputs/
+data/v17/pdb/
+*.log

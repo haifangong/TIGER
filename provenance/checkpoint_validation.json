@@ -1,0 +1,225 @@
+{
+  "status": "PASS",
+  "gpu": [
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 120,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6325568994102582,
+        "KCC": 0.462577015127244,
+        "log10MAE": 0.38147024822542264,
+        "RSE": 0.6775362567210642
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 5.365313353600243e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 121,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6670310285434218,
+        "KCC": 0.48991509255495,
+        "log10MAE": 0.3752076160887652,
+        "RSE": 0.6518121952932142
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 6.35211809651981e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 122,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6518702290157555,
+        "KCC": 0.4601774444577986,
+        "log10MAE": 0.382908494831441,
+        "RSE": 0.660379244284396
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 7.319469078059804e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 123,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6434374241131285,
+        "KCC": 0.45524744405170026,
+        "log10MAE": 0.38161442032723564,
+        "RSE": 0.6686727741639041
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 6.68866722453032e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 124,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6584818466338684,
+        "KCC": 0.4746831512735992,
+        "log10MAE": 0.38823224695529795,
+        "RSE": 0.6891365120489282
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 5.979141461942561e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 125,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6677966654751866,
+        "KCC": 0.4951181347626623,
+        "log10MAE": 0.3672803252200758,
+        "RSE": 0.612383433120698
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 7.487665332206461e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 126,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6501372182730413,
+        "KCC": 0.4583638306809758,
+        "log10MAE": 0.39048423858748704,
+        "RSE": 0.6924720467479252
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 7.397037475875834e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 127,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6316350944393606,
+        "KCC": 0.4431463766756286,
+        "log10MAE": 0.3915509428525097,
+        "RSE": 0.699161571216956
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 6.273941436374386e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 128,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.686718235045684,
+        "KCC": 0.511343048737561,
+        "log10MAE": 0.37343918992285546,
+        "RSE": 0.650210981191353
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 6.638520468893461e-07,
+        "atol": 2e-05
+      }
+    },
+    {
+      "n_peptides": 208,
+      "n_pairs": 2211,
+      "n_families": 11,
+      "prediction_unit": "log2(MIC_anchor / MIC_query)",
+      "folds": 5,
+      "seed": 129,
+      "input_cfu": "historical uniform 1E5 - 1E6",
+      "macro": {
+        "PCC": 0.6535375462745712,
+        "KCC": 0.4788289888229757,
+        "log10MAE": 0.38050597897799304,
+        "RSE": 0.6574090279461563
+      },
+      "reference_check": {
+        "status": "PASS",
+        "max_abs_prediction_difference": 7.50395932502812e-07,
+        "atol": 2e-05
+      }
+    }
+  ],
+  "cpu": {
+    "n_peptides": 208,
+    "n_pairs": 2211,
+    "n_families": 11,
+    "prediction_unit": "log2(MIC_anchor / MIC_query)",
+    "folds": 5,
+    "seed": 123,
+    "input_cfu": "historical uniform 1E5 - 1E6",
+    "macro": {
+      "PCC": 0.6434374181964608,
+      "KCC": 0.45524744405170026,
+      "log10MAE": 0.381614423793513,
+      "RSE": 0.6686727865709562
+    },
+    "reference_check": {
+      "status": "PASS",
+      "max_abs_prediction_difference": 8.802628106430177e-07,
+      "atol": 2e-05
+    }
+  }
+}

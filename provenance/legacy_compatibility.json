@@ -1,0 +1,5 @@
+{
+  "status": "PASS",
+  "test": "Legacy wetlab E. coli sim0.7 fold1 checkpoint loads under preserved namespace and forwards two external graphs",
+  "scope": "Compatibility check only; not a new end-to-end discovery validation"
+}

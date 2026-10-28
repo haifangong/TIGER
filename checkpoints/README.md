@@ -1,17 +1,7 @@
-# checkpoints
+# Released checkpoints
 
-Released MIC / toxin / wetlab weights. Only **final selected** checkpoints are
-shipped (`fold*_best.pt` for MIC; `*.joblib` for toxin). `fold*_last.pt` and
-training dumps are omitted.
+The current TIGER-pair main model is under [`V17/TIGER_pair/`](V17/TIGER_pair/): ten seeds (120–129), five selected folds per seed, fold-specific global/node scales, OOF linear calibrators, and split/pair audits. Run it with `python -m code.main predict --seed 123 --check-reference` from the repository root.
 
-| Path | Contents |
-|------|----------|
-| [`ablation/`](ablation/) | MIC paper ablations (panels 01–06) |
-| [`ablation_toxin/`](ablation_toxin/) | HC50 toxicity classifiers (`both` / `global` / `sequence`) |
-| [`wetlab/`](wetlab/) | Species×similarity production MIC models |
+The old MIC ablation checkpoints and CV tables have been replaced; their original contents remain available at [the previous revision](https://github.com/haifangong/TIGER/tree/b83b41c17a757722c4a49648359fdbc6c0f68ef6/checkpoints/ablation). Current external results are in [`results/v17/`](../results/v17/).
 
-Aggregate MIC CV table: [`ablation/leaderboard.csv`](ablation/leaderboard.csv)
-(also mirrored as [`leaderboard.csv`](leaderboard.csv)).
-
-**Not included:** similarity `sim0p5_bal10000`, and the invalid `cross_qs`
-sequence-only modality run (`mod_s`).
+The historical [`ablation_toxin/`](ablation_toxin/) and [`wetlab/`](wetlab/) models remain unchanged and use the preserved [`legacy/runtime/code/`](../legacy/runtime/code/) implementation. Their results are separate from the current V17 external endpoint.

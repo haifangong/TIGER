@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "training_rows": 7217,
+  "training_sequences": 6847,
+  "negative_rows": 7860,
+  "fold1_training_rows": 5773,
+  "fold1_validation_rows": 1444,
+  "positive_pairs": 26027,
+  "negative_pairs": 150,
+  "positive_pair_sha256": "f5d52781af9971b3cadec724c55919935adfa732c3ba1a3a17a16ed4fe954607",
+  "negative_pair_sha256": "cf8826b57d004415334260a5d30f201528c417ef57f0888cdfb89d40e11da85e",
+  "training_filter_stats": {
+    "split": "train",
+    "raw_rows": 11516,
+    "pdb_files": 10252,
+    "target_col": "MIC_Escherichia_coli",
+    "removed_missing_or_nonpositive_mic": 3986,
+    "removed_length_outside_range": 129,
+    "rows_before_dedup": 7401,
+    "duplicate_rows_removed": 184,
+    "rows_after_dedup": 7217,
+    "graph_stats": {
+      "input_rows": 7217,
+      "graph_rows": 7217,
+      "graph_failed_rows": 0
+    }
+  },
+  "exact_groupkfold_indices_checked": 5
+}

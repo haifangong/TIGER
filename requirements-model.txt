@@ -1,0 +1,7 @@
+-r requirements-analysis.txt
+torch==2.2.0
+torch-geometric==2.5.3
+scikit-learn==1.4.2
+biopython==1.85
+networkx==3.3
+tqdm==4.66.5

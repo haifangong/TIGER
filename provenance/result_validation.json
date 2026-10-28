@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "configurations": 42,
+  "seed_predictions": 420,
+  "family_scores": 4620,
+  "paired_tests": 164,
+  "numeric_checks": 21652,
+  "holm_significant_tests": 0
+}

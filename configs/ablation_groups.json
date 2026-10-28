@@ -1,0 +1,104 @@
+[
+  [
+    "Reference",
+    [
+      "factor_P11"
+    ]
+  ],
+  [
+    "Feature modalities",
+    [
+      "s4_mod_pg",
+      "s4_mod_ps",
+      "s4_mod_sg",
+      "s4_mod_p",
+      "s4_mod_g",
+      "s4_mod_s"
+    ]
+  ],
+  [
+    "Graph encoder",
+    [
+      "S4_gat",
+      "S4_sage",
+      "S4_gcn"
+    ]
+  ],
+  [
+    "Node attributes",
+    [
+      "S4_se",
+      "S4_sp",
+      "S4_sep",
+      "S4_nodeemb",
+      "S4_nodezero"
+    ]
+  ],
+  [
+    "Edge geometry",
+    [
+      "S4_edge_chain"
+    ]
+  ],
+  [
+    "Feature fusion",
+    [
+      "s4_fus_cross_qp",
+      "s4_fus_cross_qg",
+      "s4_fus_concat",
+      "s4_fus_self_gsp",
+      "s4_fus_self_sgp"
+    ]
+  ],
+  [
+    "Prediction design",
+    [
+      "S4_concat",
+      "s4_single_n1n2"
+    ]
+  ],
+  [
+    "Similarity gate",
+    [
+      "s4_gate_off",
+      "S4_sim00",
+      "S4_sim03",
+      "S4_sim05",
+      "S4_sim09"
+    ]
+  ],
+  [
+    "Signed pair quota",
+    [
+      "s4_bal_signed_bal1000",
+      "s4_bal_signed_bal2000",
+      "s4_bal_signed_bal4000",
+      "s4_bal_signed_bal8000",
+      "s4_bal_signed_bal10000",
+      "s4_bal_signed_bal20000"
+    ]
+  ],
+  [
+    "Unsigned pair quota",
+    [
+      "s4_bal_unsigned_bal1000",
+      "s4_bal_unsigned_bal2000",
+      "s4_bal_unsigned_bal4000",
+      "s4_bal_unsigned_bal8000",
+      "s4_bal_unsigned_bal10000"
+    ]
+  ],
+  [
+    "Training / validation pairs",
+    [
+      "S4_negpairs",
+      "s4_valpair_strict"
+    ]
+  ],
+  [
+    "Negative-sample exposure",
+    [
+      "factor_P00"
+    ]
+  ]
+]

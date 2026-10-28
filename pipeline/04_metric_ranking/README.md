@@ -1,3 +1,5 @@
+> **V17 update:** The current TIGER-pair model and canonical external endpoint are documented in the [root README](../../README.md). This page describes historical discovery/toxicity/wet-lab assets. Old MIC ablations are preserved in Git history; V17 uses `checkpoints/V17/` and `data/v17/`.
+
 # Step 4 — MIC metric ranking (wetlab TIGER models)
 
 Rank candidate AMPs by **predicted MIC** using species-specific TIGER pair-delta

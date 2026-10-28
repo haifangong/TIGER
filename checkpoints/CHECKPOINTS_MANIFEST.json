@@ -1,9 +1,270 @@
 {
-  "name": "checkpoints",
-  "description": "Released fold*_best.pt (MIC) and toxin *.joblib under ablation/, ablation_toxin/, and wetlab/.",
-  "ablation": "checkpoints/ablation/",
-  "ablation_toxin": "checkpoints/ablation_toxin/",
-  "wetlab": "checkpoints/wetlab/",
-  "excluded": ["04_similarity/sim0p5_bal10000", "01_modality_ablation/mod_s"],
-  "note": "sim0.5 and the invalid cross_qs sequence-only (mod_s) run are not redistributed."
+  "version": "V17",
+  "model": "TIGER-pair",
+  "seeds": [
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129
+  ],
+  "folds_per_seed": 5,
+  "files": [
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed120/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "2361ac7bd4a05cefb6041f8b77c48821d7481348e8a37b431355cc2f3e197596"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed120/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "41cdb106c80c6947fa922e0dd0e103d9144c6eb8c871d481051d39f1ad5cf514"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed120/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "a493d322208daa26c3307831a3c74c4cb0a0fef94495efc1aaf61eb0a32225d0"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed120/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "714b8093f6251ec5a169b5af0c1b8c367c23d4187a38236cb3ca14d5fb84661b"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed120/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "4a42a7f7a8bdf0c925b6034318b845d314e81f1fcc128714eac2ed7e6e481c8b"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed121/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "63774e54254a5607d147648e988b3703b8ec5a101bc27199b2a3e2a1d08595d2"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed121/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "67bab62b3ec7a88215ef9c47766d118fceea73a4eabe2bcff1ae64d532801e5f"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed121/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "e4c1847a818977d6e50fa2bf0b3fc9834fb03a8b1433b7385477beec3611b69d"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed121/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "d4c8bb8fb251bb965ed8c040257f33517a7ef1b2d93247aa3861fa5b645d6ef7"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed121/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "44c6800933753bef8429cd8656b3af352e75efc915b365ecbb9ef38fe757699d"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed122/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "0a931413137f15cdfc39e69c5d49abe538824568672474652fa1d2ecee013a7a"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed122/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "51fc17dbee03b146583d9134933bdfda7d6573fa7007b51a169bd1be82346794"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed122/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "93974abcc78d5da83950ebe9ccca4e6c62955165f8a720e3c2de788d6ce75576"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed122/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "e973cb3504d8b09fde5b20a5ac24d27047d7b0b6f9904322be5a1c61ef2f3b21"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed122/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "342ad496bd940472694511115bb38ecbeed23a8d214e23be51a21db2f68e046b"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed123/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "8fd3831dce40c7f72d2a898bbf07fa1eca25ca5796fa23e1d4f7451b815b9792"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed123/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "df7715545e282c0c44a0493a45c8763ab9fdaf1a3f400a88a607963d66c95981"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed123/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "dde9e3b6b746b7ec7bae7080508da92cfa61d964f950a92f103ffdc14281ab82"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed123/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "905773aaec4306b1edaeeeef58dad255692410782e0e36655d5a44c2204620e8"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed123/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "8078176c3e0059b271510d255dc89b6f6cdd4d37cd28b9025bf9758d72e0ed25"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed124/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "8c2005a181838b09c6d779961e7d2e208be18a44f0fb8240f0c4f19d056313e6"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed124/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "9897f25934f4b651c3520940f1021c7eb3871dec9144f1ac0f5ddcb2de893e4c"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed124/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "23ca002e84721d74e11039bfc37aca5b213339038657da852d89b55ebb1182b7"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed124/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "38f3cc4479c0b947f1d0c104184639cdd69c9c05acc09e55f2f30398f58c765d"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed124/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "e1730a8f35270f43abe3c2e089a2216db5bbd51310d840b27009eadc75661ea1"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed125/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "1a3fe5777514b3aa8a845784ec061f2040c3b03ce1bc1350b35f990b122dc2f5"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed125/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "92a9e1ef4877f9624298fc3cfdf4e09c4683158046b120b3b9cb320096ff52c0"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed125/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "278ccc385300f2bea8642f1eb016a5979fbb10ded89ffffe6b0f9e3f434fa33e"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed125/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "bdd6895518a338224c0c0e945484db44c7ce2ede0b2d24101ef9a008e0aa2bc1"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed125/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "e363681beee495093e656d0e1fa525cb87f3e7bc28dc937aaefc61adcf6c1d58"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed126/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "495b4479c190a6675d86b22fcd3ffa680ab8048319e13bf022f2868edc570f77"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed126/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "a34f0d1ca1f84f0df8eddaf0f16ba7b7cd28b6b8fea274cc31a10b28ed347a3d"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed126/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "8c95eef8def283d5558106523791abd229fc997d481739bc0610f5ae71ed3c5d"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed126/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "10ab7eb69a8d419deb1235524e771ad8252d05e9172dd985575712aac0966256"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed126/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "85fa5f9d03f0a132bcb46e50232747c12545416656df3989e150bb6ddef6c004"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed127/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "909429295ce3d129a1761327b36f0d8fa0c3bd6ad133e834d4a6512bf76df43c"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed127/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "68804630f4b9157d7278a72110ddf8e4244ec33534c00cf53635552620570ac2"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed127/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "93bc0904e3c40b7156117a3cbb9a5dccf191f60cbc61a17d1e274da6760f2014"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed127/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "fdcb611080c78bbd67a875823611595e7c97f825c7b862c82df989996a3a86ed"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed127/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "d8548c5845bb116a308fdfc8ff3fc7fcd9c8c0cd03d1f88b1b8a21c3f730ec92"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed128/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "177808832c970d83fe82645a01a6695557efd47c14452598900b36170a04430a"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed128/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "7e8d1340eb7434fade2e208ebff155a166ffc079b02b2ce508830286af8887ff"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed128/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "c88dd80ed30b6e92775ecdcbd25621af00538aba989344f588f8d78fbfa68b72"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed128/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "a593d0f78719c49a9a58c533f38e3252e14c90ee8178ce8867b0acd4357cf7f4"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed128/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "6a5032087f4c2bc04e03e179f5112a632a6cc2d020387c58f9ef61e1de89b2d3"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed129/checkpoints/fold1_best.pt",
+      "bytes": 789602,
+      "sha256": "1f63820c2fda981d49742104269fba83c7b571d31124101212f0935f507bee14"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed129/checkpoints/fold2_best.pt",
+      "bytes": 789602,
+      "sha256": "e490965fd33e7a6d45d59a4c1fb3350dd5b6f7d6ba7b75ce5eb5558c3c7326ad"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed129/checkpoints/fold3_best.pt",
+      "bytes": 789602,
+      "sha256": "821990345fafcef544fec834487fa695332aad166c0800ab667bcf21f726f851"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed129/checkpoints/fold4_best.pt",
+      "bytes": 789602,
+      "sha256": "7a68ab3b27499f26250bda8d1e9804685b3b8015a3441992a888107f1ef1fd5f"
+    },
+    {
+      "path": "checkpoints/V17/TIGER_pair/seed129/checkpoints/fold5_best.pt",
+      "bytes": 789602,
+      "sha256": "4051d68b31fb32dbba539be0dcaa3eb612091de961990101c31db759aecc5dd4"
+    }
+  ],
+  "legacy_weights": "checkpoints/ablation_toxin and checkpoints/wetlab retain the previous revision; see legacy/checkpoints_CHECKPOINTS_MANIFEST.json"
 }

@@ -37,8 +37,10 @@ def regression_metrics(y_true, y_pred, *, input_log_base: int | float = 2) -> di
     """
     yt = np.asarray(y_true, dtype=float)
     yp = np.asarray(y_pred, dtype=float)
-    mask = np.isfinite(yt) & np.isfinite(yp)
-    yt, yp = yt[mask], yp[mask]
+    if yt.ndim != 1 or yp.ndim != 1 or yt.shape != yp.shape:
+        raise ValueError("Metric inputs must be aligned one-dimensional arrays of equal size")
+    if not np.isfinite(yt).all() or not np.isfinite(yp).all():
+        raise ValueError("Non-finite metric input: refusing to silently change the evaluated set")
     out: dict[str, float] = {"n": int(len(yt))}
     if len(yt) == 0:
         return out

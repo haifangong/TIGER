@@ -1,0 +1,11 @@
+{
+  "positive_pairs": 26005,
+  "positive_pair_sha256": "881347e3ab8312404237d7603f6ad639668d915e38049d85ffb5887fb93e6f76",
+  "negative_pairs": 150,
+  "negative_unique_peptides": 58,
+  "negative_pool_size": 7860,
+  "negative_sampling_mode": "joint",
+  "train_similarity_gate_enabled": true,
+  "train_similarity_threshold": 0.7,
+  "negative_pair_sha256": "cf8826b57d004415334260a5d30f201528c417ef57f0888cdfb89d40e11da85e"
+}

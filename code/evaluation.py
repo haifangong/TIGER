@@ -11,12 +11,14 @@ import pandas as pd
 import torch
 
 from .dataloader import (
+    SingleDataset,
     build_graphs,
     pair_collate,
     precompute_neighbors,
     preprocess_dataset,
     sequence_similarity,
     setup_aligner,
+    single_collate,
 )
 from .utils.config import Config
 from .utils.constants import CFU_COL, TARGET_COL
@@ -112,11 +114,71 @@ def eval_pair_delta(
     return df, regression_metrics(df["y_true_delta_log2_anchor_minus_query"], df["y_pred_delta_log2_anchor_minus_query"])
 
 
-def save_eval_outputs(out_dir: Path, cv: pd.DataFrame, fold_metrics: list[dict], calibrator: dict, summary: dict) -> None:
+@torch.no_grad()
+def eval_peptide_mic(
+    model,
+    graphs,
+    rows: pd.DataFrame,
+    labels: np.ndarray,
+    cfg: Config,
+    device: torch.device,
+    *,
+    primary_cfu_only: bool = True,
+) -> tuple[pd.DataFrame, dict[str, float]]:
+    """Score absolute log2(MIC) for individual peptides (non-siamese head)."""
+    model.eval()
+    if not hasattr(model, "score"):
+        raise TypeError("eval_peptide_mic requires a model with score(); use model_kind=single")
+    keep: list[int] = []
+    for i in range(len(rows)):
+        if primary_cfu_only and cfg.use_cfu_protocol and CFU_COL in rows.columns:
+            if rows.iloc[i][CFU_COL] != cfg.primary_cfu_group:
+                continue
+        keep.append(i)
+    if not keep:
+        return pd.DataFrame(), {"n": 0}
+    loader = torch.utils.data.DataLoader(
+        SingleDataset(graphs, labels, keep),
+        batch_size=int(getattr(cfg, "eval_batch_size", 4096) or 4096),
+        shuffle=False,
+        collate_fn=single_collate,
+    )
+    preds: list[float] = []
+    for g, _y in loader:
+        g = g.to(device)
+        preds.extend(model.score(g).detach().cpu().numpy().ravel().tolist())
+    out_rows = []
+    for idx, pred in zip(keep, preds):
+        y_true = float(labels[idx])
+        out_rows.append(
+            {
+                "sequence": rows.iloc[idx]["sequence"],
+                "cfu_group": rows.iloc[idx].get(CFU_COL, "unknown") if CFU_COL in rows.columns else "unknown",
+                "y_true_log2_mic": y_true,
+                "y_pred_log2_mic": float(pred),
+                "y_true_log10_mic": float(y_true * LOG10_OF_2),
+                "y_pred_log10_mic": float(pred * LOG10_OF_2),
+            }
+        )
+    df = pd.DataFrame(out_rows)
+    return df, regression_metrics(df["y_true_log2_mic"], df["y_pred_log2_mic"])
+
+
+def save_eval_outputs(
+    out_dir: Path,
+    cv: pd.DataFrame,
+    fold_metrics: list[dict],
+    calibrator: dict,
+    summary: dict,
+    *,
+    peptide_cv: pd.DataFrame | None = None,
+) -> None:
     out_dir = Path(out_dir)
     (out_dir / "results").mkdir(parents=True, exist_ok=True)
     cv.to_csv(out_dir / "results" / "cv_pair_predictions.csv", index=False)
     pd.DataFrame(fold_metrics).to_csv(out_dir / "results" / "fold_metrics.csv", index=False)
+    if peptide_cv is not None and len(peptide_cv):
+        peptide_cv.to_csv(out_dir / "results" / "cv_peptide_predictions.csv", index=False)
 
     (out_dir / "results" / "calibrator.json").write_text(json.dumps(calibrator, indent=2))
     (out_dir / "results" / "summary.json").write_text(json.dumps(summary, indent=2))
@@ -329,17 +391,17 @@ def evaluate_apexgo_high_span(
     model, ckpt = load_checkpoint_model(ckpt_path, eval_cfg, device)
 
     # Optional z-score stats from the training run.
-    if str(eval_cfg.global_feature_scaling).lower() == "zscore":
-        from .utils.scaling import apply_global_f_stats, cache_raw_global_f
+    if str(eval_cfg.p_feature_scaling).lower() == "zscore":
+        from .utils.scaling import apply_p_f_stats, cache_raw_p_f
 
-        cache_raw_global_f(graphs)
+        cache_raw_p_f(graphs)
         for sp in (
-            ckpt_path.parent.parent / "intermediate" / "global_feature_zscore_final.json",
-            Path(cfg.out_dir) / "intermediate" / "global_feature_zscore_final.json",
-            root / cfg.out_dir / "intermediate" / "global_feature_zscore_final.json",
+            ckpt_path.parent.parent / "intermediate" / "p_feature_zscore_final.json",
+            Path(cfg.out_dir) / "intermediate" / "p_feature_zscore_final.json",
+            root / cfg.out_dir / "intermediate" / "p_feature_zscore_final.json",
         ):
             if sp.exists():
-                apply_global_f_stats(graphs, json.loads(sp.read_text()))
+                apply_p_f_stats(graphs, json.loads(sp.read_text()))
                 break
     if str(getattr(eval_cfg, "node_feature_scaling", "none")).lower() == "zscore":
         from .utils.scaling import apply_node_x_stats, cache_raw_node_x

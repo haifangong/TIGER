@@ -1,0 +1,30 @@
+{
+  "captured": "2026-10-14T03:25:27.387473+08:00",
+  "python_executable": "/home/ubuntu/anaconda3/envs/ccseg/bin/python",
+  "python": "3.10.18 (main, Jun  5 2025, 13:14:17) [GCC 11.2.0]",
+  "platform": "Linux-6.8.0-79-generic-x86_64-with-glibc2.39",
+  "packages": {
+    "torch": "2.2.0",
+    "torch-geometric": "2.5.3",
+    "numpy": "1.26.4",
+    "pandas": "2.2.2",
+    "scipy": "1.13.0",
+    "scikit-learn": "1.4.2",
+    "matplotlib": "3.8.4",
+    "nbformat": "5.10.4",
+    "nbclient": "0.11.0",
+    "ipykernel": "7.3.0",
+    "python-docx": "1.2.0",
+    "Pillow": "10.3.0",
+    "biopython": "1.85",
+    "networkx": "3.3",
+    "PyYAML": "6.0.3"
+  },
+  "gpu": "0, NVIDIA GeForce RTX 4090 D, 580.95.05, 24564 MiB\n1, NVIDIA GeForce RTX 4090 D, 580.95.05, 24564 MiB\n",
+  "torch_threads_per_job": 2,
+  "torch_interop_threads_per_job": 1,
+  "gpu_concurrency": {
+    "0": 5,
+    "1": 5
+  }
+}

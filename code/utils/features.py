@@ -86,6 +86,39 @@ def calculate_property(
     ]
 
 
+# Eisenberg consensus hydrophobicity (standard scale for hydrophobic moments).
+EISENBERG_HYDRO = {
+    "A": 0.62, "R": -2.53, "N": -0.78, "D": -0.90, "C": 0.29,
+    "Q": -0.85, "E": -0.74, "G": 0.48, "H": -0.40, "I": 1.38,
+    "L": 1.06, "K": -1.50, "M": 0.64, "F": 1.19, "P": 0.12,
+    "S": -0.18, "T": -0.05, "W": 0.81, "Y": 0.26, "V": 1.08,
+}
+
+
+def hydrophobic_moment(seq: str, angle_deg: float = 100.0) -> float:
+    """Normalized hydrophobic moment (Eisenberg): |sum s_i * e^{i*i*theta}| / n.
+
+    angle 100 deg/residue -> alpha-helical moment (helical-face amphipathicity);
+    160 deg -> beta-strand moment. Captures the *distribution pattern* of
+    hydrophobic residues on the helix face, which bulk GRAVY cannot represent.
+    """
+    import math as _math
+
+    theta = _math.radians(angle_deg)
+    x = y = 0.0
+    for i, aa in enumerate(seq):
+        s = EISENBERG_HYDRO.get(aa, 0.0)
+        x += s * _math.cos(i * theta)
+        y += s * _math.sin(i * theta)
+    return _math.hypot(x, y) / max(1, len(seq))
+
+
+def hydrophobic_moments(seq: str) -> list[float]:
+    """[helical(100deg) moment, beta(160deg) moment] — appended to p_f when
+    ``Config.p_feature_hmom`` is on (see dataloader.construct_graph)."""
+    return [round(hydrophobic_moment(seq, 100.0), 4), round(hydrophobic_moment(seq, 160.0), 4)]
+
+
 def tabular_features(
     df: pd.DataFrame,
     include_cfu: bool = True,
@@ -99,3 +132,48 @@ def tabular_features(
         cfu = cfu_one_hot(getattr(r, CFU_COL, "unknown")) if include_cfu and CFU_COL in df.columns else []
         rows.append([len(r.sequence)] + props + aa_freq + cfu)
     return np.asarray(rows, dtype=np.float32)
+
+
+def load_aa_prior_table(feature_path: str):
+    """Parse the handcrafted per-AA descriptor file -> {letter: [20 floats]}."""
+    import torch as _torch
+
+    seen = {}
+    with open(feature_path) as handle:
+        for line in handle:
+            parts = line.split()
+            if not parts:
+                continue
+            if len(parts[1:]) == 20:
+                seen[parts[0]] = [float(v) for v in parts[1:]]
+    return seen
+
+
+def aa_prior_table(feature_path: str):
+    """Cached 21x20 float tensor; ids follow the sequential 1..20 alphabet."""
+    import torch as _torch
+    from functools import lru_cache
+
+    @lru_cache(maxsize=4)
+    def _load(path):
+        seen = load_aa_prior_table(path)
+        # sequential ids A=1..Y=20 alphabetical (same as encode_sequence)
+        letters = sorted(seen.keys())
+        table = _torch.zeros(21, 20)
+        for i, aa in enumerate(letters, start=1):
+            table[i] = _torch.tensor(seen[aa])
+        return table
+
+    return _load(str(feature_path))
+
+
+def aa_prior_projected(feature_path: str, emb_dim: int, seed: int = 0):
+    """21 x emb_dim prior: 20-dim descriptor through a FIXED random orthonormal
+    projection (seeded, distance-preserving); pad row stays zero."""
+    import torch as _torch
+
+    base = aa_prior_table(feature_path)  # 21 x 20
+    g = _torch.Generator().manual_seed(seed)
+    a = _torch.randn(emb_dim, base.shape[1], generator=g)  # emb_dim x 20
+    q, _ = _torch.linalg.qr(a)  # emb_dim x 20, orthonormal columns
+    return base @ q.t()  # 21 x emb_dim
