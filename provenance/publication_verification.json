@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "validated_release_commit": "b8493207ced33990cb3c84ed09e13117b1caf708",
+  "publisher_account": "YueWang-Lambda",
+  "verification_commit_email": "407204933@qq.com",
+  "remote_files_verified": 2125,
+  "payload_files_verified": 1480,
+  "checks": "All Git blob identities match; README, manifest and seed123 config downloaded and byte-compared",
+  "github_actions_url": "https://github.com/haifangong/TIGER/actions/runs/40698732936",
+  "github_actions_conclusion": "success",
+  "github_actions_jobs": [
+    {
+      "name": "replay",
+      "conclusion": "success"
+    },
+    {
+      "name": "checkpoint",
+      "conclusion": "success"
+    }
+  ]
+}

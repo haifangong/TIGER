@@ -4,7 +4,7 @@
   "description": "Current V17 payload; historical assets outside these paths remain identified by Git history",
   "sha256": {
     ".github/workflows/v17.yml": "80d49e64c557d8c779900c27a90f96a6cd3d61054abd016a6824fc254cc86408",
-    "README.md": "78ee82773faeeddce7199c372c75b8a3514c2b401661b3b355faab9fc9311f2a",
+    "README.md": "f3c1564da7878218a553d7c824cd8fd3d3c7718066ec8fb892e17f81df5f2b66",
     "checkpoints/CHECKPOINTS_MANIFEST.json": "9c4bb6d1ed3b3d0768d028e1e3566ed75302ddfb95f223f88c27690d0956caf4",
     "checkpoints/MANIFEST.json": "51e81d981068eaa9d974658e7127d3c2afca62724283095ff85b62a81b0f8cf2",
     "checkpoints/README.md": "85ba8aed7f490f016fba0f1b36c3efdcbddea29b4e215d7900dda9a16cc59fb4",
@@ -1045,6 +1045,7 @@
     "provenance/config_identity.json": "4f342e5dcacdd9104f54c0f129e15d630e9d4071710cde3ce3a3933e301c7d65",
     "provenance/legacy_compatibility.json": "0b19ca0e6632d6d377615b0bb4914a89834fc390aeb66623d29603fbb4dd55f9",
     "provenance/prediction_index.csv": "979b0189ff469d4446d445b01e7bd4a677b5580e503653c63449934fbeabba13",
+    "provenance/publication_verification.json": "79142fb40793651e686f2ea868130b22e787110087fad5253f2abc47f6120b2b",
     "provenance/result_validation.json": "37e126f6d0c58b7a48f331beb5ef0da1b56c116738b661c278463fe7854a948e",
     "provenance/runtime_identity.json": "cc04d20f934263fa0cb6484ec692d4a63e95852f2b1b87a416e39e0d1665ee09",
     "provenance/structure_archive_members.csv": "39b6ed03b721e5e60bdced36b5761230d08155b9465765a748ca37482f370951",

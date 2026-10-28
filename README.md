@@ -1,5 +1,7 @@
 # TIGER: Therapeutic-Index-Guided Exploration and Refinement
 
+[![Verify TIGER-pair V17](https://github.com/haifangong/TIGER/actions/workflows/v17.yml/badge.svg)](https://github.com/haifangong/TIGER/actions/workflows/v17.yml)
+
 TIGER supports antimicrobial peptide design by combining activity modelling, toxicity filtering and sequence refinement. This repository releases the **V17 TIGER-pair model**, its actual training inputs, ten-seed checkpoints and complete ablation results for *E. coli* MIC differences. Existing discovery and multi-species wet-lab workflows are retained with their matching historical implementation.
 
 **Current reference:** P11, **unsigned pair quota 20,000**, training similarity gate 0.7, neighbour validation, seeds **120–129**, five folds per seed. Strict within-fold validation is a separate ablation.
