@@ -1,0 +1,12 @@
+{
+  "model": "XGBoost",
+  "seed": 123,
+  "backend": "v3",
+  "thresholds": {
+    "balanced": 0.5349715760213398,
+    "default": 0.5,
+    "recall90": 0.5349715760213398,
+    "recall95": 0.33918176113546816,
+    "recall98": 0.19809276716452506
+  }
+}

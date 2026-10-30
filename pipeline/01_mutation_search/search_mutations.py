@@ -3,7 +3,7 @@
 Step 1 — Efficient mutational search + antimicrobial activity pre-filter.
 
 Given a template peptide sequence, enumerate physicochemical-filtered mutants
-and classify them with a CatBoost activity model.
+and classify them with a calibrated E. coli MIC <128 µg/mL model.
 
 Outputs:
   <sequence>_positive_<k>.csv   candidates predicted active
@@ -16,14 +16,12 @@ import argparse
 import csv
 import os
 import time
-from itertools import chain, combinations
-from multiprocessing import Pool, cpu_count
+from itertools import combinations
+from multiprocessing import Pool
 from pathlib import Path
 
-import joblib
+import sys
 import numpy as np
-from Bio.SeqUtils.ProtParam import ProteinAnalysis
-from joblib import Parallel, delayed
 
 # -----------------------------------------------------------------------------
 # Amino-acid / physicochemical constants
@@ -65,38 +63,11 @@ AA_TO_IDX = {
 IDX_TO_AA = {v: k for k, v in AA_TO_IDX.items()}
 
 HERE = Path(__file__).resolve().parent
-DEFAULT_MODEL = HERE / "models" / "R_catboost_model.pkl"
-
-
-def calculate_property(seq: str) -> list[float]:
-    """Compute the 10 physicochemical features used by the CatBoost model."""
-    pa = ProteinAnalysis(seq)
-    aa_counts = pa.count_amino_acids()
-    length = len(seq)
-
-    gravy = round(pa.gravy(), 3) * 10
-    aliphatic = round(
-        (aa_counts["A"] + 2.9 * aa_counts["V"] + 3.9 * (aa_counts["I"] + aa_counts["L"])) / length,
-        3,
-    ) * 10
-    aromaticity = round(pa.aromaticity(), 3) * 10
-    instability = round(pa.instability_index(), 3)
-    helix, sheet, turn = pa.secondary_structure_fraction()
-    charged = sum(aa_counts[a] for a in ["D", "E", "R", "K", "H"])
-    charge_density = round(charged / length, 3) * 10
-
-    return [
-        gravy,
-        aliphatic,
-        aromaticity,
-        instability,
-        round(helix * 10, 3),
-        round(sheet * 10, 3),
-        round(turn * 10, 3),
-        round(pa.charge_at_pH(7), 3),
-        round(pa.isoelectric_point(), 3),
-        charge_density,
-    ]
+REPO = HERE.parents[1]
+sys.path.insert(0, str(REPO))
+from amp_classification.predict import Predictor
+from amp_classification.features import validate
+DEFAULT_MODEL = REPO / "amp_classification/checkpoints/CatBoost-Tuned/seed123"
 
 
 def calculate_numeric_properties(peptide: np.ndarray) -> tuple[float, float]:
@@ -159,129 +130,66 @@ def collect_for_fill(args):
     return list(generate_mutations(template, max_changed, [fill_seq]))
 
 
-def pad_sequence_with_features(seq: np.ndarray, target_length: int = 30) -> np.ndarray:
-    padded = np.pad(seq, (0, target_length - len(seq)), mode="constant", constant_values=0)
-    aa_seq = "".join(IDX_TO_AA[int(n)] for n in seq)
-    feats = calculate_property(aa_seq)
-    return np.concatenate([padded, np.array(feats, dtype=float)]).reshape(1, -1)
-
-
-def format_time(seconds: float | None) -> str:
-    if seconds is None:
-        return "N/A"
-    seconds = int(round(seconds))
-    hours, rem = divmod(seconds, 3600)
-    minutes, secs = divmod(rem, 60)
-    if hours:
-        return f"{hours}h {minutes}m {secs}s"
-    if minutes:
-        return f"{minutes}m {secs}s"
-    return f"{secs}s"
-
-
-def _concat_batches(batches):
-    if not batches:
-        return np.array([])
-    try:
-        return np.concatenate([np.asarray(b) for b in batches])
-    except Exception:
-        return np.array(list(chain.from_iterable(batches)))
-
-
-def estimate_predict_time(clf, padded_batches, sample_count=800, n_jobs=-1, batch_size=10):
-    all_samples = _concat_batches(padded_batches)
-    total_samples = len(all_samples)
-    if total_samples == 0:
-        return 0.0, 0.0, 0
-
-    tester_n = min(sample_count, total_samples)
-    tester_samples = all_samples[:tester_n]
-    tester_batches = [tester_samples[i:i + batch_size] for i in range(0, tester_n, batch_size)]
-
-    try:
-        if tester_batches:
-            clf.predict(tester_batches[0])
-    except Exception:
-        pass
-
-    start = time.perf_counter()
-    Parallel(n_jobs=n_jobs, backend="loky", max_nbytes="9999M", batch_size=batch_size)(
-        delayed(clf.predict)(batch) for batch in tester_batches
-    )
-    tester_time = time.perf_counter() - start
-    estimated_total = tester_time if tester_n < sample_count else (total_samples / float(sample_count)) * tester_time
-    return tester_time, estimated_total, total_samples
-
-
 def run_search(
     sequence: str,
     search_length: int,
     output_dir: str | Path,
     model_path: str | Path = DEFAULT_MODEL,
+    operating_point: str = 'recall95',
+    threads: int = 4,
 ) -> tuple[Path, Path]:
-    """Run mutational search and write positive/negative CSVs."""
+    """Keep the historical mutant generator; screen with the current MIC128 model."""
+    import json
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     model_path = Path(model_path)
-    if not model_path.is_file():
-        raise FileNotFoundError(f"CatBoost model not found: {model_path}")
-
+    if not (model_path / 'release.json').is_file():
+        raise FileNotFoundError(f'Expected a released MIC128 checkpoint directory: {model_path}')
+    identity = json.loads((model_path / 'release.json').read_text())
+    classifier = Predictor(identity['model'], identity['seed'], model_path, threads=threads)
     sequence = sequence.strip().upper()
+    validate([sequence])
+    if not 1 <= search_length <= len(sequence):
+        raise ValueError('search_length must lie between 1 and the template length')
+    if threads < 1:
+        raise ValueError('threads must be positive')
     template = np.array([AA_TO_IDX[a] for a in sequence], dtype=np.int8)
     k = search_length
     start = time.time()
-
-    with Pool(cpu_count()) as pool:
+    with Pool(threads) as pool:
         chunks = pool.starmap(generate_peptides, [(aa, k) for aa in range(1, 21)])
     fills = np.vstack(chunks)
-    print(f"[Generation] {time.time() - start:.1f}s  fills={len(fills)}")
-
+    print(f'[Generation] {time.time()-start:.1f}s  fills={len(fills)}')
     args_list = [(template, k, fills[i]) for i in range(len(fills))]
-    with Pool() as pool:
+    with Pool(threads) as pool:
         all_lists = pool.map(collect_for_fill, args_list)
     unique = list({tuple(x) for sub in all_lists for x in sub})
-    mutations = [np.array(u, dtype=np.int8) for u in unique]
-    print(f"[Mutations] {time.time() - start:.1f}s  unique={len(mutations)}")
-
-    with Pool() as pool:
-        padded = pool.starmap(pad_sequence_with_features, [(m, 30) for m in mutations])
-    print(f"[Featurize] {time.time() - start:.1f}s")
-
-    clf = joblib.load(model_path)
-    tester_time, estimated_total, total_samples = estimate_predict_time(clf, padded)
-    print(
-        f"[Estimate] tested={min(800, total_samples)}  "
-        f"tester={tester_time:.3f}s  estimated_full={format_time(estimated_total)}"
-    )
-
-    pred_start = time.perf_counter()
-    preds = Parallel(n_jobs=-1, backend="loky", max_nbytes="9999M", batch_size=10)(
-        delayed(clf.predict)(batch) for batch in padded
-    )
-    print(f"[Predict] actual={format_time(time.perf_counter() - pred_start)}")
-
-    pos_path = output_dir / f"{sequence}_positive_{k}.csv"
-    neg_path = output_dir / f"{sequence}_negative_{k}.csv"
+    sequences = [''.join(IDX_TO_AA[n] for n in u) for u in unique]
+    pos_path = output_dir / f'{sequence}_positive_{k}.csv'
+    neg_path = output_dir / f'{sequence}_negative_{k}.csv'
+    scores_path = output_dir / f'{sequence}_MIC128_scores_{k}.csv'
+    cutoff = classifier.cut[operating_point]
     n_pos = 0
-    with pos_path.open("w", newline="") as fp, neg_path.open("w", newline="") as fn:
-        wpos, wneg = csv.writer(fp), csv.writer(fn)
-        for i, arr in enumerate(padded):
-            pred = preds[i][0]
-            nums = arr[0, :30].astype(int)
-            seq = "".join(IDX_TO_AA[n] for n in nums if n != 0)
-            if pred >= 1:
-                wpos.writerow([seq, seq])
-                n_pos += 1
-            else:
-                wneg.writerow([i, seq])
-
-    print(f"[Done] positives={n_pos}  outdir={output_dir}  elapsed={time.time() - start:.1f}s")
+    with pos_path.open('w', newline='') as fp, neg_path.open('w', newline='') as fn, scores_path.open('w', newline='') as fs:
+        wpos, wneg, ws = csv.writer(fp), csv.writer(fn), csv.writer(fs)
+        ws.writerow(['sequence', 'probability_AMP_balanced_cohort', 'predicted_AMP', 'operating_point', 'threshold', 'model', 'seed'])
+        for offset in range(0, len(sequences), 4096):
+            batch = sequences[offset:offset+4096]
+            probabilities = classifier.predict_proba(batch)
+            for i, (seq, prob) in enumerate(zip(batch, probabilities), offset):
+                active = int(prob >= cutoff)
+                ws.writerow([seq, prob, active, operating_point, cutoff, identity['model'], identity['seed']])
+                if active:
+                    wpos.writerow([seq, seq]); n_pos += 1
+                else:
+                    wneg.writerow([i, seq])
+    print(f'[Done] {identity["model"]} seed{identity["seed"]}; {operating_point}; positives={n_pos}/{len(sequences)}; elapsed={time.time()-start:.1f}s')
     return pos_path, neg_path
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Generate peptide mutants and filter by CatBoost antimicrobial activity."
+        description="Generate mutants and screen E. coli MIC <128 µg/mL with a calibrated classifier."
     )
     parser.add_argument("-s", "--sequence", default="KSMLKSMPMTLK", help="Template peptide sequence")
     parser.add_argument("-k", "--search_length", type=int, default=3, help="Number of mutated positions")
@@ -289,14 +197,16 @@ def parse_args():
     parser.add_argument(
         "--model",
         default=str(DEFAULT_MODEL),
-        help="Path to CatBoost model pickle (default: models/R_catboost_model.pkl)",
+        help="Released MIC128 checkpoint directory (default: CatBoost-Tuned seed123)",
     )
+    parser.add_argument("--operating-point", choices=["balanced", "default", "recall90", "recall95", "recall98"], default="recall95")
+    parser.add_argument("--threads", type=int, default=4)
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    run_search(args.sequence, args.search_length, args.output_dir, args.model)
+    run_search(args.sequence, args.search_length, args.output_dir, args.model, args.operating_point, args.threads)
 
 
 if __name__ == "__main__":

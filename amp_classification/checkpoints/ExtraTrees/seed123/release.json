@@ -1,0 +1,12 @@
+{
+  "model": "ExtraTrees",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.42647014752221135,
+    "default": 0.5,
+    "recall90": 0.5289317184760111,
+    "recall95": 0.40285870728234274,
+    "recall98": 0.21321018374953096
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "main_AdaBoost_s121",
+    "stage": "final",
+    "model": "AdaBoost",
+    "seed": 121,
+    "config": {
+      "feature": "F2",
+      "depth": 3,
+      "learning_rate": 1.0,
+      "max_iter": 300
+    },
+    "rounds": 291
+  }
+}

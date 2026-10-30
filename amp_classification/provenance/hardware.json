@@ -1,0 +1,9 @@
+{
+  "time": "2026-10-25T00:31:27+08:00",
+  "CPU": "AMD Ryzen 9 9950X 16-Core Processor",
+  "physical_cores": 16,
+  "logical_threads": 32,
+  "memory_GiB": 188.34081268310547,
+  "platform": "Linux-6.8.0-79-generic-x86_64-with-glibc2.39",
+  "timing_endpoint": "Raw sequence to calibrated probability; serial model/thread combinations; shared server, not exclusive CPU reservation."
+}

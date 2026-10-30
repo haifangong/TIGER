@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "dataflow": "Same archived numerical fitting functions, feature matrices, data IDs and calibration/threshold protocol",
+  "training_smoke": [
+    {
+      "backend": "v2",
+      "model": "Dummy",
+      "seed": 123,
+      "scope": "full archived final recipe"
+    },
+    {
+      "backend": "v3",
+      "model": "AdaBoost",
+      "seed": 123,
+      "scope": "3-estimator smoke fit only; never used as a scientific result"
+    }
+  ],
+  "mutation_search_smoke": {
+    "template": "FWIIQCWWRQVLEKLLAKRRR",
+    "depth": 1,
+    "scored": 3,
+    "positive": 3,
+    "model": "CatBoost-Tuned",
+    "seed": 123,
+    "operating_point": "recall95"
+  },
+  "unit_tests": 8,
+  "figure_notebook": "Executed; two separate figure cells; original colours preserved",
+  "timing_smoke": "30 repeats, 3 warm-ups, 200 Vop peptides; written outside release",
+  "original_21_method_validation_winner": "CatBoost-Recall, excluded from requested subset; no new selection claimed"
+}

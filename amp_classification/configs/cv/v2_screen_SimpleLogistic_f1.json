@@ -1,0 +1,15 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_SimpleLogistic_f1",
+    "stage": "cv",
+    "model": "SimpleLogistic",
+    "seed": 123,
+    "fold": 1,
+    "config": {
+      "feature": "simple",
+      "C": 1.0,
+      "l1_ratio": 0.0
+    }
+  }
+}

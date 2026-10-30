@@ -1,0 +1,19 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_EBM_t01_f0",
+    "stage": "cv",
+    "model": "EBM",
+    "trial": 1,
+    "fold": 0,
+    "seed": 123,
+    "config": {
+      "feature": "F1",
+      "interactions": 10,
+      "max_bins": 64,
+      "learning_rate": 0.03,
+      "outer_bags": 4,
+      "max_rounds": 5000
+    }
+  }
+}

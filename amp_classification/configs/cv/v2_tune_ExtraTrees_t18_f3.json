@@ -1,0 +1,19 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "tune_ExtraTrees_t18_f3",
+    "stage": "cv",
+    "model": "ExtraTrees",
+    "seed": 123,
+    "fold": 3,
+    "trial": 18,
+    "config": {
+      "feature": "F1",
+      "trees": 200,
+      "depth": 8,
+      "min_leaf": 10,
+      "max_features": 0.8,
+      "balanced": true
+    }
+  }
+}

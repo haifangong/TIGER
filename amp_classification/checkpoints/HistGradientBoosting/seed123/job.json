@@ -1,0 +1,15 @@
+{
+  "id": "main_HistGradientBoosting_s123",
+  "stage": "final",
+  "model": "HistGradientBoosting",
+  "seed": 123,
+  "config": {
+    "feature": "F2",
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 20,
+    "l2_regularization": 1.0,
+    "learning_rate": 0.05,
+    "max_iter": 1000
+  },
+  "rounds": 340
+}

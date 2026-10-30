@@ -1,0 +1,14 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_Dummy_s120",
+    "stage": "final",
+    "model": "Dummy",
+    "seed": 120,
+    "config": {
+      "feature": "simple"
+    },
+    "rounds": null,
+    "analysis": "main"
+  }
+}

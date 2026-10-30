@@ -1,0 +1,153 @@
+{
+  "time": "2026-10-13T07:25:10+08:00",
+  "models": {
+    "LinearSVM": {
+      "config": {
+        "C": 0.1,
+        "feature": "F2"
+      },
+      "rounds": null,
+      "CV_AUROC": 0.90900864807553,
+      "CV_SE": 0.0020000752136629064,
+      "source_jobs": [
+        "screen_LinearSVM_f0",
+        "screen_LinearSVM_f1",
+        "screen_LinearSVM_f2",
+        "screen_LinearSVM_f3",
+        "screen_LinearSVM_f4"
+      ]
+    },
+    "RF": {
+      "config": {
+        "depth": 12,
+        "feature": "F2",
+        "max_features": "sqrt",
+        "min_leaf": 3,
+        "trees": 200
+      },
+      "rounds": null,
+      "CV_AUROC": 0.9326958227272666,
+      "CV_SE": 0.0017021487171185298,
+      "source_jobs": [
+        "screen_RF_f0",
+        "screen_RF_f1",
+        "screen_RF_f2",
+        "screen_RF_f3",
+        "screen_RF_f4"
+      ]
+    },
+    "ExtraTrees": {
+      "config": {
+        "balanced": true,
+        "depth": 16,
+        "feature": "F1",
+        "max_features": 0.5,
+        "min_leaf": 2,
+        "trees": 500
+      },
+      "rounds": null,
+      "CV_AUROC": 0.9467112087746063,
+      "CV_SE": 0.0010875493980432062,
+      "source_jobs": [
+        "tune_ExtraTrees_t14_f0",
+        "tune_ExtraTrees_t14_f1",
+        "tune_ExtraTrees_t14_f2",
+        "tune_ExtraTrees_t14_f3",
+        "tune_ExtraTrees_t14_f4"
+      ]
+    },
+    "LightGBM": {
+      "config": {
+        "balanced": false,
+        "feature": "F1",
+        "learning_rate": 0.02,
+        "max_iter": 2000,
+        "min_child_samples": 20,
+        "num_leaves": 31,
+        "reg_lambda": 0
+      },
+      "rounds": 778,
+      "CV_AUROC": 0.9424652748269644,
+      "CV_SE": 0.001475195505153581,
+      "source_jobs": [
+        "tune_LightGBM_t12_f0",
+        "tune_LightGBM_t12_f1",
+        "tune_LightGBM_t12_f2",
+        "tune_LightGBM_t12_f3",
+        "tune_LightGBM_t12_f4"
+      ]
+    },
+    "TinyCNN": {
+      "config": {
+        "channels": 48,
+        "dropout": 0.3,
+        "feature": "tokens",
+        "lr": 0.001,
+        "max_iter": 100,
+        "patience": 15
+      },
+      "rounds": 16,
+      "CV_AUROC": 0.9305822983565823,
+      "CV_SE": 0.002033354431954622,
+      "source_jobs": [
+        "screen_TinyCNN_f0",
+        "screen_TinyCNN_f1",
+        "screen_TinyCNN_f2",
+        "screen_TinyCNN_f3",
+        "screen_TinyCNN_f4"
+      ]
+    },
+    "Cascade": {
+      "config": {
+        "balanced": false,
+        "feature": "AMP553",
+        "max_layers": 4,
+        "min_leaf": 3,
+        "trees": 100
+      },
+      "rounds": null,
+      "CV_AUROC": 0.9462670017441838,
+      "CV_SE": 0.001546735746362318,
+      "source_jobs": [
+        "tune_Cascade_t02_f0",
+        "tune_Cascade_t02_f1",
+        "tune_Cascade_t02_f2",
+        "tune_Cascade_t02_f3",
+        "tune_Cascade_t02_f4"
+      ]
+    },
+    "Dummy": {
+      "config": {
+        "feature": "simple"
+      },
+      "rounds": null,
+      "CV_AUROC": 0.5,
+      "CV_SE": 0.0,
+      "source_jobs": [
+        "screen_Dummy_f0",
+        "screen_Dummy_f1",
+        "screen_Dummy_f2",
+        "screen_Dummy_f3",
+        "screen_Dummy_f4"
+      ]
+    },
+    "SimpleLogistic": {
+      "config": {
+        "C": 1.0,
+        "feature": "simple",
+        "l1_ratio": 0.0
+      },
+      "rounds": null,
+      "CV_AUROC": 0.7874022184721599,
+      "CV_SE": 0.0063922403627552455,
+      "source_jobs": [
+        "screen_SimpleLogistic_f0",
+        "screen_SimpleLogistic_f1",
+        "screen_SimpleLogistic_f2",
+        "screen_SimpleLogistic_f3",
+        "screen_SimpleLogistic_f4"
+      ]
+    }
+  },
+  "test_access": false
+}

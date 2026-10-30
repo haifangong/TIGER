@@ -1,0 +1,12 @@
+{
+  "id": "main_LinearSVM_s123",
+  "stage": "final",
+  "model": "LinearSVM",
+  "seed": 123,
+  "config": {
+    "C": 0.1,
+    "feature": "F2"
+  },
+  "rounds": null,
+  "analysis": "main"
+}

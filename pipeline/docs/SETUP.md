@@ -76,3 +76,7 @@ python -c "import pyrosetta; print('ok')"
 2. Pack with `conda-pack` if compute nodes are offline.
 3. Place HelixFold weights under `03_structure_prediction/weights/`.
 4. Keep absolute paths out of scripts; use the CLI flags documented in each step README.
+
+## Current AMP classifier
+
+For Step 1, use Python 3.10 and install `amp_classification/requirements.txt` from the repository root. Cascade alone uses the separately documented Python 3.9 environment. See [classification installation and inference](../../amp_classification/README.md#predict-new-sequences).

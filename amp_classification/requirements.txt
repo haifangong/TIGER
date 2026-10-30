@@ -1,0 +1,10 @@
+numpy==1.26.4
+scipy==1.13.0
+pandas==2.2.2
+scikit-learn==1.4.2
+joblib==1.4.2
+threadpoolctl==3.5.0
+catboost==1.2.10
+xgboost==2.1.4
+lightgbm==4.6.0
+interpret-core==0.6.16

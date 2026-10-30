@@ -1,0 +1,12 @@
+{
+  "model": "Dummy",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 1.0000000000000002,
+    "default": 0.5,
+    "recall90": 0.0,
+    "recall95": 0.0,
+    "recall98": 0.0
+  }
+}

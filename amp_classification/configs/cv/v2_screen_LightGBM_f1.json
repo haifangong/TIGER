@@ -1,0 +1,17 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_LightGBM_f1",
+    "stage": "cv",
+    "model": "LightGBM",
+    "seed": 123,
+    "fold": 1,
+    "config": {
+      "feature": "F2",
+      "num_leaves": 15,
+      "min_child_samples": 50,
+      "learning_rate": 0.05,
+      "max_iter": 1000
+    }
+  }
+}

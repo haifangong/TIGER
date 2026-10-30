@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "time": "2026-10-13T07:11:49+08:00",
+  "seconds": 0.5320107936859131,
+  "test_n": 200,
+  "training_n": 8610,
+  "test_peptides_with_train_identity_ge80": 113,
+  "test_clusters80": 196,
+  "identity_definition": "Global NW match2/mismatch−1/open−3/extend−0.5; matches/full trace columns including end gaps; both paired-residue coverages>=80%; canonical lexicographic argument order.",
+  "split_unchanged": true,
+  "interpretation": "Random split intentionally permits close homologues across train/test; report this as interpolation rather than homology-disjoint extrapolation."
+}

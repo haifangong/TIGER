@@ -1,0 +1,12 @@
+{
+  "model": "SimpleLogistic",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.31947151336027213,
+    "default": 0.5,
+    "recall90": 0.40540080490006614,
+    "recall95": 0.30009445658233047,
+    "recall98": 0.15297668781135282
+  }
+}

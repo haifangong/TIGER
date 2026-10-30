@@ -1,0 +1,12 @@
+{
+  "model": "LinearSVM",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.4553516864246516,
+    "default": 0.5,
+    "recall90": 0.4842542286533195,
+    "recall95": 0.3596145117090883,
+    "recall98": 0.13067582923782411
+  }
+}

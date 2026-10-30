@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "methods": 15,
+  "seeds": 5,
+  "predictions_checked": 75,
+  "test_peptides": 200,
+  "thresholds_checked_on_Vop": 375,
+  "classwise_rows": 750,
+  "metric_and_count_comparisons": 9000,
+  "undefined_precision_preserved_as_NA": true,
+  "reference_data_unchanged": true
+}

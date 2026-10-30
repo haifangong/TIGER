@@ -1,0 +1,18 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "tune_Cascade_t13_f0",
+    "stage": "cv",
+    "model": "Cascade",
+    "seed": 123,
+    "fold": 0,
+    "trial": 13,
+    "config": {
+      "feature": "AMP553",
+      "trees": 100,
+      "max_layers": 2,
+      "min_leaf": 5,
+      "balanced": true
+    }
+  }
+}

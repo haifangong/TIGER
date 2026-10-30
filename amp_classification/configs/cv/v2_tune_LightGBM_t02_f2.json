@@ -1,0 +1,20 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "tune_LightGBM_t02_f2",
+    "stage": "cv",
+    "model": "LightGBM",
+    "seed": 123,
+    "fold": 2,
+    "trial": 2,
+    "config": {
+      "feature": "F1",
+      "num_leaves": 31,
+      "min_child_samples": 50,
+      "learning_rate": 0.02,
+      "max_iter": 2000,
+      "balanced": false,
+      "reg_lambda": 10
+    }
+  }
+}

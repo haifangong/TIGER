@@ -1,0 +1,19 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_GBDT_t01_f0",
+    "stage": "cv",
+    "model": "GBDT",
+    "trial": 1,
+    "fold": 0,
+    "seed": 123,
+    "config": {
+      "feature": "F1",
+      "depth": 2,
+      "min_samples_leaf": 5,
+      "learning_rate": 0.1,
+      "subsample": 1.0,
+      "max_iter": 1000
+    }
+  }
+}

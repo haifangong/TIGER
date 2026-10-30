@@ -1,0 +1,13 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_Dummy_f0",
+    "stage": "cv",
+    "model": "Dummy",
+    "seed": 123,
+    "fold": 0,
+    "config": {
+      "feature": "simple"
+    }
+  }
+}

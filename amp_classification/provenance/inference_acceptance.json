@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "methods": 15,
+  "raw_sequence_input": true,
+  "checks": [
+    {
+      "model": "ExtraTrees",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "Cascade",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 2.220446049250313e-16,
+      "status": "PASS"
+    },
+    {
+      "model": "CatBoost-Tuned",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "XGBoost",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "HistGradientBoosting",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "TinyCNN",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "RBFSVM",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "LightGBM",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "RF",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "AdaBoost",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "LinearSVM",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "GBDT",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "EBM",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "SimpleLogistic",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    },
+    {
+      "model": "Dummy",
+      "seed": 123,
+      "n_test": 200,
+      "max_absolute_probability_error": 0.0,
+      "status": "PASS"
+    }
+  ]
+}

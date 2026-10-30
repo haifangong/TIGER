@@ -1,0 +1,17 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_RF_f1",
+    "stage": "cv",
+    "model": "RF",
+    "seed": 123,
+    "fold": 1,
+    "config": {
+      "feature": "F2",
+      "trees": 200,
+      "depth": 12,
+      "min_leaf": 3,
+      "max_features": "sqrt"
+    }
+  }
+}

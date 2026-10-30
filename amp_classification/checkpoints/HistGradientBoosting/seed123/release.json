@@ -1,0 +1,12 @@
+{
+  "model": "HistGradientBoosting",
+  "seed": 123,
+  "backend": "v3",
+  "thresholds": {
+    "balanced": 0.42419412749782925,
+    "default": 0.5,
+    "recall90": 0.5302242042172998,
+    "recall95": 0.39778966939627064,
+    "recall98": 0.21532567552558435
+  }
+}

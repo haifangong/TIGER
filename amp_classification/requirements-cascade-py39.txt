@@ -1,0 +1,10 @@
+# Separate Python 3.9 environment, matching the actual Cascade run.
+numpy==1.19.5
+scipy==1.10.1
+pandas==1.4.4
+scikit-learn==1.0.2
+joblib==1.5.3
+threadpoolctl==3.5.0
+biopython==1.85
+modlamp==4.3.0
+deep-forest==0.1.5

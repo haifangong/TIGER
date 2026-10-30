@@ -1,0 +1,39 @@
+{
+  "methods": [
+    "ExtraTrees",
+    "Cascade",
+    "CatBoost-Tuned",
+    "XGBoost",
+    "HistGradientBoosting",
+    "TinyCNN",
+    "RBFSVM",
+    "LightGBM",
+    "RF",
+    "AdaBoost",
+    "LinearSVM",
+    "GBDT",
+    "EBM",
+    "SimpleLogistic",
+    "Dummy"
+  ],
+  "seeds": [
+    120,
+    121,
+    122,
+    123,
+    124
+  ],
+  "checkpoint_seed": 123,
+  "excluded_from_requested_release": [
+    "APEX",
+    "CatBoost",
+    "CatBoost-Recall",
+    "Das",
+    "DeepAMP",
+    "Logistic"
+  ],
+  "endpoint": "E. coli measured MIC <128 ug/mL; sampled background negatives inherit label 0",
+  "default_example": "CatBoost-Tuned",
+  "default_example_rationale": "A member of the requested subset and direct CatBoost replacement for pipeline Step 1; not a new validation-selected winner.",
+  "historical_deployment_selection": "The full 21-method study selected CatBoost-Recall before test access. That method is excluded from this 15-method release by request; no retrospective reselection is claimed."
+}

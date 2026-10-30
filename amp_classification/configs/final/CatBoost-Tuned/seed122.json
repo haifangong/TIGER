@@ -1,0 +1,25 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "main_CatBoost-Tuned_s122",
+    "stage": "final",
+    "model": "CatBoost-Tuned",
+    "seed": 122,
+    "config": {
+      "feature": "F1",
+      "boosting_type": "Plain",
+      "grow_policy": "SymmetricTree",
+      "depth": 10,
+      "learning_rate": 0.02,
+      "l2_leaf_reg": 1.0,
+      "random_strength": 0.5,
+      "rsm": 1.0,
+      "border_count": 254,
+      "max_iter": 3000,
+      "patience": 100,
+      "bootstrap_type": "Bernoulli",
+      "subsample": 1.0
+    },
+    "rounds": 974
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_XGBoost_t12_f2",
+    "stage": "cv",
+    "model": "XGBoost",
+    "trial": 12,
+    "fold": 2,
+    "seed": 123,
+    "config": {
+      "feature": "F2",
+      "depth": 3,
+      "learning_rate": 0.05,
+      "min_child_weight": 10,
+      "subsample": 1.0,
+      "colsample_bytree": 0.7,
+      "reg_alpha": 0,
+      "reg_lambda": 1.0,
+      "max_iter": 1500
+    }
+  }
+}

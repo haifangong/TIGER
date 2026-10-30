@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "time": "2026-10-13T07:09:04+08:00",
+  "source_hashes": {
+    "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER_v2/deltaMIC/artifacts/mic128_classifier_v1/data/all_sequence_labels.csv": "3879c1dd980a3388a09eb5fb132e2a75a5add266554c565f270ce7e842b4fb73",
+    "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER_v2/deltaMIC/artifacts/mic128_classifier_v1/data/external.csv": "d9550444b095be17c8b3bf3ab3e05d0b046a46150ade5b427f603c20078e9959",
+    "/data4T/ubuntu/wangyue/postdoc_2025/TIGER_3D/TIGER_v2/deltaMIC/artifacts/repair_v15/data/external_negatives_disjoint.csv": "0be17bf832c9b11af30167f761c8e79dadd716a20341e966d30a5ef7fd2d75e6"
+  },
+  "measured_total": 7055,
+  "measured_positive": 5481,
+  "measured_negative": 1574,
+  "background_raw": 7949,
+  "background_unique_valid": 7910,
+  "background_exact_measured_conflicts": 17,
+  "background_available": 7893,
+  "background_sampled": 3907,
+  "balanced_total": 10962,
+  "class_counts": {
+    "1": 5481,
+    "0": 5481
+  },
+  "test_n": 200,
+  "split_counts": [
+    {
+      "split_primary": "T",
+      "n": 8610,
+      "positive": 4305,
+      "negative": 4305
+    },
+    {
+      "split_primary": "Test",
+      "n": 200,
+      "positive": 100,
+      "negative": 100
+    },
+    {
+      "split_primary": "Vcal",
+      "n": 1076,
+      "positive": 538,
+      "negative": 538
+    },
+    {
+      "split_primary": "Vop",
+      "n": 1076,
+      "positive": 538,
+      "negative": 538
+    }
+  ],
+  "seeds": [
+    120,
+    121,
+    122,
+    123,
+    124
+  ],
+  "historical_external_merged": true,
+  "restored_prior_quarantine": 30,
+  "test_sampling": "Simple random without replacement, NOT forced to100:100; numpy default_rng seed20261014; fixed before model fits.",
+  "random_seeds": {
+    "background_sample": 20261013,
+    "test200": 20261014,
+    "train_validation": 20261015,
+    "calibration_operating": 20261016,
+    "CV": 20261017
+  },
+  "remaining_split": "80% training T,20% validation; validation split equally Vcal/Vop; source-by-label stratification, random sequence allocation.",
+  "label_definition": "Measured sequence median log2 MIC<7; historical external measured MIC<128; sampled background inherits pool label0, unknown numeric MIC stays missing.",
+  "homology_policy": "Exact sequence duplicates removed. Random partitions as requested; no homology exclusion or cluster-disjoint claim. Test-to-training similarity audited separately."
+}

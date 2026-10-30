@@ -1,5 +1,3 @@
-> **V17 update:** The current TIGER-pair model and canonical external endpoint are documented in the [root README](../README.md). This page describes historical discovery/toxicity/wet-lab assets. Old MIC ablations are preserved in Git history; V17 uses `checkpoints/V17/` and `data/v17/`.
-
 # TIGER Pipeline
 
 Reproducible packaging of the early TIGER / POAP workflow:
@@ -80,8 +78,8 @@ Step 3 uses **separate** environments (`tiger-helix` / `tiger-rosetta`) because 
 |----------|--------|
 | Do I need arguments? | **Yes.** Provide `--sequence`, optionally `-k`, `-o`, `--model`. |
 | Is the data source hardcoded? | **No** for inference. The template comes from `--sequence`. |
-| Where does the model come from? | Bundled `models/R_catboost_model.pkl` (override with `--model`). |
-| Custom data? | Pass any AA template; for metrics use `evaluate_models.py --csv your_labels.csv`. |
+| Where does the model come from? | Bundled `amp_classification/checkpoints/CatBoost-Tuned/seed123` (override with `--model`, a checkpoint directory). |
+| Custom data? | Pass a canonical 6–50-residue template; replay the fixed benchmark with `evaluate_models.py --output outputs/replay`. |
 
 ```bash
 cd 01_mutation_search
@@ -151,20 +149,14 @@ Reviewers / users should report the full suite for classifier comparisons:
 
 ```bash
 cd 01_mutation_search
-python evaluate_models.py \
-  --csv examples/labeled_activity_demo.csv \
-  --sequence-col sequence \
-  --label-col label \
-  --n-splits 5 \
-  --test-size 0.2 \
-  --out-dir outputs/metrics_demo
+python evaluate_models.py --output outputs/metrics_demo
 ```
 
-Outputs:
-
-- `cv_fold_metrics.csv` — metrics for **each model × each CV fold**
-- `test_metrics.csv` — metrics on the **held-out test set** for all models
-- `summary_metrics.csv` — CV mean/std + test
+This replays the current 15-method benchmark: five training seeds, fixed Test200,
+AMP/non-AMP AUROC, AUPRC, precision, recall and F1, plus confusion counts.
+Outputs include `test_classwise_per_seed.csv`, `test_classwise_summary.csv` and
+`AUROC_ranked_AMP.csv`. The training-only CV tables and recipes are in the
+[classification module](../amp_classification/README.md).
 
 ### Toxicity models (Step 2)
 

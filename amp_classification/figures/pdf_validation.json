@@ -1,0 +1,65 @@
+{
+  "Sensitivity_and_false_positive_burden.pdf": [
+    {
+      "size_mm": [
+        200.0000015258789,
+        200.0000015258789
+      ],
+      "font_names": [
+        "CWKGXT+ArialMT",
+        "CWKGXT+Arial-BoldMT"
+      ],
+      "all_15_method_names_present": true,
+      "fonts_embedded": true
+    }
+  ],
+  "Accuracy_and_CPU_deployment_cost_AUPRC.pdf": [
+    {
+      "size_mm": [
+        200.0000015258789,
+        200.0000015258789
+      ],
+      "font_names": [
+        "CWKGXT+ArialMT",
+        "CWKGXT+Arial-BoldMT"
+      ],
+      "all_15_method_names_present": true,
+      "fonts_embedded": true
+    }
+  ],
+  "AMP_classification_selected15_figures.pdf": [
+    {
+      "size_mm": [
+        200.0000015258789,
+        200.0000015258789
+      ],
+      "font_names": [
+        "CWKGXT+ArialMT",
+        "CWKGXT+Arial-BoldMT"
+      ],
+      "all_15_method_names_present": true,
+      "fonts_embedded": true
+    },
+    {
+      "size_mm": [
+        200.0000015258789,
+        200.0000015258789
+      ],
+      "font_names": [
+        "CWKGXT+ArialMT",
+        "CWKGXT+Arial-BoldMT"
+      ],
+      "all_15_method_names_present": true,
+      "fonts_embedded": true
+    }
+  ],
+  "test_classwise_summary.csv": {
+    "matches_released_15_method_table": true,
+    "sha256": "4cb36d42988aac9522b115047dfc3cbaff6119816c9cfba4a10109d2f7893b58"
+  },
+  "cpu_timing.csv": {
+    "matches_released_15_method_table": true,
+    "sha256": "725233a15b0007a83e4a0e36e5c3d9fc954b9a68d159dadc3224272e2857998e"
+  },
+  "visual_review": "Both figures inspected; axis/footer overlap corrected; labels and points clear."
+}

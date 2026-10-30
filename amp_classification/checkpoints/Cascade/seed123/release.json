@@ -1,0 +1,12 @@
+{
+  "model": "Cascade",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.3323762478260248,
+    "default": 0.5,
+    "recall90": 0.5101137543845886,
+    "recall95": 0.37763194378684006,
+    "recall98": 0.2044670180608918
+  }
+}

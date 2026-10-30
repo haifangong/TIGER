@@ -1,0 +1,20 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "controlcv_ExtraTrees_F1_balanced_f1",
+    "stage": "cv",
+    "seed": 123,
+    "fold": 1,
+    "model": "ExtraTrees",
+    "variant": "F1_balanced",
+    "config": {
+      "balanced": true,
+      "depth": 16,
+      "feature": "F1",
+      "max_features": 0.5,
+      "min_leaf": 2,
+      "trees": 500
+    },
+    "regression": false
+  }
+}

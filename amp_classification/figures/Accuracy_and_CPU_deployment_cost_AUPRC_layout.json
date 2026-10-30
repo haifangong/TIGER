@@ -1,0 +1,33 @@
+{
+  "canvas_mm": [
+    200,
+    200
+  ],
+  "font": "Arial",
+  "font_file": "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf",
+  "axis_width_pt": 1.5,
+  "major_tick_width_pt": 1.5,
+  "major_tick_length_pt": 6.5,
+  "major_tick_font_pt": 12,
+  "methods": [
+    "ExtraTrees",
+    "Cascade",
+    "CatBoost-Tuned",
+    "XGBoost",
+    "HistGradientBoosting",
+    "TinyCNN",
+    "RBFSVM",
+    "LightGBM",
+    "RF",
+    "AdaBoost",
+    "LinearSVM",
+    "GBDT",
+    "EBM",
+    "SimpleLogistic",
+    "Dummy"
+  ],
+  "off_canvas_text": [],
+  "method_label_overlaps": [],
+  "labels_obscuring_points": [],
+  "point_area_pt2": 78
+}

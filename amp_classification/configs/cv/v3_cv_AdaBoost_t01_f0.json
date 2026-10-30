@@ -1,0 +1,17 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_AdaBoost_t01_f0",
+    "stage": "cv",
+    "model": "AdaBoost",
+    "trial": 1,
+    "fold": 0,
+    "seed": 123,
+    "config": {
+      "feature": "F1",
+      "depth": 1,
+      "learning_rate": 1.0,
+      "max_iter": 100
+    }
+  }
+}

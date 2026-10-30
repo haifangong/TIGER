@@ -1,0 +1,26 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_CatBoost-Tuned_t14_f2",
+    "stage": "cv",
+    "model": "CatBoost-Tuned",
+    "trial": 14,
+    "fold": 2,
+    "seed": 123,
+    "config": {
+      "feature": "F2",
+      "boosting_type": "Ordered",
+      "grow_policy": "SymmetricTree",
+      "depth": 10,
+      "learning_rate": 0.05,
+      "l2_leaf_reg": 10.0,
+      "random_strength": 0.5,
+      "rsm": 1.0,
+      "border_count": 254,
+      "max_iter": 3000,
+      "patience": 100,
+      "bootstrap_type": "MVS",
+      "subsample": 1.0
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_TinyCNN_s122",
+    "stage": "final",
+    "model": "TinyCNN",
+    "seed": 122,
+    "config": {
+      "channels": 48,
+      "dropout": 0.3,
+      "feature": "tokens",
+      "lr": 0.001,
+      "max_iter": 100,
+      "patience": 15
+    },
+    "rounds": 16,
+    "analysis": "main"
+  }
+}

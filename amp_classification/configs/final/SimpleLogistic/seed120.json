@@ -1,0 +1,16 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_SimpleLogistic_s120",
+    "stage": "final",
+    "model": "SimpleLogistic",
+    "seed": 120,
+    "config": {
+      "C": 1.0,
+      "feature": "simple",
+      "l1_ratio": 0.0
+    },
+    "rounds": null,
+    "analysis": "main"
+  }
+}

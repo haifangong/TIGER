@@ -2,11 +2,23 @@
 
 [![Verify TIGER-pair V17](https://github.com/haifangong/TIGER/actions/workflows/v17.yml/badge.svg)](https://github.com/haifangong/TIGER/actions/workflows/v17.yml)
 
-TIGER supports antimicrobial peptide design by combining activity modelling, toxicity filtering and sequence refinement. This repository releases the **V17 TIGER-pair model**, its actual training inputs, ten-seed checkpoints and complete ablation results for *E. coli* MIC differences. Existing discovery and multi-species wet-lab workflows are retained with their matching historical implementation.
+TIGER supports antimicrobial peptide design by combining activity modelling, toxicity filtering and sequence refinement. This repository releases the **V17 TIGER-pair model**, its actual training inputs, ten-seed checkpoints and complete ablation results for *E. coli* MIC differences. The current AMP classification module supports activity screening; existing toxicity and multi-species wet-lab workflows retain their matching implementations.
 
 **Current reference:** P11, **unsigned pair quota 20,000**, training similarity gate 0.7, neighbour validation, seeds **120–129**, five folds per seed. Strict within-fold validation is a separate ablation.
 
 [Model methods](docs/METHODS_V17.md) · [Complete ablation table](docs/ABLATION_RESULTS.md) · [Migration notes](docs/MIGRATION_V17.md) · [23-method benchmark](https://github.com/YueWang-Lambda/TIGER_AMP_Benchmarking)
+
+## AMP activity classification
+
+The current [15-method E. coli AMP classification module](amp_classification/README.md) replaces the original AMP classifier and toy comparison. It predicts **MIC <128 µg/mL** and includes five-seed results, fixed training/validation/Test200 splits, all 15 seed123 checkpoints, training and inference code, numerical replay, and publication figures. [Pipeline Step 1](pipeline/01_mutation_search/README.md) now uses the calibrated CatBoost-Tuned classifier and full 6–50-residue input.
+
+```bash
+python -m pip install -r amp_classification/requirements-replay.txt
+python -m amp_classification verify
+python -m amp_classification replay
+```
+
+The AMP endpoint and random Test200 are distinct from the family-based ΔMIC evaluation below. See the [AMP results and validation design](amp_classification/README.md#test-results).
 
 ## Results and endpoint
 
@@ -26,6 +38,7 @@ Unrounded results: [`results/v17/reference/tiger_summary.csv`](results/v17/refer
 
 | Path | Contents |
 | :--- | :--- |
+| [`amp_classification/`](amp_classification/) | Current 15-method MIC128 classifier benchmark, data, checkpoints, code and figures |
 | [`code/`](code/) | Frozen numerical core and portable V17 train/predict entrypoints |
 | [`configs/TIGER_pair/`](configs/TIGER_pair/) | Ten main-model configurations with relative paths |
 | [`configs/ablation/`](configs/ablation/) | All 420 arm–seed configurations; scientific fields unchanged |
@@ -132,7 +145,7 @@ Five-fold CV groups exact sequences. Positive-pair candidates use a ±5-residue 
 
 ## Benchmarks and historical workflows
 
-The complete 23-method benchmark, negative-sample controls, TIGER-single, TIGER-ensemble, timings and Pareto analyses are in [TIGER_AMP_Benchmarking](https://github.com/YueWang-Lambda/TIGER_AMP_Benchmarking). This repository supplies the current TIGER-pair model and complete ablation landscape.
+The complete 23-method benchmark, negative-sample controls, TIGER-single, TIGER-ensemble, timings and Pareto analyses are in [TIGER_AMP_Benchmarking](https://github.com/YueWang-Lambda/TIGER_AMP_Benchmarking). This repository supplies the current TIGER-pair model, complete ablation landscape, and the separate [15-method AMP classification benchmark](amp_classification/README.md).
 
 Historical toxicity and multi-species weights remain in `checkpoints/ablation_toxin/` and `checkpoints/wetlab/`; they were not retrained in this update. Pipeline Step 4 imports `legacy/runtime/` to retain its `gsh`/`global_f` architecture alongside V17's `gps`/`p_f` implementation. Old MIC ablation weights/tables have been replaced on the default branch. The previous release remains available at [commit b83b41c](https://github.com/haifangong/TIGER/tree/b83b41c17a757722c4a49648359fdbc6c0f68ef6).
 

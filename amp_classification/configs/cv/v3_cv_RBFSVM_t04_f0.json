@@ -1,0 +1,16 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_RBFSVM_t04_f0",
+    "stage": "cv",
+    "model": "RBFSVM",
+    "trial": 4,
+    "fold": 0,
+    "seed": 123,
+    "config": {
+      "feature": "F1",
+      "C": 10.0,
+      "gamma": 0.01
+    }
+  }
+}

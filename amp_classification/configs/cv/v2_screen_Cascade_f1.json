@@ -1,0 +1,16 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_Cascade_f1",
+    "stage": "cv",
+    "model": "Cascade",
+    "seed": 123,
+    "fold": 1,
+    "config": {
+      "feature": "AMP553",
+      "trees": 50,
+      "max_layers": 3,
+      "min_leaf": 5
+    }
+  }
+}

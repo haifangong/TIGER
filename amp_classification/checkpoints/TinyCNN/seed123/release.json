@@ -1,0 +1,12 @@
+{
+  "model": "TinyCNN",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.4385532897805008,
+    "default": 0.5,
+    "recall90": 0.45618040195960163,
+    "recall95": 0.28635847367912143,
+    "recall98": 0.1384555681411691
+  }
+}

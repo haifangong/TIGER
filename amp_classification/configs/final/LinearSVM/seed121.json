@@ -1,0 +1,15 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_LinearSVM_s121",
+    "stage": "final",
+    "model": "LinearSVM",
+    "seed": 121,
+    "config": {
+      "C": 0.1,
+      "feature": "F2"
+    },
+    "rounds": null,
+    "analysis": "main"
+  }
+}

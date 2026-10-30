@@ -1,0 +1,18 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_RF_s121",
+    "stage": "final",
+    "model": "RF",
+    "seed": 121,
+    "config": {
+      "depth": 12,
+      "feature": "F2",
+      "max_features": "sqrt",
+      "min_leaf": 3,
+      "trees": 200
+    },
+    "rounds": null,
+    "analysis": "main"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": "AdaBoost",
+  "seed": 123,
+  "backend": "v3",
+  "thresholds": {
+    "balanced": 0.44248436214782383,
+    "default": 0.5,
+    "recall90": 0.5108789743607725,
+    "recall95": 0.3373222338794258,
+    "recall98": 0.15927311195093746
+  }
+}

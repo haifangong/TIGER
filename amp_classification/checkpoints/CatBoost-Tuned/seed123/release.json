@@ -1,0 +1,12 @@
+{
+  "model": "CatBoost-Tuned",
+  "seed": 123,
+  "backend": "v3",
+  "thresholds": {
+    "balanced": 0.5215400786981892,
+    "default": 0.5,
+    "recall90": 0.545682134894546,
+    "recall95": 0.38417614101727804,
+    "recall98": 0.2064703702059471
+  }
+}

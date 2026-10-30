@@ -1,0 +1,93 @@
+[
+  {
+    "source": "scripts/mic128_classifier_v2/models.py",
+    "destination": "amp_classification/core/v2/models.py",
+    "source_sha256": "33d1a30f7144eb1cee7bf437926adfb420978a8e7b5f2c1b5eca72b7b8154f3d",
+    "release_sha256": "33d1a30f7144eb1cee7bf437926adfb420978a8e7b5f2c1b5eca72b7b8154f3d",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v2/networks.py",
+    "destination": "amp_classification/core/v2/networks.py",
+    "source_sha256": "2491e5aefff652e66eb2a1940a64978c10884b17a38a7f040356bdede4e888ad",
+    "release_sha256": "2491e5aefff652e66eb2a1940a64978c10884b17a38a7f040356bdede4e888ad",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v2/metrics.py",
+    "destination": "amp_classification/core/v2/metrics.py",
+    "source_sha256": "8fa979b30ada997050e0377e7554c5a5d8bb306f0d1e1858d24a61a81a45ee40",
+    "release_sha256": "8fa979b30ada997050e0377e7554c5a5d8bb306f0d1e1858d24a61a81a45ee40",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v2/worker.py",
+    "destination": "amp_classification/core/v2/worker.py",
+    "source_sha256": "345719db3df0ce7565c9572797e6ec0184d9235ca4a68b7be6cbf9277a6ade8c",
+    "release_sha256": "1436b422bae5ce5ff4b4768d6742695e7434b32e4305365570ca3d0e0a75fa92",
+    "diff": "--- scripts/mic128_classifier_v2/worker.py\n+++ amp_classification/core/v2/worker.py\n@@ -32,7 +32,7 @@\n         result=read(out/'result.json');assert result['job_hash']==fingerprint;return result\n     dump(out/'job.json',job);start=time.time()\n     table,X=load_data(job['config']['feature']);mapping={s:i for i,s in enumerate(table.sample_id)}\n-    name=job['model'];cfg=job['config'];seed=job['seed'];reg=job.get('regression',False);device='cuda' if name in NEURAL else 'cpu'\n+    name=job['model'];cfg=job['config'];seed=job['seed'];reg=job.get('regression',False);device=os.environ.get('TIGER_AMP_DEVICE','cpu') if name in NEURAL else 'cpu'\n     y=table.log2_MIC.to_numpy() if reg else table.y.to_numpy();balanced=cfg.get('balanced',False)\n     fold=job.get('fold');design=job.get('design','primary');selector=None\n     if job['stage']=='cv':\n@@ -83,7 +83,7 @@\n                 'parameters':sum(p.numel() for p in model.parameters()) if name in NEURAL else None}\n         result['model_bytes']=sum(p.stat().st_size for p in out.rglob('*') if p.is_file() and p.suffix not in ['.csv','.json'])\n     result['status']='PASS'\n-    result['implementation_sha256']={p.name:sha(p) for p in (ROOT/'scripts/mic128_classifier_v2').glob('*.py')}\n+    result['implementation_sha256']={p.name:sha(p) for p in Path(__file__).resolve().parent.glob('*.py')}\n     if (out/'failure.txt').exists():(out/'failure.txt').rename(out/'resolved_previous_failure.txt')\n     dump(out/'result.json',result);print(json.dumps({k:result[k] for k in ['id','model','seconds']}),flush=True);return result\n \n"
+  },
+  {
+    "source": "scripts/mic128_classifier_v2/common.py",
+    "destination": "amp_classification/core/v2/common.py",
+    "source_sha256": "1185df7d99236fbd883d70a91630703c5f75f1e9186e8cbd377f02cd27485ead",
+    "release_sha256": "f748804d868ea27a847b87e9ad1c5d1b60dbecd7b34943f61347fe2916d06d6d",
+    "diff": "--- scripts/mic128_classifier_v2/common.py\n+++ amp_classification/core/v2/common.py\n@@ -3,10 +3,11 @@\n from datetime import datetime\n from zoneinfo import ZoneInfo\n ROOT=Path(__file__).resolve().parents[2]\n-WORK=ROOT/'artifacts/mic128_classifier_v2_balanced_random200'\n-DATA=WORK/'data'\n-RUNS=ROOT/'runs_mic128_classifier_v2_balanced_random200'\n-REPORT=ROOT/'reports/mic128_classifier_v2_balanced_random200'\n+CODE=Path(__file__).resolve().parent\n+DATA=ROOT/'data'\n+WORK=Path(os.environ.get('TIGER_AMP_RUNS',str(ROOT.parent/'outputs/amp_training')))\n+RUNS=WORK\n+REPORT=WORK/'reports'\n SEEDS=list(range(120,125))\n AA='ACDEFGHIKLMNPQRSTVWY'\n def now():return datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(timespec='seconds')\n"
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/models.py",
+    "destination": "amp_classification/core/v3/models.py",
+    "source_sha256": "7799d6bac7160de2e756eb6ed66179c3376ea2149114e231915a08e73ebc1c42",
+    "release_sha256": "7799d6bac7160de2e756eb6ed66179c3376ea2149114e231915a08e73ebc1c42",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/metrics.py",
+    "destination": "amp_classification/core/v3/metrics.py",
+    "source_sha256": "f96cff00bfa95091c87870cb950283c7e3a45dbc4a2a78d0a6f340dffd86cf8b",
+    "release_sha256": "f96cff00bfa95091c87870cb950283c7e3a45dbc4a2a78d0a6f340dffd86cf8b",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/worker.py",
+    "destination": "amp_classification/core/v3/worker.py",
+    "source_sha256": "b7478ad72b71436de741208558fcf82dfe6aafa18796d539d81ed1de41625f76",
+    "release_sha256": "b7478ad72b71436de741208558fcf82dfe6aafa18796d539d81ed1de41625f76",
+    "diff": ""
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/common.py",
+    "destination": "amp_classification/core/v3/common.py",
+    "source_sha256": "4db68b6fffb57241d4d12559963eb6cbc35d093cf80a297c49c4b3b1d9da42bb",
+    "release_sha256": "85ec213d2ea64c1bdd0d4e0659b0a69fd51a036b4c7741d45b03cae90165a6c0",
+    "diff": "--- scripts/mic128_classifier_v3/common.py\n+++ amp_classification/core/v3/common.py\n@@ -4,14 +4,10 @@\n import hashlib,json,os\n ROOT=Path(__file__).resolve().parents[2]\n CODE=Path(__file__).resolve().parent\n-WORK=ROOT/'artifacts/mic128_classifier_v3_classic_expansion'\n-DATA=WORK/'data'\n-RUNS=ROOT/'runs_mic128_classifier_v3_classic_expansion'\n-REPORT=ROOT/'reports/mic128_classifier_v3_classic_expansion'\n-OLDWORK=ROOT/'artifacts/mic128_classifier_v2_balanced_random200'\n-OLDRUNS=ROOT/'runs_mic128_classifier_v2_balanced_random200'\n-OLDREPORT=ROOT/'reports/mic128_classifier_v2_balanced_random200'\n-PY=WORK/'env/bin/python'\n+DATA=ROOT/'data'\n+WORK=Path(os.environ.get('TIGER_AMP_RUNS',str(ROOT.parent/'outputs/amp_training')))\n+RUNS=WORK\n+REPORT=WORK/'reports'\n SEEDS=list(range(120,125))\n AA='ACDEFGHIKLMNPQRSTVWY'\n def now():return datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(timespec='seconds')\n"
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/features.py",
+    "destination": "amp_classification/features.py",
+    "source_sha256": "da7f56b16f1a90fa0a526c22d2e791ec3bfc9ded3b5d95256bf6231e862d67c7",
+    "release_sha256": "c82425855f28672b2ff1210475e20e4fb1354c1546aaf60641ceefe3e7574b4f",
+    "diff": "--- scripts/mic128_classifier_v3/features.py\n+++ amp_classification/features.py\n@@ -1,5 +1,6 @@\n \"\"\"Label-independent sequence features; no fitted population statistics.\"\"\"\n-from common import *\n+from pathlib import Path\n+AA='ACDEFGHIKLMNPQRSTVWY'\n import numpy as np\n import pandas as pd\n from collections import Counter\n@@ -35,22 +36,3 @@\n     validate(seqs);x=np.zeros((len(seqs),50),dtype=np.int64);lookup={a:i+1 for i,a in enumerate(AA)}\n     for i,s in enumerate(seqs):x[i,:len(s)]=[lookup[a] for a in s]\n     return x\n-\n-def main():\n-    table=pd.read_csv(DATA/'samples.csv')\n-    table[['sample_id','sequence']].to_csv(DATA/'feature_index.csv',index=False)\n-    for feature in ['F1','F2','simple']:np.save(DATA/f'features_{feature}.npy',compact(table.sequence.tolist(),feature))\n-    np.save(DATA/'tokens.npy',tokens(table.sequence.tolist()))\n-    aaindex=ROOT/'baseline/sota_bench/apex-main/aaindex1.csv'\n-    z=pd.read_csv(aaindex,index_col=0).apply(pd.to_numeric,errors='coerce').fillna(0).loc[:,list(AA)].to_numpy()\n-    # Fixed per-property normalization across the 20 residues, not cohort fitting.\n-    z=(z-z.mean(1,keepdims=True))/(z.std(1,keepdims=True)+1e-8)\n-    emb=np.vstack([np.zeros((1,len(z))),z.T]).astype('float32');np.save(DATA/'aaindex.npy',emb)\n-    dump(DATA/'feature_schema.json',{'F1':F1_NAMES,'F2':F2_NAMES,'simple':['length','simple_charge'],\n-         'AAindex_sha256':sha(aaindex),'AAindex_shape':list(emb.shape),'input_scope':'Canonical uppercase 6–50 aa; no measured mass, terminal chemistry, CFU, source or label fields.',\n-         'simple_charge':'K+R+0.1H-D-E; sequence proxy, not measured terminal chemistry',\n-         'F1_hydropathy':'Kyte-Doolittle fixed residue constants; moment over full length at 100 degrees, no estimated structure.'})\n-    assert compact(['ACDEFGHIK','KKLLLLKK']).shape==(2,440)\n-    assert np.allclose(compact(['ACDEFGHIK']),compact(['ACDEFGHIK','KKLLLLKK'])[:1])\n-    print('Features complete',len(table),emb.shape)\n-if __name__=='__main__':main()\n"
+  },
+  {
+    "source": "scripts/mic128_classifier_v2/networks.py",
+    "destination": "amp_classification/networks.py",
+    "source_sha256": "2491e5aefff652e66eb2a1940a64978c10884b17a38a7f040356bdede4e888ad",
+    "release_sha256": "292b0287460e8259399d45ddd59e007b16c99140effbd4b9aad839b798002fe6",
+    "diff": "--- scripts/mic128_classifier_v2/networks.py\n+++ amp_classification/networks.py\n@@ -4,7 +4,8 @@\n from torch.nn import functional as F\n from torch.nn.utils.rnn import pack_padded_sequence,pad_packed_sequence\n import numpy as np\n-from common import DATA\n+from pathlib import Path\n+DATA=Path(__file__).resolve().parent/'data'\n \n class SequenceModel(nn.Module):\n     def __init__(self,name,config):\n"
+  },
+  {
+    "source": "scripts/mic128_classifier_v3/metrics.py",
+    "destination": "amp_classification/metrics.py",
+    "source_sha256": "f96cff00bfa95091c87870cb950283c7e3a45dbc4a2a78d0a6f340dffd86cf8b",
+    "release_sha256": "f96cff00bfa95091c87870cb950283c7e3a45dbc4a2a78d0a6f340dffd86cf8b",
+    "diff": ""
+  },
+  {
+    "source": "baseline/sota_bench/AMPActiPred/predict_lib.py",
+    "destination": "amp_classification/third_party/AMPActiPred/predict_lib.py",
+    "source_sha256": "42eb763a0ddde9b9ebca8d3a7b8831f25bed68dbeb2a6feddaeb1250b7347d53",
+    "release_sha256": "171339416c3b5a651ee6b4ba879131f5fd7c2f2fed22bc15498fcd6d1c220b60",
+    "diff": "--- baseline/sota_bench/AMPActiPred/predict_lib.py\n+++ amp_classification/third_party/AMPActiPred/predict_lib.py\n@@ -176,7 +176,7 @@\n         print('Error: all the sequence length should be larger than the lambdaValue+1: ' + str(lambdaValue + 1) + '\\n\\n')\n         return 0\n \n-    dataFile = re.sub('codes$', '', os.path.split(os.path.realpath('__file__'))[0]) + r'\\data\\PAAC.txt' if platform.system() == 'Windows' else re.sub('codes$', '', os.path.split(os.path.realpath('__file__'))[0]) + '/data/PAAC.txt'\n+    dataFile = re.sub('codes$', '', os.path.split(os.path.realpath(__file__))[0]) + r'\\data\\PAAC.txt' if platform.system() == 'Windows' else re.sub('codes$', '', os.path.split(os.path.realpath(__file__))[0]) + '/data/PAAC.txt'\n     with open(dataFile) as f:\n         records = f.readlines()\n     AA = ''.join(records[0].rstrip().split()[1:])\n"
+  }
+]

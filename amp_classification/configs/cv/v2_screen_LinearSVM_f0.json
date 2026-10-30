@@ -1,0 +1,14 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "screen_LinearSVM_f0",
+    "stage": "cv",
+    "model": "LinearSVM",
+    "seed": 123,
+    "fold": 0,
+    "config": {
+      "feature": "F2",
+      "C": 0.1
+    }
+  }
+}

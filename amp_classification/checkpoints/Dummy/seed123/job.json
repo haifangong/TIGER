@@ -1,0 +1,11 @@
+{
+  "id": "main_Dummy_s123",
+  "stage": "final",
+  "model": "Dummy",
+  "seed": 123,
+  "config": {
+    "feature": "simple"
+  },
+  "rounds": null,
+  "analysis": "main"
+}

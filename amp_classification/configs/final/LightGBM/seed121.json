@@ -1,0 +1,20 @@
+{
+  "backend": "v2",
+  "job": {
+    "id": "main_LightGBM_s121",
+    "stage": "final",
+    "model": "LightGBM",
+    "seed": 121,
+    "config": {
+      "balanced": false,
+      "feature": "F1",
+      "learning_rate": 0.02,
+      "max_iter": 2000,
+      "min_child_samples": 20,
+      "num_leaves": 31,
+      "reg_lambda": 0
+    },
+    "rounds": 778,
+    "analysis": "main"
+  }
+}

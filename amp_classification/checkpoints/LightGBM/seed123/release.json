@@ -1,0 +1,12 @@
+{
+  "model": "LightGBM",
+  "seed": 123,
+  "backend": "v2",
+  "thresholds": {
+    "balanced": 0.4007945704511091,
+    "default": 0.5,
+    "recall90": 0.5127724044031814,
+    "recall95": 0.3367668933852689,
+    "recall98": 0.21915536833514604
+  }
+}

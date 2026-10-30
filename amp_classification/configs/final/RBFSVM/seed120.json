@@ -1,0 +1,15 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "main_RBFSVM_s120",
+    "stage": "final",
+    "model": "RBFSVM",
+    "seed": 120,
+    "config": {
+      "feature": "F1",
+      "C": 10.0,
+      "gamma": "scale"
+    },
+    "rounds": null
+  }
+}

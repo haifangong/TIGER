@@ -24,7 +24,7 @@ For **model evaluation** (classification metrics), provide labeled CSVs:
 
 | Task | Required columns | Example file |
 |------|------------------|--------------|
-| Activity classifier | `sequence`, `label` (0/1) | `01_mutation_search/examples/labeled_activity_demo.csv` |
+| AMP inference | `sequence` (6–50 canonical residues) | `amp_classification/examples/peptides.csv` in the repository root |
 | Toxicity classifier | `sequence`, `label` (0/1) | `02_toxicity_filter/examples/labeled_toxicity_demo.csv` |
 
 `label=1` means the positive class (active AMP / toxic peptide).
@@ -43,7 +43,7 @@ python search_mutations.py \
   --sequence YOURPEPTIDESEQUENCE \
   --search_length 2 \
   --output_dir outputs/my_template \
-  --model models/R_catboost_model.pkl
+  --model ../../amp_classification/checkpoints/CatBoost-Tuned/seed123
 ```
 
 ### What is hardcoded vs configurable?
@@ -52,9 +52,9 @@ python search_mutations.py \
 |------|--------|---------------|
 | Template sequence | CLI `--sequence` | pass your AA string |
 | Mutation depth `k` | CLI `--search_length` | start with 1–2 |
-| Activity model | CLI `--model` | point to another `.pkl` |
+| Activity model | CLI `--model` | point to a released checkpoint directory |
 | Physicochemical filters | in `search_mutations.py` | edit thresholds if needed |
-| Training CSV for the bundled CatBoost | external / historical | retrain via `evaluate_models.py --save-models` |
+| Classifier training data and recipes | `amp_classification/data/` and `configs/` | use `python -m amp_classification train` from the repository root |
 
 ### Output for custom runs
 
@@ -63,30 +63,21 @@ python search_mutations.py \
 
 Positive CSV format is **headerless** with two columns: `sequence,sequence` (second column is a duplicate for legacy compatibility).
 
-### Evaluate / retrain classifiers on custom labeled data
+### Predict custom peptide sequences
+
+From the repository root:
 
 ```bash
-python evaluate_models.py \
-  --csv /path/to/your_labeled_activity.csv \
-  --sequence-col sequence \
-  --label-col label \
-  --n-splits 5 \
-  --test-size 0.2 \
-  --out-dir outputs/metrics_custom \
-  --save-models
+python -m amp_classification predict --model CatBoost-Tuned \
+  --input /path/to/peptides.csv --output outputs/custom_AMP.csv
 ```
 
-This writes:
-
-- `cv_fold_metrics.csv` — Acc/P/R/F1/MCC/AUC-ROC/AUC-PR for **each fold × model**
-- `test_metrics.csv` — same suite on the **held-out test set**
-- `summary_metrics.csv` — CV mean/std + test
-
-If your CSV uses different column names:
-
-```bash
-python evaluate_models.py --csv my.csv --sequence-col Seq --label-col is_amp ...
-```
+The CSV must have a `sequence` column; FASTA is also supported. The released
+classifier predicts E. coli MIC <128 µg/mL using calibrated probabilities.
+To reproduce the fixed benchmark use `python -m amp_classification replay`.
+To retrain the archived recipes use `python -m amp_classification train`; see the
+[classification methods and split design](../../amp_classification/README.md).
+The replay command does not silently create a new split of a user-supplied dataset.
 
 ---
 

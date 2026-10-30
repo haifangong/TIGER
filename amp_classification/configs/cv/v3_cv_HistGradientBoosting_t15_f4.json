@@ -1,0 +1,19 @@
+{
+  "backend": "v3",
+  "job": {
+    "id": "cv_HistGradientBoosting_t15_f4",
+    "stage": "cv",
+    "model": "HistGradientBoosting",
+    "trial": 15,
+    "fold": 4,
+    "seed": 123,
+    "config": {
+      "feature": "F2",
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 50,
+      "l2_regularization": 10.0,
+      "learning_rate": 0.1,
+      "max_iter": 1000
+    }
+  }
+}

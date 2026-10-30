@@ -1,0 +1,15 @@
+{
+  "id": "main_EBM_s123",
+  "stage": "final",
+  "model": "EBM",
+  "seed": 123,
+  "config": {
+    "feature": "F1",
+    "interactions": 10,
+    "max_bins": 128,
+    "learning_rate": 0.03,
+    "outer_bags": 8,
+    "max_rounds": 5000
+  },
+  "rounds": null
+}
