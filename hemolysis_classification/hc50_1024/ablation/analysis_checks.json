@@ -1,0 +1,23 @@
+{
+  "protocol_sha256": "28a378e9d4163229f4681774ad2c23d3c298689b3cdb4a0aad05a70852a6b268",
+  "seeds": [
+    42,
+    1,
+    2,
+    3,
+    4
+  ],
+  "n_methods": 17,
+  "folds_per_seed": 5,
+  "training_arms": [
+    "paired512",
+    "full1024",
+    "no_global1024"
+  ],
+  "checkpoint_folders": 600,
+  "external_folds_scored": 600,
+  "outer_validation_unique_per_seed": 1181,
+  "paired_panel": 191,
+  "full_1024_panel": 196,
+  "bootstrap_draws": 2000
+}

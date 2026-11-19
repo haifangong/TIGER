@@ -1,0 +1,116 @@
+{
+  "source_release": "2026_04",
+  "coordinates_verified": 1037,
+  "new_ctrl_vs_reference_pairs_checked": 1630164,
+  "new_ctrl_pairs_checked": 537166,
+  "sequence_overlap": 0,
+  "measured_fold_roles_preserved": true,
+  "cohorts": {
+    "train": {
+      "n": 2096,
+      "pos": 1048,
+      "measured_neg": 133,
+      "uniprot_neg": 915,
+      "length_bins": [
+        {
+          "length": "6-10",
+          "pos": 91,
+          "neg": 91
+        },
+        {
+          "length": "11-15",
+          "pos": 314,
+          "neg": 316
+        },
+        {
+          "length": "16-20",
+          "pos": 212,
+          "neg": 210
+        },
+        {
+          "length": "21-25",
+          "pos": 211,
+          "neg": 211
+        },
+        {
+          "length": "26-30",
+          "pos": 124,
+          "neg": 124
+        },
+        {
+          "length": "31-35",
+          "pos": 45,
+          "neg": 45
+        },
+        {
+          "length": "36-40",
+          "pos": 28,
+          "neg": 28
+        },
+        {
+          "length": "41-45",
+          "pos": 11,
+          "neg": 11
+        },
+        {
+          "length": "46-50",
+          "pos": 12,
+          "neg": 12
+        }
+      ]
+    },
+    "external": {
+      "n": 318,
+      "pos": 159,
+      "measured_neg": 37,
+      "uniprot_neg": 122,
+      "length_bins": [
+        {
+          "length": "6-10",
+          "pos": 24,
+          "neg": 24
+        },
+        {
+          "length": "11-15",
+          "pos": 70,
+          "neg": 70
+        },
+        {
+          "length": "16-20",
+          "pos": 22,
+          "neg": 22
+        },
+        {
+          "length": "21-25",
+          "pos": 20,
+          "neg": 20
+        },
+        {
+          "length": "26-30",
+          "pos": 11,
+          "neg": 11
+        },
+        {
+          "length": "31-35",
+          "pos": 5,
+          "neg": 5
+        },
+        {
+          "length": "36-40",
+          "pos": 2,
+          "neg": 2
+        },
+        {
+          "length": "41-45",
+          "pos": 2,
+          "neg": 2
+        },
+        {
+          "length": "46-50",
+          "pos": 3,
+          "neg": 3
+        }
+      ]
+    }
+  }
+}
