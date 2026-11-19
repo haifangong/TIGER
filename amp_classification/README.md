@@ -6,6 +6,8 @@ This module replaces the original AMP activity classifier and demonstration benc
 
 The release contains the requested **15 methods**, all **75 test prediction files**, validation predictions and thresholds, **75 final-training recipes**, archived training-only CV recipes, fixed data/feature matrices, **seed123 checkpoints for all 15 methods**, numerical replay, CPU timing code, and publication figures. The original full study had 21 methods; DeepAMP, CatBoost-Recall, Das, CatBoost, APEX and Logistic are excluded from this release. No models were retrained to produce the published table below.
 
+The [MIC <256 µg/mL benchmark](results/mic256/README.md) provides the five-seed rankings, per-peptide predictions and CPU timings for this additional activity threshold.
+
 ## Test results
 
 Methods are ordered by test AUROC. Values are **mean ± sample SD over five training seeds**. Precision, recall and F1 use the threshold maximizing MCC on Vop, fixed before testing. AUPRC is **average precision**, not trapezoidal PR area. `NA` preserves undefined precision when a model predicts no positives. Dummy is an **uninformative class-prior baseline**.

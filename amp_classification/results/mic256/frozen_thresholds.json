@@ -1,0 +1,977 @@
+[
+  {
+    "backend": "v2",
+    "model": "ExtraTrees",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.43682575241953553,
+      "default": 0.5,
+      "recall90": 0.6525727920073707,
+      "recall95": 0.47843689506597464,
+      "recall98": 0.20561037127981283
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "ExtraTrees",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.46114253826837515,
+      "default": 0.5,
+      "recall90": 0.669889955686716,
+      "recall95": 0.5138531381287028,
+      "recall98": 0.21276653288763497
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "ExtraTrees",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4325097073387119,
+      "default": 0.5,
+      "recall90": 0.6631062134661662,
+      "recall95": 0.4684834473082467,
+      "recall98": 0.20978312026312562
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "ExtraTrees",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.48010784054245603,
+      "default": 0.5,
+      "recall90": 0.6518558127948813,
+      "recall95": 0.5037541376098432,
+      "recall98": 0.2287622500701576
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "ExtraTrees",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4253915709848065,
+      "default": 0.5,
+      "recall90": 0.6520058609427728,
+      "recall95": 0.5028306224865453,
+      "recall98": 0.20438711695881953
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Cascade",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.46994274530714886,
+      "default": 0.5,
+      "recall90": 0.6751953216208597,
+      "recall95": 0.5142595351826422,
+      "recall98": 0.14708630164681905
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Cascade",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.47841108760524453,
+      "default": 0.5,
+      "recall90": 0.7042768477810182,
+      "recall95": 0.47841108760524453,
+      "recall98": 0.18799466167349055
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Cascade",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5297598720901113,
+      "default": 0.5,
+      "recall90": 0.6802275479856507,
+      "recall95": 0.5221814552954498,
+      "recall98": 0.17941033328008776
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Cascade",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.41303709405328887,
+      "default": 0.5,
+      "recall90": 0.6518390126899074,
+      "recall95": 0.4811677456395757,
+      "recall98": 0.21436551014685085
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Cascade",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.42639183886092047,
+      "default": 0.5,
+      "recall90": 0.6840321321772393,
+      "recall95": 0.5562806832751614,
+      "recall98": 0.16838851525348297
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "CatBoost-Tuned",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4348925506190222,
+      "default": 0.5,
+      "recall90": 0.6529968910638728,
+      "recall95": 0.48999707458418323,
+      "recall98": 0.19469320858760136
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "CatBoost-Tuned",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49861053065708827,
+      "default": 0.5,
+      "recall90": 0.711511515016235,
+      "recall95": 0.49861053065708827,
+      "recall98": 0.17585332675092263
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "CatBoost-Tuned",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5733856991642543,
+      "default": 0.5,
+      "recall90": 0.6978970506557355,
+      "recall95": 0.48274812268207296,
+      "recall98": 0.20807640921283027
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "CatBoost-Tuned",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5705298454717429,
+      "default": 0.5,
+      "recall90": 0.6887756780745569,
+      "recall95": 0.4634123421978539,
+      "recall98": 0.19514082534186145
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "CatBoost-Tuned",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.45125856133592834,
+      "default": 0.5,
+      "recall90": 0.686515392597953,
+      "recall95": 0.4678932453987794,
+      "recall98": 0.2031411216252405
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "XGBoost",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5824066561882449,
+      "default": 0.5,
+      "recall90": 0.7039205205346643,
+      "recall95": 0.44155584014581617,
+      "recall98": 0.23669511785043448
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "XGBoost",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5382431502850398,
+      "default": 0.5,
+      "recall90": 0.6831368799234849,
+      "recall95": 0.531267152519826,
+      "recall98": 0.19247372874253255
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "XGBoost",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5942316560033419,
+      "default": 0.5,
+      "recall90": 0.7109256480055066,
+      "recall95": 0.47380408276989827,
+      "recall98": 0.2052872852152557
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "XGBoost",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5762049493577176,
+      "default": 0.5,
+      "recall90": 0.7234639429827514,
+      "recall95": 0.5169041245766564,
+      "recall98": 0.23404465161074314
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "XGBoost",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4575657532448639,
+      "default": 0.5,
+      "recall90": 0.7178455846627538,
+      "recall95": 0.49833433100007035,
+      "recall98": 0.22284526857803397
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "HistGradientBoosting",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5497072516221269,
+      "default": 0.5,
+      "recall90": 0.6892646984620716,
+      "recall95": 0.497891064779578,
+      "recall98": 0.1846408802913478
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "HistGradientBoosting",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5497072516221269,
+      "default": 0.5,
+      "recall90": 0.6892646984620716,
+      "recall95": 0.497891064779578,
+      "recall98": 0.1846408802913478
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "HistGradientBoosting",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5497072516221269,
+      "default": 0.5,
+      "recall90": 0.6892646984620716,
+      "recall95": 0.497891064779578,
+      "recall98": 0.1846408802913478
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "HistGradientBoosting",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5497072516221269,
+      "default": 0.5,
+      "recall90": 0.6892646984620716,
+      "recall95": 0.497891064779578,
+      "recall98": 0.1846408802913478
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "HistGradientBoosting",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5497072516221269,
+      "default": 0.5,
+      "recall90": 0.6892646984620716,
+      "recall95": 0.497891064779578,
+      "recall98": 0.1846408802913478
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "TinyCNN",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5486589067445723,
+      "default": 0.5,
+      "recall90": 0.6537166345968852,
+      "recall95": 0.48340537467989886,
+      "recall98": 0.16145834247655147
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "TinyCNN",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4052962583796962,
+      "default": 0.5,
+      "recall90": 0.6823245210465654,
+      "recall95": 0.4733887399108128,
+      "recall98": 0.21269600294778326
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "TinyCNN",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4020576244922712,
+      "default": 0.5,
+      "recall90": 0.7085781530028563,
+      "recall95": 0.4435676437470012,
+      "recall98": 0.17812234994605075
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "TinyCNN",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4658999022456328,
+      "default": 0.5,
+      "recall90": 0.6526314183992545,
+      "recall95": 0.4658999022456328,
+      "recall98": 0.16386358716915989
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "TinyCNN",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.45334109032661213,
+      "default": 0.5,
+      "recall90": 0.683456619481805,
+      "recall95": 0.46744374177844555,
+      "recall98": 0.1697093190607567
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "RBFSVM",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5469176548246644,
+      "default": 0.5,
+      "recall90": 0.7130379785211192,
+      "recall95": 0.4640426206344396,
+      "recall98": 0.18456582931426976
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "RBFSVM",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5469176548246644,
+      "default": 0.5,
+      "recall90": 0.7130379785211192,
+      "recall95": 0.4640426206344396,
+      "recall98": 0.18456582931426976
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "RBFSVM",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5469176548246644,
+      "default": 0.5,
+      "recall90": 0.7130379785211192,
+      "recall95": 0.4640426206344396,
+      "recall98": 0.18456582931426976
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "RBFSVM",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5469176548246644,
+      "default": 0.5,
+      "recall90": 0.7130379785211192,
+      "recall95": 0.4640426206344396,
+      "recall98": 0.18456582931426976
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "RBFSVM",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5469176548246644,
+      "default": 0.5,
+      "recall90": 0.7130379785211192,
+      "recall95": 0.4640426206344396,
+      "recall98": 0.18456582931426976
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LightGBM",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49145336169659115,
+      "default": 0.5,
+      "recall90": 0.6745495523645664,
+      "recall95": 0.42521950814222875,
+      "recall98": 0.18243413982133708
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LightGBM",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49145336169659115,
+      "default": 0.5,
+      "recall90": 0.6745495523645664,
+      "recall95": 0.42521950814222875,
+      "recall98": 0.18243413982133708
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LightGBM",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49145336169659115,
+      "default": 0.5,
+      "recall90": 0.6745495523645664,
+      "recall95": 0.42521950814222875,
+      "recall98": 0.18243413982133708
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LightGBM",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49145336169659115,
+      "default": 0.5,
+      "recall90": 0.6745495523645664,
+      "recall95": 0.42521950814222875,
+      "recall98": 0.18243413982133708
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LightGBM",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49145336169659115,
+      "default": 0.5,
+      "recall90": 0.6745495523645664,
+      "recall95": 0.42521950814222875,
+      "recall98": 0.18243413982133708
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "RF",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5031822568643516,
+      "default": 0.5,
+      "recall90": 0.6472769949719268,
+      "recall95": 0.5031822568643516,
+      "recall98": 0.19412685101036622
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "RF",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5619722491494787,
+      "default": 0.5,
+      "recall90": 0.6319336268387779,
+      "recall95": 0.4546567245261245,
+      "recall98": 0.1668809889139718
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "RF",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5258859016844046,
+      "default": 0.5,
+      "recall90": 0.6451534981096525,
+      "recall95": 0.48708953262360155,
+      "recall98": 0.19472785923358435
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "RF",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5298671048628619,
+      "default": 0.5,
+      "recall90": 0.6352875989811941,
+      "recall95": 0.4764080229950449,
+      "recall98": 0.16518876624364315
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "RF",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5267530497122175,
+      "default": 0.5,
+      "recall90": 0.6413281583306217,
+      "recall95": 0.467209089681219,
+      "recall98": 0.16876711124659305
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "AdaBoost",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5204262808661064,
+      "default": 0.5,
+      "recall90": 0.6625075425613538,
+      "recall95": 0.5045536239968482,
+      "recall98": 0.18735207421549582
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "AdaBoost",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.520430109541512,
+      "default": 0.5,
+      "recall90": 0.6624785022489121,
+      "recall95": 0.504561348529133,
+      "recall98": 0.18741217457731907
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "AdaBoost",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5201057229821135,
+      "default": 0.5,
+      "recall90": 0.662331582887767,
+      "recall95": 0.5042193063438002,
+      "recall98": 0.18695902879053805
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "AdaBoost",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5200025555617533,
+      "default": 0.5,
+      "recall90": 0.6619409069569413,
+      "recall95": 0.5041166030102725,
+      "recall98": 0.18690511486613437
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "AdaBoost",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5200148910165853,
+      "default": 0.5,
+      "recall90": 0.6622039317304842,
+      "recall95": 0.5041338949124434,
+      "recall98": 0.1869858421753932
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LinearSVM",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4104449503900435,
+      "default": 0.5,
+      "recall90": 0.6364958389651911,
+      "recall95": 0.4386274221947815,
+      "recall98": 0.11118913152596777
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LinearSVM",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4104449503900435,
+      "default": 0.5,
+      "recall90": 0.6364958389651911,
+      "recall95": 0.4386274221947815,
+      "recall98": 0.11118913152596777
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LinearSVM",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4104449503900435,
+      "default": 0.5,
+      "recall90": 0.6364958389651911,
+      "recall95": 0.4386274221947815,
+      "recall98": 0.11118913152596777
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LinearSVM",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4104449503900435,
+      "default": 0.5,
+      "recall90": 0.6364958389651911,
+      "recall95": 0.4386274221947815,
+      "recall98": 0.11118913152596777
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "LinearSVM",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4104449503900435,
+      "default": 0.5,
+      "recall90": 0.6364958389651911,
+      "recall95": 0.4386274221947815,
+      "recall98": 0.11118913152596777
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "GBDT",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.46612776902914055,
+      "default": 0.5,
+      "recall90": 0.6746510881763601,
+      "recall95": 0.47961787054148075,
+      "recall98": 0.1868610655653285
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "GBDT",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5549788652208448,
+      "default": 0.5,
+      "recall90": 0.6646721504596582,
+      "recall95": 0.4625212774833494,
+      "recall98": 0.1977549455037884
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "GBDT",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4432637906312856,
+      "default": 0.5,
+      "recall90": 0.642400827583268,
+      "recall95": 0.45076305180700554,
+      "recall98": 0.1601595186554463
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "GBDT",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.49399765031955045,
+      "default": 0.5,
+      "recall90": 0.6550702761681393,
+      "recall95": 0.46763877626582984,
+      "recall98": 0.20553382019339006
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "GBDT",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.46600850513994485,
+      "default": 0.5,
+      "recall90": 0.6656732244057719,
+      "recall95": 0.4941710573435958,
+      "recall98": 0.20086984367999786
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "EBM",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5697088930668696,
+      "default": 0.5,
+      "recall90": 0.598746154142326,
+      "recall95": 0.451829633735481,
+      "recall98": 0.22307444224987888
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "EBM",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.589479239649163,
+      "default": 0.5,
+      "recall90": 0.653679092075482,
+      "recall95": 0.4585315762590336,
+      "recall98": 0.2091521400615181
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "EBM",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.5120620419346005,
+      "default": 0.5,
+      "recall90": 0.635706346962226,
+      "recall95": 0.46146243566403256,
+      "recall98": 0.21788474282593184
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "EBM",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.47243537278436454,
+      "default": 0.5,
+      "recall90": 0.6652037790939973,
+      "recall95": 0.48758271400326836,
+      "recall98": 0.21267461014695813
+    }
+  },
+  {
+    "backend": "v3",
+    "model": "EBM",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4389682376110572,
+      "default": 0.5,
+      "recall90": 0.6567167339232377,
+      "recall95": 0.45055019297216825,
+      "recall98": 0.22172866286355108
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "SimpleLogistic",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.42424844668572353,
+      "default": 0.5,
+      "recall90": 0.4856313287701978,
+      "recall95": 0.3559702121872873,
+      "recall98": 0.1522693255862823
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "SimpleLogistic",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4242533058252879,
+      "default": 0.5,
+      "recall90": 0.48565178185313995,
+      "recall95": 0.3559781991824462,
+      "recall98": 0.15226337879421886
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "SimpleLogistic",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.42425634359834297,
+      "default": 0.5,
+      "recall90": 0.48566454963993483,
+      "recall95": 0.35598319569386494,
+      "recall98": 0.15225967294575404
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "SimpleLogistic",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.4242541590020704,
+      "default": 0.5,
+      "recall90": 0.4856553199742554,
+      "recall95": 0.35597959206793517,
+      "recall98": 0.1522623662463541
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "SimpleLogistic",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 0.42425066359922825,
+      "default": 0.5,
+      "recall90": 0.4856406116338191,
+      "recall95": 0.35597385325691755,
+      "recall98": 0.15226660835711775
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Dummy",
+    "seed": 120,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 1.0000000000000002,
+      "default": 0.5,
+      "recall90": 0.0,
+      "recall95": 0.0,
+      "recall98": 0.0
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Dummy",
+    "seed": 121,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 1.0000000000000002,
+      "default": 0.5,
+      "recall90": 0.0,
+      "recall95": 0.0,
+      "recall98": 0.0
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Dummy",
+    "seed": 122,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 1.0000000000000002,
+      "default": 0.5,
+      "recall90": 0.0,
+      "recall95": 0.0,
+      "recall98": 0.0
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Dummy",
+    "seed": 123,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 1.0000000000000002,
+      "default": 0.5,
+      "recall90": 0.0,
+      "recall95": 0.0,
+      "recall98": 0.0
+    }
+  },
+  {
+    "backend": "v2",
+    "model": "Dummy",
+    "seed": 124,
+    "endpoint": "MIC256",
+    "thresholds": {
+      "balanced": 1.0000000000000002,
+      "default": 0.5,
+      "recall90": 0.0,
+      "recall95": 0.0,
+      "recall98": 0.0
+    }
+  }
+]

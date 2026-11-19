@@ -1,0 +1,200 @@
+{
+  "endpoint": "E. coli measured log2 MIC <8; background negative by source",
+  "sample_files_sha256": {
+    "T": "16cd2f9138bb829df353b0cd28262bb3c5ee5350f9b95c52adfbc9d7146b8533",
+    "Vcal": "63f944b5e8ea7605f347f86192d691039aa661481e21d53ed7958f7f78960b4b",
+    "Vop": "3721f2df492260fb85652616e9c772c67ce5040bfa5758dbf040767ee0b0e1c2",
+    "Test": "f8902323ae3dcb856957c59d919ea8cb5ba109a1b7ffa580acad5e0fa636d0b4"
+  },
+  "feature_files_sha256": {
+    "features_F1.npy": "b3baaabef582ff72ad946ab5049ac284ab1da06ad09ab4fd50584fd8efc495d1",
+    "features_F2.npy": "35ffa8b800afdf612f93ab9ae513889028a57407d9a3116802be06dafff2d854",
+    "features_simple.npy": "b3552ca535075d6b1299f81990249971984bcdfd3a8663846d4617c3f426f0ef",
+    "features_AMP553.npy": "1ce8e0125be670e213acbc3966bd67db35d2e4a996d6a665eb6a4a67a27b4b08",
+    "tokens.npy": "bf06fcd965dd128d7ca77b181de8b2d33ec9f7028671dcb48aa6b9c00de32258"
+  },
+  "test_design": "fixed retrospective random holdout",
+  "recipes": {
+    "ExtraTrees": {
+      "version": "v2",
+      "config": {
+        "balanced": true,
+        "depth": 16,
+        "feature": "F1",
+        "max_features": 0.5,
+        "min_leaf": 2,
+        "trees": 500
+      },
+      "rounds": null
+    },
+    "Cascade": {
+      "version": "v2",
+      "config": {
+        "balanced": false,
+        "feature": "AMP553",
+        "max_layers": 4,
+        "min_leaf": 3,
+        "trees": 100
+      },
+      "rounds": null
+    },
+    "CatBoost-Tuned": {
+      "version": "v3",
+      "config": {
+        "feature": "F1",
+        "boosting_type": "Plain",
+        "grow_policy": "SymmetricTree",
+        "depth": 10,
+        "learning_rate": 0.02,
+        "l2_leaf_reg": 1.0,
+        "random_strength": 0.5,
+        "rsm": 1.0,
+        "border_count": 254,
+        "max_iter": 3000,
+        "patience": 100,
+        "bootstrap_type": "Bernoulli",
+        "subsample": 1.0
+      },
+      "rounds": 974
+    },
+    "XGBoost": {
+      "version": "v3",
+      "config": {
+        "feature": "F2",
+        "depth": 6,
+        "learning_rate": 0.05,
+        "min_child_weight": 5,
+        "subsample": 0.7,
+        "colsample_bytree": 1.0,
+        "reg_alpha": 1.0,
+        "reg_lambda": 10.0,
+        "max_iter": 1500
+      },
+      "rounds": 485
+    },
+    "HistGradientBoosting": {
+      "version": "v3",
+      "config": {
+        "feature": "F2",
+        "max_leaf_nodes": 31,
+        "min_samples_leaf": 20,
+        "l2_regularization": 1.0,
+        "learning_rate": 0.05,
+        "max_iter": 1000
+      },
+      "rounds": 340
+    },
+    "TinyCNN": {
+      "version": "v2",
+      "config": {
+        "channels": 48,
+        "dropout": 0.3,
+        "feature": "tokens",
+        "lr": 0.001,
+        "max_iter": 100,
+        "patience": 15
+      },
+      "rounds": 16
+    },
+    "RBFSVM": {
+      "version": "v3",
+      "config": {
+        "feature": "F1",
+        "C": 10.0,
+        "gamma": "scale"
+      },
+      "rounds": null
+    },
+    "LightGBM": {
+      "version": "v2",
+      "config": {
+        "balanced": false,
+        "feature": "F1",
+        "learning_rate": 0.02,
+        "max_iter": 2000,
+        "min_child_samples": 20,
+        "num_leaves": 31,
+        "reg_lambda": 0
+      },
+      "rounds": 778
+    },
+    "RF": {
+      "version": "v2",
+      "config": {
+        "depth": 12,
+        "feature": "F2",
+        "max_features": "sqrt",
+        "min_leaf": 3,
+        "trees": 200
+      },
+      "rounds": null
+    },
+    "AdaBoost": {
+      "version": "v3",
+      "config": {
+        "feature": "F2",
+        "depth": 3,
+        "learning_rate": 1.0,
+        "max_iter": 300
+      },
+      "rounds": 291
+    },
+    "LinearSVM": {
+      "version": "v2",
+      "config": {
+        "C": 0.1,
+        "feature": "F2"
+      },
+      "rounds": null
+    },
+    "GBDT": {
+      "version": "v3",
+      "config": {
+        "feature": "F1",
+        "depth": 3,
+        "min_samples_leaf": 5,
+        "learning_rate": 0.03,
+        "subsample": 0.7,
+        "max_iter": 1000
+      },
+      "rounds": 978
+    },
+    "EBM": {
+      "version": "v3",
+      "config": {
+        "feature": "F1",
+        "interactions": 10,
+        "max_bins": 128,
+        "learning_rate": 0.03,
+        "outer_bags": 8,
+        "max_rounds": 5000
+      },
+      "rounds": null
+    },
+    "SimpleLogistic": {
+      "version": "v2",
+      "config": {
+        "C": 1.0,
+        "feature": "simple",
+        "l1_ratio": 0.0
+      },
+      "rounds": null
+    },
+    "Dummy": {
+      "version": "v2",
+      "config": {
+        "feature": "simple"
+      },
+      "rounds": null
+    }
+  },
+  "seeds": [
+    120,
+    121,
+    122,
+    123,
+    124
+  ],
+  "hyperparameters": "Frozen original Figure S7 final recipes; refit weights, calibration and cutoffs at MIC256",
+  "timing": "seed 123, first 200 sorted Vop sample IDs, one CPU thread, 3 warm-ups and 30 repeats, raw sequences through calibrated probabilities"
+}

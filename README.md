@@ -18,6 +18,8 @@ python -m amp_classification verify
 python -m amp_classification replay
 ```
 
+The [MIC <256 µg/mL classification results](amp_classification/results/mic256/README.md) report the same 15 methods on the same Test200 peptides, with MIC256-specific training, calibration and operating thresholds.
+
 The AMP endpoint and random Test200 are distinct from the family-based ΔMIC evaluation below. See the [AMP results and validation design](amp_classification/README.md#test-results).
 
 ## Results and endpoint
