@@ -1,0 +1,43 @@
+{
+  "checkpoint_bundles": 600,
+  "s15_checkpoints": 200,
+  "main_calibration_thresholds_reconstructed": 1700,
+  "main_checkpoints_by_device": {
+    "cpu": 75,
+    "cuda:0": 267,
+    "cuda:1": 258
+  },
+  "global_input_invariance_checked_across": 7,
+  "sequence_overlap": 0,
+  "all_replay_hashes_verified": true,
+  "verified_main_source_sha256": "f1afab299d644e6ca6b941680dc972adb5af2af34c24f3f3e20641a3f4349ca2",
+  "python": "3.10.18",
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.2",
+    "scikit-learn": "1.4.2",
+    "biopython": "1.85",
+    "torch": "2.2.0",
+    "xgboost": "2.1.4",
+    "lightgbm": "4.6.0",
+    "catboost": "1.2.10",
+    "joblib": "1.4.2",
+    "matplotlib": "3.8.4"
+  },
+  "artifacts": {
+    "paired_contrasts.csv": "9106a1822106bf1c014b3201a8a981d85ae3e3f46b9d30e575757c4137f247fd",
+    "per_seed.csv": "53e8e57d36e35b4890dd77603acc216050921cfe7b20a03d2ae06172f0cd0ed2",
+    "s15_per_seed.csv": "5ba924688c0ef1fe6fd2acbe8be2f802f326978dd37de36793b78aea1b18e8ed",
+    "s15_summary.csv": "59bd10c5b57b47c1c3703177f325b43e063313e5f2b49826f23271be87065b3c",
+    "s15_validation_folds.csv": "b21ca88769486e23f98da4d6fcc206551e7ff5b1515737cecb3361088949f6a8",
+    "summary.csv": "385eee618262189173b1bb41f64ede87287a63617d3c607f0be87f4bf237a4d4"
+  },
+  "analysis_source": {
+    "analyze.py": "41e23f1f7b6b0e0a851f0c6dfb967ceb22808e56881c2a87a0b02914d1835a8e",
+    "design.py": "d99194e1aab62561cb168bf8da45afada48875bb6b12366a618c7b8012b159a0",
+    "feature_matrix.py": "4c1b2a945d628fef08c2ab8970062071026936f1411f6b651feab9aaa2946564",
+    "models.py": "3c971c0f0194229f9fd1a486c79275c6d539c9e557d3fc13bd56f8f008072979",
+    "run.py": "cf00c29c86d6203a2cf580aff4c5745928dd615ea435ff07595bb1988dbdd7d0",
+    "verify.py": "69f6f040a6d2c8b938dff3203d5c6c7d7e9a167a71de2b213fd2312d6d908ea5"
+  }
+}

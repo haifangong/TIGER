@@ -1,0 +1,173 @@
+{
+  "expected_bundles": 200,
+  "completed_bundles": 200,
+  "bundles_by_device": {
+    "cpu": 25,
+    "cuda:0": 88,
+    "cuda:1": 87
+  },
+  "per_seed_rows": 680,
+  "summary_rows": 136,
+  "checked_external_prediction_files": 400,
+  "batch_layout_replays": [
+    {
+      "fold": "seed42_fold1",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0002917051315307617,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed42_fold3",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00014775991439819336,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed42_fold4",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0002709031105041504,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed42_fold5",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0002124309539794922,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed1_fold1",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00010538101196289062,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed1_fold2",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00014400482177734375,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed1_fold3",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00015228986740112305,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed1_fold4",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0002738833427429199,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed1_fold5",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00014391541481018066,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed2_fold1",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00019519031047821045,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed2_fold2",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00018230080604553223,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed2_fold3",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00017631053924560547,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed2_fold5",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00010788440704345703,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed3_fold1",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00012236833572387695,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed3_fold3",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00018769502639770508,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed3_fold4",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00027811527252197266,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed3_fold5",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00014573335647583008,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed4_fold1",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0001748204231262207,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed4_fold2",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00024586915969848633,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed4_fold3",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.0002052783966064453,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    },
+    {
+      "fold": "seed4_fold5",
+      "method": "fp_rnn",
+      "mixed_vs_original_error": 0.00026667118072509766,
+      "original_layout_replay_error": 0.0,
+      "new_layout_replay_error": 0.0
+    }
+  ],
+  "measured_training_replay_max_probability_error": 0.0002917051315307617,
+  "previous_measured_auroc_max_error": 5.551115123125783e-17,
+  "previous_measured_ap_max_error": 1.1102230246251565e-16,
+  "source_only_baseline_on_balanced": {
+    "auroc": 0.8836477987421384,
+    "auprc_ap": 0.8112244897959183,
+    "pr_trapezoid": 0.9056122448979591
+  },
+  "protocol_sha256": "6e7450035c5d1c591961a4831787df7e599bda9d69df02ed3d3f7a2a038c061d",
+  "bootstrap": "2000 paired peptide draws stratified on measured-positive, measured-negative and presumed-negative; shared across arms and fixed seeds; unadjusted",
+  "summary_sha256": "4e59e0bf00312d819f1658ec6699fb9d53fe4b9369ea8ba56466fa3a54c00eee",
+  "analysis_code_sha256": "b4429957ca8f860dd85b4b5e3a3fb97073467fbe37f97e06fcc59a2b56145dc9"
+}

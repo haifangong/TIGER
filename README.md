@@ -22,6 +22,10 @@ The [MIC <256 µg/mL classification results](amp_classification/results/mic256/R
 
 The AMP endpoint and random Test200 are distinct from the family-based ΔMIC evaluation below. See the [AMP results and validation design](amp_classification/README.md#test-results).
 
+## Human erythrocyte hemolysis classification
+
+The [HC50 ≤ 1,024 µg/mL benchmark](hemolysis_classification/hc50_1024/) contains five-seed results for 17 internal methods, measured and UniProt-augmented external panels, ablations, and CPU replay of the frozen scores.
+
 ## Results and endpoint
 
 The external panel contains **208 peptides, 11 families and 2,211 unique directed within-family pairs**. Each prediction targets `ΔMIC = log2(MIC_anchor / MIC_query)`, with MIC in µg/mL. A positive prediction means the query peptide is more potent.
