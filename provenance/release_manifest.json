@@ -4,7 +4,7 @@
   "description": "Current V17 payload; historical assets outside these paths remain identified by Git history",
   "sha256": {
     ".github/workflows/v17.yml": "80d49e64c557d8c779900c27a90f96a6cd3d61054abd016a6824fc254cc86408",
-    "README.md": "1f198c2f2e3ef3f4c97b5d4ef32538ee13d2102881ce9c789f3725af35e03b78",
+    "README.md": "3ce4976e996c2f4691b57e83307b8604209e7cc6f378f9b0bc72e54a8d346c3d",
     "checkpoints/CHECKPOINTS_MANIFEST.json": "9c4bb6d1ed3b3d0768d028e1e3566ed75302ddfb95f223f88c27690d0956caf4",
     "checkpoints/MANIFEST.json": "51e81d981068eaa9d974658e7127d3c2afca62724283095ff85b62a81b0f8cf2",
     "checkpoints/README.md": "85ba8aed7f490f016fba0f1b36c3efdcbddea29b4e215d7900dda9a16cc59fb4",
